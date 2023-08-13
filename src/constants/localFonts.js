@@ -1,5 +1,5 @@
-import LocalFont from "next/font/local";
-const vazirFont = LocalFont({
+import localFont from 'next/font/local'
+const vazirFont = localFont({
   src: [
     {
       path: "../../public/fonts/vazir/Vazirmatn-Regular.woff2",
