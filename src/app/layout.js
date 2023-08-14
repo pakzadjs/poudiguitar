@@ -1,6 +1,7 @@
 import "./globals.css";
 import Header from "./Header";
 import { Providers } from "./Providers";
+import { Toaster } from "react-hot-toast";
 
 import vazirFont from "@/constants/localFonts";
 
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="fa" dir="rtl">
       <body className={`${vazirFont.variable} font-sans`}>
         <Providers>
+          <Toaster />
           <Header />
           {children}
         </Providers>
