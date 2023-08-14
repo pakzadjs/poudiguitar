@@ -5,10 +5,13 @@ import Link from "next/link";
 
 import { CartIcon } from "@/public/icons/CartIcon";
 import { BiLogoInstagram, BiLogoTelegram } from "react-icons/bi";
+import { FaBookOpen } from "react-icons/fa";
 import {
   HiOutlineLogin,
-  HiOutlineArrowCircleDown,
   HiOutlineExclamationCircle,
+  HiOutlineChevronDown,
+  HiOutlineDownload,
+  HiBookOpen,
 } from "react-icons/hi";
 import {
   Badge,
@@ -57,14 +60,23 @@ function Header() {
 
           <NavbarContent className="hidden sm:flex gap-4" justify="center">
             <NavbarItem>
-              <Link color="foreground" href="/downloads" className={linkStyles}>
-                دانلود ها
+              <Link
+                color="foreground"
+                href="/downloads"
+                className={`${linkStyles} flex items-center`}
+              >
+                <HiOutlineDownload className="ml-1 mb-0.5" />
+                <span>دانلود ها</span>
               </Link>
             </NavbarItem>
 
             <NavbarItem>
-              <Link href="/courses" aria-current="page" className={linkStyles}>
-                دوره های آموزشی
+              <Link
+                href="/courses"
+                aria-current="page"
+                className={`${linkStyles} flex items-center font-semibold  rounded-2xl hover:border p-2 hover:p-1`}
+              >
+                <FaBookOpen className="ml-1.5" /> <span>دوره های آموزشی</span>
               </Link>
             </NavbarItem>
 
@@ -73,7 +85,7 @@ function Header() {
                 <Dropdown>
                   <DropdownTrigger>
                     <div className="flex items-center">
-                      <HiOutlineArrowCircleDown className="ml-2" /> <span> ارتباط با ما</span>
+                      <HiOutlineChevronDown className="ml-1" /> <span> ارتباط با ما</span>
                     </div>
                   </DropdownTrigger>
 
