@@ -7,6 +7,9 @@
   .textField__input {
     @apply w-full py-3 px-4 rounded-xl bg-gray-100 text-gray-900 border border-gray-100 outline-none duration-200 transition-all ease-in-out hover:border-gray-300 focus:outline-none focus:border-gray-300 focus:shadow-input-focus focus:bg-white;
   }
+  .btn {
+    @apply px-4 py-2 text-white rounded-3xl bg-blue-600 flex items-center font-bold hover:bg-blue-500 transition-all duration-250 shadow-lg shadow-blue-300;
+  }
 }
 
 html,

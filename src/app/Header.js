@@ -45,103 +45,94 @@ function Header() {
   return (
     <header className={`sticky top-0 transiton-all duration-100 ease-out z-20 mb-6`}>
       <div className="container xl:max-w-screen-xl top-0 md:px-0 m-auto">
-        <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-gray-100">
+        <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-gray" isBlurred>
           <NavbarContent>
             <NavbarMenuToggle
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               className="sm:hidden"
             />
-            <NavbarBrand>
-              <Link href="/" className="font-bold text-inherit">
-                پودی گیتار
-              </Link>
-            </NavbarBrand>
+
+            <Link href="/" className="font-bold text-inherit">
+              پودی گیتار
+            </Link>
           </NavbarContent>
 
           <NavbarContent className="hidden sm:flex gap-4" justify="center">
-            <NavbarItem>
-              <Link
-                color="foreground"
-                href="/downloads"
-                className={`${linkStyles} flex items-center`}
-              >
-                <HiOutlineDownload className="ml-1 mb-0.5" />
-                <span>دانلود ها</span>
-              </Link>
-            </NavbarItem>
+            <Link
+              color="foreground"
+              href="/downloads"
+              className={`${linkStyles} flex items-center`}
+            >
+              <HiOutlineDownload className="ml-1 mb-0.5" />
+              <span>دانلود ها</span>
+            </Link>
+
+            <Link
+              href="/courses"
+              aria-current="page"
+              className={`${linkStyles} flex items-center font-semibold rounded-2xl hover:border p-2 hover:p-1.5`}
+            >
+              <FaBookOpen className="ml-1.5" /> <span>دوره های آموزشی</span>
+            </Link>
 
             <NavbarItem>
-              <Link
-                href="/courses"
-                aria-current="page"
-                className={`${linkStyles} flex items-center font-semibold  rounded-2xl hover:border p-2 hover:p-1`}
-              >
-                <FaBookOpen className="ml-1.5" /> <span>دوره های آموزشی</span>
-              </Link>
-            </NavbarItem>
+              <Dropdown>
+                <DropdownTrigger className={`${linkStyles} cursor-pointer`}>
+                  <div className="flex items-center">
+                    <HiOutlineChevronDown className="ml-1" /> <span> ارتباط با ما</span>
+                  </div>
+                </DropdownTrigger>
 
-            <NavbarItem>
-              <Link color="foreground" href="#" className={linkStyles}>
-                <Dropdown>
-                  <DropdownTrigger>
-                    <div className="flex items-center">
-                      <HiOutlineChevronDown className="ml-1" /> <span> ارتباط با ما</span>
-                    </div>
-                  </DropdownTrigger>
-
-                  <DropdownMenu
-                    aria-label="Example with disabled actions"
-                    disabledKeys={["edit", "delete"]}
+                <DropdownMenu
+                  aria-label="Example with disabled actions"
+                  disabledKeys={["edit", "delete"]}
+                >
+                  <DropdownItem
+                    key="Instagram"
+                    startContent={<BiLogoInstagram className={iconStyles} />}
                   >
-                    <DropdownItem startContent={<BiLogoInstagram className={iconStyles} />}>
-                      <a
-                        href="https://www.instagram.com/poudiguitar/"
-                        target="_blank rel=noopener"
-                      >
-                        صفحه اینستاگرام
-                      </a>
-                    </DropdownItem>
-                    <DropdownItem
-                      startContent={<HiOutlineExclamationCircle className={iconStyles} />}
+                    <a
+                      href="https://www.instagram.com/poudiguitar/"
+                      target="_blank rel=noopener"
                     >
-                      <Link href="/about">درباره ما</Link>
-                    </DropdownItem>
-                    <DropdownItem startContent={<BiLogoTelegram className={iconStyles} />}>
-                      <a href="https://t.me/pakzadjs" target="_blank rel=noopener">
-                        کانال تلگرام
-                      </a>
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </Link>
+                      صفحه اینستاگرام
+                    </a>
+                  </DropdownItem>
+                  <DropdownItem
+                    key="About us"
+                    startContent={<HiOutlineExclamationCircle className={iconStyles} />}
+                  >
+                    <Link href="/about">درباره ما</Link>
+                  </DropdownItem>
+                  <DropdownItem
+                    key="Telegram"
+                    startContent={<BiLogoTelegram className={iconStyles} />}
+                  >
+                    <a href="https://t.me/pakzadjs" target="_blank rel=noopener">
+                      کانال تلگرام
+                    </a>
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </NavbarItem>
           </NavbarContent>
 
           <NavbarContent justify="end">
-            <NavbarItem className="flex">
+            <div className="flex">
               <Badge color="danger" content={3} classNames={"hidden"} size="lg">
-                <Link href="/cart" className=" ml-4">
+                <Link href="/cart" className="ml-3">
                   <CartIcon
                     size={30}
                     className="text-gray-700 hover:text-gray-500 transition-all duration-250"
                   />
                 </Link>
               </Badge>
-            </NavbarItem>
+            </div>
 
-            <NavbarItem>
-              <Link href="/auth">
-                <Button
-                  color="primary"
-                  variant="ghost"
-                  radius="full"
-                  className="text-base transition-all duration-200 font-semibold"
-                >
-                  <HiOutlineLogin />
-                  ورود
-                </Button>
-              </Link>
-            </NavbarItem>
+            <Link href="/auth" className="btn">
+              <HiOutlineLogin className="ml-1 h-5 w-5" />
+              <span>ورود</span>
+            </Link>
           </NavbarContent>
 
           <NavbarMenu>
