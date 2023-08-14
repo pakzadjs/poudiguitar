@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import SendOtpForm from "./SendOtpForm";
+import http from "@/services/httpService";
 
 export default function AuthPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -10,8 +11,14 @@ export default function AuthPage() {
     setPhoneNumber(e.target.value);
   };
 
-  const sendOtphandler = (e) => {
+  const sendOtpHandler = async (e) => {
     e.preventDefault();
+    try {
+      const { data } = await http.post("/user/get-otp", { phoneNumber });
+      console.log(data.data);
+    } catch (error) {
+      console.log(error?.response?.data?.message);
+    }
   };
 
   return (
@@ -26,7 +33,7 @@ export default function AuthPage() {
         <div className="w-full sm:max-w-sm bg-white p-8 rounded-2xl">
           <h2 className="font-extrabold text-lg mb-8">ورود | ثبت نام</h2>
           <SendOtpForm
-            onSubmit={sendOtphandler}
+            onSubmit={sendOtpHandler}
             phoneNumber={phoneNumber}
             onChange={phoneNumberHandler}
           />
