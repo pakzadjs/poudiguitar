@@ -40,9 +40,9 @@ function Header() {
   const iconStyles = "text-xl text-default-500 pointer-events-none flex-shrink-0";
 
   return (
-    <header className={`sticky top-0 transiton-all duration-100 ease-out z-20`}>
-      <div className="container xl:max-w-screen-xl top-0 py-2 md:py-2 md:px-0 m-auto">
-        <Navbar onMenuOpenChange={setIsMenuOpen}>
+    <header className={`sticky top-0 transiton-all duration-100 ease-out z-20 mb-6`}>
+      <div className="container xl:max-w-screen-xl top-0 md:px-0 m-auto">
+        <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-gray-100">
           <NavbarContent>
             <NavbarMenuToggle
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -104,6 +104,7 @@ function Header() {
               </Link>
             </NavbarItem>
           </NavbarContent>
+
           <NavbarContent justify="end">
             <NavbarItem className="flex">
               <Badge color="danger" content={3} classNames={"hidden"} size="lg">
