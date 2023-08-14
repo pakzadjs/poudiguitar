@@ -1,4 +1,4 @@
-export default function TextField({ label, name, value, onChange }) {
+export default function TextField({ label, name, value, onChange, type }) {
   return (
     <div>
       <label htmlFor={name} className="block mb-2">
@@ -7,7 +7,7 @@ export default function TextField({ label, name, value, onChange }) {
       <input
         autoComplete="off"
         className="textField__input"
-        type="text"
+        type={type || "text"}
         name={name}
         id={name}
         value={value}
