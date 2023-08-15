@@ -19,5 +19,6 @@ body {
   font-family: var(--vazir-font);
   min-height: 100vh;
   user-select: none;
+  color: azure;
   background-color: rgb(7, 12, 22);
 }
