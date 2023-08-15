@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import SendOtpForm from "./SendOtpForm";
 import { getOtp } from "@/services/authServices";
+import Image from "next/image";
 
 export default function AuthPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -35,14 +36,22 @@ export default function AuthPage() {
 
   return (
     <div className="mt-16">
-      <div className="flex justify-center">
+      <Image
+        src="/images/studio-hero.png"
+        alt="Hero Image"
+        width={1980}
+        height={1320}
+        className="w-full blur-[2px] absolute left-0 top-0 pointer-events-none z-0"
+      />
+
+      <div className="flex justify-center relative">
         <div className="w-full sm:max-w-sm p-10 flex justify-center text-2xl font-bold">
-          پودی گیتار
+          درود بر تو جوون هنرمند!
         </div>
       </div>
 
-      <div className="flex justify-center">
-        <div className="w-full sm:max-w-sm bg-white p-8 rounded-2xl">
+      <div className="flex justify-center relative">
+        <div className="w-full sm:max-w-sm bg-gray-900/80 p-8 rounded-2xl before:conte">
           <h2 className="font-extrabold text-lg mb-8">ورود | ثبت نام</h2>
           <SendOtpForm
             onSubmit={sendOtpHandler}
