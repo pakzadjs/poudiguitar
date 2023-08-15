@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import { CartIcon } from "@/public/icons/CartIcon";
@@ -11,17 +11,14 @@ import {
   HiOutlineExclamationCircle,
   HiOutlineChevronDown,
   HiOutlineDownload,
-  HiBookOpen,
 } from "react-icons/hi";
 import {
   Badge,
-  Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
   Navbar,
-  NavbarBrand,
   NavbarContent,
   NavbarItem,
   NavbarMenu,
@@ -31,6 +28,15 @@ import {
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const menuItems = [
     { name: "دانلود ها", href: "/downloads" },
@@ -38,14 +44,20 @@ function Header() {
     { name: "ارتباط با ما", href: "/contact" },
     { name: "خروج", href: "#" },
   ];
-
-  const linkStyles = "hover:text-blue-600 transition-all duration-250 mx-2";
+  
+  const linkStyles = "hover:bg-blue-600/30 py-1 px-3 transition-all duration-250 rounded-2xl";
   const iconStyles = "text-xl text-default-500 pointer-events-none flex-shrink-0";
 
   return (
-    <header className={`sticky top-0 transiton-all duration-100 ease-out z-20 mb-6`}>
+    <header
+      className={`sticky top-0 transiton-all duration-100 ease-out z-20 mb-6 text-sky-100`}
+    >
       <div className="container xl:max-w-screen-xl top-0 md:px-0 m-auto">
-        <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-gray" isBlurred>
+        <Navbar
+          onMenuOpenChange={setIsMenuOpen}
+          className="bg-gray-800/0 rounded-b-2xl transition-all duration-300"
+          isBlurred={scrollY > 12 ? true : false}
+        >
           <NavbarContent>
             <NavbarMenuToggle
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -58,22 +70,26 @@ function Header() {
           </NavbarContent>
 
           <NavbarContent className="hidden sm:flex gap-4" justify="center">
-            <Link
-              color="foreground"
-              href="/downloads"
-              className={`${linkStyles} flex items-center`}
-            >
-              <HiOutlineDownload className="ml-1 mb-0.5" />
-              <span>دانلود ها</span>
-            </Link>
+            <NavbarItem>
+              <Link
+                color="foreground"
+                href="/downloads"
+                className={`${linkStyles} flex items-center`}
+              >
+                <HiOutlineDownload className="ml-1 mb-0.5" />
+                <span>دانلود ها</span>
+              </Link>
+            </NavbarItem>
 
-            <Link
-              href="/courses"
-              aria-current="page"
-              className={`${linkStyles} flex items-center font-semibold rounded-2xl hover:border p-2 hover:p-1.5`}
-            >
-              <FaBookOpen className="ml-1.5" /> <span>دوره های آموزشی</span>
-            </Link>
+            <NavbarItem>
+              <Link
+                href="/courses"
+                aria-current="page"
+                className={`${linkStyles} flex items-center font-semibold hover:border border-gray-500`}
+              >
+                <FaBookOpen className="ml-1.5" /> <span>دوره های آموزشی</span>
+              </Link>
+            </NavbarItem>
 
             <NavbarItem>
               <Dropdown>
@@ -118,21 +134,23 @@ function Header() {
           </NavbarContent>
 
           <NavbarContent justify="end">
-            <div className="flex">
+            <NavbarItem className="flex">
               <Badge color="danger" content={3} classNames={"hidden"} size="lg">
                 <Link href="/cart" className="ml-3">
                   <CartIcon
                     size={30}
-                    className="text-gray-700 hover:text-gray-500 transition-all duration-250"
+                    className="text-blue-100 hover:text-blue-500 transition-all duration-250"
                   />
                 </Link>
               </Badge>
-            </div>
+            </NavbarItem>
 
-            <Link href="/auth" className="btn">
-              <HiOutlineLogin className="ml-1 h-5 w-5" />
-              <span>ورود</span>
-            </Link>
+            <NavbarItem>
+              <Link href="/auth" className="btn">
+                <HiOutlineLogin className="ml-1 h-5 w-5" />
+                <span>ورود</span>
+              </Link>
+            </NavbarItem>
           </NavbarContent>
 
           <NavbarMenu>
