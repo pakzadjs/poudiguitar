@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 import vazirFont from "@/constants/localFonts";
 
 export const metadata = {
-  title: "پودی",
+  title: "پودی | آموزش موسیقی و گیتار",
   description: "آموزش موسیقی و گیتار",
 };
 
