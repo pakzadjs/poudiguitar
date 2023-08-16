@@ -1,24 +1,37 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { toast } from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import SendOTPForm from "./SendOTPForm";
 import CheckOTPForm from "./CheckOTPForm";
 import { checkOtp, getOtp } from "@/services/authServices";
 const RESEND_TIME = 90;
 
+const initialAuthValues = {
+  phoneNumber: "",
+};
+
+const authValidationSchema = Yup.object({
+  phoneNumber: Yup.string()
+    .required("شماره موبایل خود را وارد کنید")
+    .matches(/^(0)?9\d{9}$/, "شماره موبایل معتبر را وارد کنید"),
+});
+
 export default function AuthPage() {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const [otp, setOtp] = useState("");
   const [time, setTime] = useState(RESEND_TIME);
+  const router = useRouter();
 
   const {
     data: otpResponse,
-    isLoading,
+    isLoading: getOtpLoading,
     mutateAsync: mutateGetOtp,
   } = useMutation({
     mutationFn: getOtp,
@@ -27,31 +40,36 @@ export default function AuthPage() {
     mutationFn: checkOtp,
   });
 
-  const phoneNumberHandler = (e) => {
-    setPhoneNumber(e.target.value);
-  };
+  const sendOtpHandler = async (values) => {
+    const { phoneNumber } = values;
 
-  const sendOtpHandler = async (e) => {
-    e.preventDefault();
     try {
       const data = await mutateGetOtp({ phoneNumber });
       toast.success(data.message);
+
       setStep(2);
       setTime(RESEND_TIME);
       setOtp("");
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || "خطایی رخ داده، یکم دیرتر امتحان کن");
     }
   };
 
   const checkOtpHandler = async (e) => {
     e.preventDefault();
+    const { phoneNumber } = authFormik.values;
     try {
-      const data = await mutateCheckOtp({ phoneNumber, otp });
-      toast.success(data.message);
-      setStep(2);
+      const { message, user } = await mutateCheckOtp({ phoneNumber, otp });
+
+      toast.success(message);
+      if (user.isActive) {
+        router.push("/");
+      } else {
+        router.push("/complete-profile");
+      }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      console.log(error);
+      toast.error(error?.response?.data?.message || "خطایی رخ داده، یکم دیرتر امتحان کن");
     }
   };
 
@@ -62,15 +80,21 @@ export default function AuthPage() {
     };
   }, [time]);
 
+  const authFormik = useFormik({
+    initialValues: initialAuthValues,
+    onSubmit: sendOtpHandler,
+    validationSchema: authValidationSchema,
+    validateOnMount: true,
+  });
+
   const renderSteps = () => {
     switch (step) {
       case 1:
         return (
           <SendOTPForm
-            onSubmit={sendOtpHandler}
-            phoneNumber={phoneNumber}
-            onChange={phoneNumberHandler}
-            isLoading={isLoading}
+            onSubmit={authFormik.handleSubmit}
+            isLoading={getOtpLoading}
+            formik={authFormik}
           />
         );
       case 2:
@@ -81,8 +105,9 @@ export default function AuthPage() {
             setOtp={setOtp}
             onSubmit={checkOtpHandler}
             time={time}
-            onResendOtp={sendOtpHandler}
+            onResendOtp={() => sendOtpHandler(authFormik.values)}
             otpResponse={otpResponse}
+            isCheckingOtp={checkOtpLoading}
           />
         );
 
@@ -108,7 +133,7 @@ export default function AuthPage() {
       </div>
 
       <div className="flex justify-center relative">
-        <div className="w-full sm:max-w-sm bg-gray-900/80 p-8 rounded-2xl before:conte">
+        <div className="w-full sm:max-w-sm bg-gray-900/80 p-8 rounded-2xl">
           <h2 className="font-extrabold text-lg p-3">ورود | ثبت نام</h2>
           <hr className="mb-8 border-gray-700 border-small rounded-3xl" />
           {renderSteps()}

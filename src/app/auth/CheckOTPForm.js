@@ -12,6 +12,7 @@ export default function CheckOTPForm({
   time,
   onResendOtp,
   otpResponse,
+  isCheckingOtp,
 }) {
   return (
     <div>
@@ -49,11 +50,19 @@ export default function CheckOTPForm({
           {time > 0 ? (
             <p>{time} ثانیه تا ارسال مجدد کد</p>
           ) : (
-            <button onClick={onResendOtp}>دریافت مجدد کد تایید</button>
+            <div className="cursor-pointer" onClick={onResendOtp}>
+              دریافت مجدد کد تایید
+            </div>
           )}
         </div>
 
-        <Button type="submit" color="primary" variant="shadow" className="w-full">
+        <Button
+          type="submit"
+          color="primary"
+          variant="shadow"
+          className="w-full"
+          isLoading={isCheckingOtp}
+        >
           تایید
         </Button>
       </form>
