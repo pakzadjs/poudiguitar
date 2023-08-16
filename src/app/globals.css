@@ -10,6 +10,9 @@
   .btn {
     @apply px-4 py-2 text-white rounded-3xl bg-blue-600 flex items-center font-bold hover:bg-blue-500 transition-all duration-250 shadow-lg shadow-blue-800;
   }
+  .btn-secendary {
+    @apply mb-4 border rounded-lg p-1 bg-gray-800/40 hover:bg-gray-500/40 border-gray-700 transition-all duration-250
+  }
 }
 
 html,
