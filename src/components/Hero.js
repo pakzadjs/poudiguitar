@@ -15,9 +15,9 @@ export default function Hero() {
       <Image
         src="/images/poudi-hero.png"
         alt="Hero Image"
-        width={1034}
-        height={1320}
-        className="w-[52%] absolute left-0 top-0 pointer-events-none z-10 max-sm:top-4"
+        width={700}
+        height={800}
+        className="w-[42%] absolute left-0 top-0 pointer-events-none z-10 max-sm:top-4"
       />
     </header>
   );
