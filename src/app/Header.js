@@ -193,13 +193,15 @@ function Header() {
                     </DropdownSection>
 
                     <DropdownSection aria-label="Actions">
-                      <DropdownItem
-                        key="admin"
-                        startContent={<TbUserStar className={iconStyles} />}
-                        className="py-3"
-                      >
-                        <Link href="/admin">پنل ادمین</Link>
-                      </DropdownItem>
+                      {user?.role == "ADMIN" && (
+                        <DropdownItem
+                          key="admin"
+                          startContent={<TbUserStar className={iconStyles} />}
+                          className="py-3"
+                        >
+                          <Link href="/admin">پنل ادمین</Link>
+                        </DropdownItem>
+                      )}
 
                       <DropdownItem
                         key="user"
