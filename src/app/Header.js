@@ -198,8 +198,10 @@ function Header() {
                           key="admin"
                           startContent={<TbUserStar className={iconStyles} />}
                           className="py-3"
+                          as={Link}
+                          href="/admin"
                         >
-                          <Link href="/admin">پنل ادمین</Link>
+                          پنل ادمین
                         </DropdownItem>
                       )}
 
@@ -207,16 +209,20 @@ function Header() {
                         key="user"
                         startContent={<TbHome className={iconStyles} />}
                         className="py-3"
+                        as={Link}
+                        href="/profile"
                       >
-                        <Link href="/profile">حساب کاربری</Link>
+                        حساب کاربری
                       </DropdownItem>
 
                       <DropdownItem
                         key="My Courses"
                         startContent={<TbSchool className={iconStyles} />}
                         className="py-3"
+                        as={Link}
+                        href="/courses"
                       >
-                        <Link href="#">دوره های من</Link>
+                        دوره های من
                       </DropdownItem>
 
                       <DropdownItem
