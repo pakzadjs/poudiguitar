@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { CartIcon } from "@/public/icons/CartIcon";
 import { BiLogoInstagram, BiLogoTelegram } from "react-icons/bi";
 import { FaBookOpen } from "react-icons/fa";
+import { TbUser, TbHome, TbSchool, TbLogout } from "react-icons/tb";
 import {
   HiOutlineLogin,
   HiOutlineExclamationCircle,
@@ -17,18 +19,22 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
+  DropdownSection,
   DropdownTrigger,
   Navbar,
   NavbarContent,
   NavbarItem,
   NavbarMenu,
-  NavbarMenuItem,
   NavbarMenuToggle,
+  User,
 } from "@nextui-org/react";
-import Image from "next/image";
+import { useGetUser } from "@/hooks/useAuth";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { data, error, isLoading } = useGetUser();
+  const { user, cart } = data || {};
 
   const menuItems = [
     { name: "دانلود ها", href: "/downloads" },
@@ -42,7 +48,9 @@ function Header() {
 
   return (
     <header
-      className={`sticky top-0 transiton-all duration-100 ease-out z-20 mb-6 text-sky-100`}
+      className={`sticky top-0 transiton-all duration-100 ease-out z-20 mb-6 text-sky-100 ${
+        isLoading ? "blur-sm opacity-70" : ""
+      }`}
     >
       <div className="container xl:max-w-screen-xl top-0 md:px-0 m-auto">
         <Navbar
@@ -55,6 +63,8 @@ function Header() {
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               className="sm:hidden"
             />
+
+            {/* Logo */}
             <NavbarItem>
               <Link href="/" className="font-bold text-inherit flex items-center">
                 <Image src="/images/poudi-logo.png" alt="logo" width={50} height={0} />
@@ -64,6 +74,7 @@ function Header() {
           </NavbarContent>
 
           <NavbarContent className="hidden sm:flex gap-4" justify="center">
+            {/* Downloads */}
             <NavbarItem>
               <Link
                 color="foreground"
@@ -75,6 +86,7 @@ function Header() {
               </Link>
             </NavbarItem>
 
+            {/* Courses */}
             <NavbarItem>
               <Link
                 href="/courses"
@@ -85,6 +97,7 @@ function Header() {
               </Link>
             </NavbarItem>
 
+            {/* Contact */}
             <NavbarItem>
               <Dropdown className="bg-blue-950">
                 <DropdownTrigger className={`${linkStyles} cursor-pointer`}>
@@ -127,9 +140,15 @@ function Header() {
           </NavbarContent>
 
           <NavbarContent justify="end">
+            {/* Cart */}
             <NavbarItem className="flex">
-              <Badge color="danger" content={3} classNames={"hidden"} size="lg">
-                <Link href="/cart" className="ml-3">
+              <Badge
+                color="danger"
+                content={cart ? cart.payDetail.productIds.length : 0}
+                classNames={"hidden"}
+                size="lg"
+              >
+                <Link href="/cart">
                   <CartIcon
                     size={30}
                     className="text-blue-100 hover:text-blue-500 transition-all duration-250"
@@ -138,14 +157,78 @@ function Header() {
               </Badge>
             </NavbarItem>
 
+            {/* Login & User button */}
             <NavbarItem>
-              <Link href="/auth" className="btn">
-                <HiOutlineLogin className="ml-1 h-5 w-5" />
-                <span>ورود</span>
-              </Link>
+              {user ? (
+                <Dropdown className="bg-gray-100/95 text-gray-800">
+                  <DropdownTrigger
+                    className={`hover:bg-blue-600 bg-blue-600/30 p-3 transition-all duration-250 rounded-2xl cursor-pointer`}
+                  >
+                    <div className="flex items-center">
+                      <HiOutlineChevronDown className="ml-1" /> <TbUser size={20} />
+                    </div>
+                  </DropdownTrigger>
+
+                  <DropdownMenu aria-label="contact us">
+                    {/* User data */}
+                    <DropdownSection aria-label="Profile" showDivider>
+                      <DropdownItem
+                        isReadOnly
+                        key="profile"
+                        className="h-14 gap-2 cursor-default"
+                      >
+                        <User
+                          name={user.name}
+                          description={user.phoneNumber}
+                          classNames={{
+                            name: "text-default-600",
+                            description: "text-default-500",
+                          }}
+                          avatarProps={{
+                            size: "sm",
+                            src: "",
+                          }}
+                        />
+                      </DropdownItem>
+                    </DropdownSection>
+
+                    <DropdownSection aria-label="Actions">
+                      <DropdownItem
+                        key="user"
+                        startContent={<TbHome className={iconStyles} />}
+                        className="py-3"
+                      >
+                        <Link href="#">حساب کاربری</Link>
+                      </DropdownItem>
+
+                      <DropdownItem
+                        key="My Courses"
+                        startContent={<TbSchool className={iconStyles} />}
+                        className="py-3"
+                      >
+                        <Link href="#">دوره های من</Link>
+                      </DropdownItem>
+
+                      <DropdownItem
+                        key="Log out"
+                        startContent={<TbLogout className={iconStyles} />}
+                        className="py-3"
+                      >
+                        <button>خروج</button>
+                      </DropdownItem>
+                    </DropdownSection>
+                  </DropdownMenu>
+                </Dropdown>
+              ) : (
+                <Link href="/auth" className="btn">
+                  <HiOutlineLogin className="ml-1 h-5 w-5" />
+                  <span>ورود</span>
+                </Link>
+              )}
             </NavbarItem>
           </NavbarContent>
 
+          {/* Burger menu */}
           <NavbarMenu className="bg-gray">
             {menuItems.map((item, index) => (
               <Link
