@@ -7,7 +7,7 @@ import Link from "next/link";
 import { CartIcon } from "@/public/icons/CartIcon";
 import { BiLogoInstagram, BiLogoTelegram } from "react-icons/bi";
 import { FaBookOpen } from "react-icons/fa";
-import { TbUser, TbHome, TbSchool, TbLogout } from "react-icons/tb";
+import { TbUser, TbUserStar, TbHome, TbSchool, TbLogout } from "react-icons/tb";
 import {
   HiOutlineLogin,
   HiOutlineExclamationCircle,
@@ -194,11 +194,19 @@ function Header() {
 
                     <DropdownSection aria-label="Actions">
                       <DropdownItem
+                        key="admin"
+                        startContent={<TbUserStar className={iconStyles} />}
+                        className="py-3"
+                      >
+                        <Link href="/admin">پنل ادمین</Link>
+                      </DropdownItem>
+
+                      <DropdownItem
                         key="user"
                         startContent={<TbHome className={iconStyles} />}
                         className="py-3"
                       >
-                        <Link href="#">حساب کاربری</Link>
+                        <Link href="/profile">حساب کاربری</Link>
                       </DropdownItem>
 
                       <DropdownItem
