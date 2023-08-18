@@ -11,18 +11,16 @@ export default function Profile() {
   const { data, isLoading } = useGetUser();
   const { user, payments } = data || {};
 
-  if (isLoading) return <Spinner color="primary" />;
+  if (isLoading)
+    return <Spinner color="primary" size="lg" className="flex items-center justify-center" />;
   return (
-    <div>
+    <main className="rounded-tr-3xl xl:max-w-screen-xl">
       <div className="z-30">
-        <h1 className="mb-4 text-xl">
-          سلام! <span className="font-bold">{user.name}</span> خوش آمدی!
-        </h1>
         <p>
           <span>تاریخ پیوستن:</span>
           <span> {toLocalDateString(user.createdAt)} </span>
         </p>
       </div>
-    </div>
+    </main>
   );
 }

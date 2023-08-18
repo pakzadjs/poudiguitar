@@ -1,5 +1,5 @@
 import "../globals.css";
-import Header from "../Header";
+import Header from "./Header";
 import { Providers } from "../Providers";
 import { Toaster } from "react-hot-toast";
 
