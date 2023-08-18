@@ -29,6 +29,7 @@ import {
   User,
 } from "@nextui-org/react";
 import { useGetUser } from "@/hooks/useAuth";
+import { logout } from "@/services/authServices";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -40,11 +41,16 @@ function Header() {
     { name: "دانلود ها", href: "/downloads" },
     { name: "دوره های آموزشی", href: "/courses" },
     { name: "ارتباط با ما", href: "/contact" },
-    { name: "خروج", href: "#" },
+    { name: "خروج" },
   ];
 
   const linkStyles = "hover:bg-blue-600/30 py-1 px-3 transition-all duration-250 rounded-2xl";
   const iconStyles = "text-xl pointer-events-none flex-shrink-0";
+
+  const logoutHandler = async () => {
+    await logout();
+    document.location.href = "/";
+  };
 
   return (
     <header
@@ -193,6 +199,7 @@ function Header() {
                     </DropdownSection>
 
                     <DropdownSection aria-label="Actions">
+                      {/* Admin pannel */}
                       {user?.role == "ADMIN" && (
                         <DropdownItem
                           key="admin"
@@ -205,6 +212,7 @@ function Header() {
                         </DropdownItem>
                       )}
 
+                      {/* Profile */}
                       <DropdownItem
                         key="user"
                         startContent={<TbHome className={iconStyles} />}
@@ -215,6 +223,7 @@ function Header() {
                         حساب کاربری
                       </DropdownItem>
 
+                      {/* My courses */}
                       <DropdownItem
                         key="My Courses"
                         startContent={<TbSchool className={iconStyles} />}
@@ -225,12 +234,13 @@ function Header() {
                         دوره های من
                       </DropdownItem>
 
+                      {/* Logout */}
                       <DropdownItem
                         key="Log out"
                         startContent={<TbLogout className={iconStyles} />}
                         className="py-3"
                       >
-                        <button>خروج</button>
+                        <button onClick={logoutHandler}>خروج</button>
                       </DropdownItem>
                     </DropdownSection>
                   </DropdownMenu>
@@ -247,21 +257,27 @@ function Header() {
           {/* Burger menu */}
           <NavbarMenu className="bg-gray">
             {menuItems.map((item, index) => (
-              <Link
-                key={`${item}-${index}`}
-                className="w-full hover:bg-slate-400/20 py-2 px-3 rounded-2xl "
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === menuItems.length - 1
-                    ? "danger"
-                    : "foreground"
-                }
-                href={item.href}
-                size="lg"
-              >
-                {item.name}
-              </Link>
+              <div>
+                {item.href ? (
+                  <Link
+                    key={`${item}-${index}`}
+                    className="w-full hover:bg-slate-400/20 py-2 px-3 rounded-2xl "
+                    color={
+                      index === 2
+                        ? "primary"
+                        : index === menuItems.length - 1
+                        ? "danger"
+                        : "foreground"
+                    }
+                    href={item?.href}
+                    size="lg"
+                  >
+                    {item?.name}
+                  </Link>
+                ) : (
+                  <button onClick={logoutHandler}>{item?.name}</button>
+                )}
+              </div>
             ))}
           </NavbarMenu>
         </Navbar>
