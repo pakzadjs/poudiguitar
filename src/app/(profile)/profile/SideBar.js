@@ -35,7 +35,7 @@ function SideBar() {
         <li>
           <Link href="/profile/me" className={listStyles}>
             <TbUserEdit size={20} className="ml-3" />
-            اطلاعات کاربری
+            ویرایش اطلاعات
           </Link>
         </li>
         <li>
