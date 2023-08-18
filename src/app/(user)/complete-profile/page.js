@@ -12,6 +12,7 @@ import * as Yup from "yup";
 import { completeProfile } from "@/services/authServices";
 import TextField from "@/common/TextField";
 
+
 const initialValues = {
   name: "",
   email: "",

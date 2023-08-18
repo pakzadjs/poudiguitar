@@ -1,6 +1,6 @@
-import "./globals.css";
-import Header from "./Header";
-import { Providers } from "./Providers";
+import "../globals.css";
+import Header from "../Header";
+import { Providers } from "../Providers";
 import { Toaster } from "react-hot-toast";
 
 import vazirFont from "@/constants/localFonts";
