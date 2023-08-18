@@ -1,4 +1,4 @@
-export default function TextField({ label, name, value, onChange, type, formik }) {
+export default function TextField({ label, name, onChange, type, formik, placeholder }) {
   return (
     <div>
       <label htmlFor={name} className="block mb-3">
@@ -11,9 +11,10 @@ export default function TextField({ label, name, value, onChange, type, formik }
         type={type || "text"}
         name={name}
         id={name}
-        value={value || formik?.values[name]}
+        value={formik?.values[name]}
         onChange={onChange || formik?.handleChange}
         onBlur={formik?.handleBlur}
+        placeholder={placeholder}
       />
 
       {formik?.touched[name] && formik?.errors[name] ? (
