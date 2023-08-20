@@ -13,6 +13,9 @@
   .btn-secendary {
     @apply mb-4 border rounded-lg p-1 bg-gray-800/40 hover:bg-gray-500/40 border-gray-700 transition-all duration-250
   }
+  .main-bg-color {
+    @apply bg-gradient-to-tl from-sky-950 from-10% via-blue-950 via-30% to-sky-900 to-90%
+  }
 }
 
 html,

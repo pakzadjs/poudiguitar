@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <Toaster />
 
-          <div className="grid grid-cols-12 h-screen bg-gradient-to-tl from-sky-950 from-10% via-blue-950 via-30% to-sky-900 to-90%">
+          <div className="grid grid-cols-12 h-screen main-bg-color">
             <div className="col-span-12 bg-slate-800/20 overflow-y-auto p-4 lg:col-span-3 xl:col-span-2 hidden lg:block">
               <SideBar />
             </div>
