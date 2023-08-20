@@ -1,12 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import CheckBox from "@/common/CheckBox";
 
 export default function CategorySidebar({ categories }) {
-  const [selectedCategories, setSelectedCategories] = useState();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [selectedCategories, setSelectedCategories] = useState(
+    searchParams.get("category")?.split(",") || []
+  );
 
-  const categoryHandler = (e) => {};
+  const createQueryString = useCallback(
+    (name, value) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  const categoryHandler = (e) => {
+    const value = e.target.value;
+    if (selectedCategories.includes(value)) {
+      const categories = selectedCategories.filter((c) => c !== value);
+      setSelectedCategories(categories);
+      router.push(pathname + "?" + createQueryString("category", categories));
+    } else {
+      setSelectedCategories([...selectedCategories, value]);
+      router.push(
+        pathname + "?" + createQueryString("category", [...selectedCategories, value])
+      );
+    }
+  };
 
   return (
     <div className="col-span-1">
@@ -21,7 +48,7 @@ export default function CategorySidebar({ categories }) {
               name="product-type"
               label={category?.title}
               onChange={categoryHandler}
-              checked={selectedCategories?.includes(category?.englishTitle)}
+              checked={selectedCategories.includes(category?.englishTitle)}
             />
           );
         })}
