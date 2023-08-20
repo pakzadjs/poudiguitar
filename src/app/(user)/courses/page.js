@@ -7,8 +7,13 @@ import CategorySidebar from "./CategorySidebar";
 export const dynamic = "force-dynamic"; // eq to {cache :"no-store"} or SSR in pages Dir. :)
 
 async function Courses({ searchParams }) {
-  const { products } = await getProducts(queryString.stringify(searchParams));
-  const { categories } = await getCategories();
+  // const { products } = await getProducts(queryString.stringify(searchParams));
+  // const { categories } = await getCategories();
+
+  const productsPromise = getProducts(queryString.stringify(searchParams));
+  const categoryPromise = getCategories();
+
+  const [{ products }, { categories }] = await Promise.all([productsPromise, categoryPromise]);
 
   return (
     <div className="max-w-5xl m-auto">
