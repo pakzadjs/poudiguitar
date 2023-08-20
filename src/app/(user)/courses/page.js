@@ -1,9 +1,11 @@
+import queryString from "query-string";
+
 import { getCategories } from "@/services/categoryService";
 import { getProducts } from "@/services/productService";
 import CategorySidebar from "./CategorySidebar";
 
-async function Courses() {
-  const { products } = await getProducts();
+async function Courses({ searchParams }) {
+  const { products } = await getProducts(queryString.stringify(searchParams));
   const { categories } = await getCategories();
 
   return (
