@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { TbArrowsSort } from "react-icons/tb";
 
 import RadioInput from "@/common/RadioInput";
 
@@ -9,7 +10,7 @@ const sortOptions = [
   {
     id: 1,
     value: "latest",
-    label: "جدید ترین",
+    label: "جدیدترین",
   },
   {
     id: 2,
@@ -49,21 +50,28 @@ export default function ProductsSort() {
   }, [searchParams]);
 
   return (
-    <div>
-      <p className="font-bold mb-4">مرتب سازی</p>
-      {sortOptions.map((item) => {
-        return (
-          <RadioInput
-            id={item.id}
-            key={item.id}
-            label={item.label}
-            name="product-sort"
-            value={item.value}
-            checked={sort == item.value}
-            onChange={sortHandler}
-          />
-        );
-      })}
+    <div className="bg-blue-800/20 p-5 rounded-xl">
+      <div className="font-bold mb-4 flex items-center gap-x-2">
+        <TbArrowsSort /> مرتب سازی
+      </div>
+
+      <div className="border-b-1 border-slate-600/80 pb-3 mb-5"></div>
+
+      <div className="space-y-4">
+        {sortOptions.map((item) => {
+          return (
+            <RadioInput
+              id={item.id}
+              key={item.id}
+              label={item.label}
+              name="product-sort"
+              value={item.value}
+              checked={sort == item.value}
+              onChange={sortHandler}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
