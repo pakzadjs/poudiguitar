@@ -18,7 +18,7 @@ export default function ProductCard({ product }) {
       {/* image */}
       <div className="-mt-14 mb-6">
         <div className="relative shadow-lg rounded-xl shadow-blue-700/30">
-          <Link href="#" className="">
+          <Link href={`/courses/${product.slug}`}>
             <div className="h-[170px]">
               <Image
                 src={product?.imageLink}
@@ -39,7 +39,7 @@ export default function ProductCard({ product }) {
       <div>
         {/* Title */}
         <Link
-          href="#"
+          href={`/courses/${product.slug}`}
           className="text-gray-300 text-lg sm:text-lg block hover:text-blue-500 transition-all duration-500 ease-in-out mb-3 font-black"
         >
           {product?.title}
@@ -62,7 +62,7 @@ export default function ProductCard({ product }) {
 
         {/* Link */}
         <Link
-          href="#"
+          href={`/courses/${product.slug}`}
           className="flex items-center gap-x-2 text-sm font-bold text-sky-500 hover:text-sky-400 transition-all duration-300"
         >
           مشاهده اطلاعات دوره <TbArrowLeft />

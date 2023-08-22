@@ -9,3 +9,7 @@ export function getProducts(queryString) {
   //   .then((res) => res.json())
   //   .then(({ data }) => data);
 }
+
+export function getOneProductBySlug(slug) {
+  return http.get(`/product/slug/${slug}`).then(({ data }) => data.data);
+}
