@@ -5,6 +5,7 @@ import { Spinner } from "@nextui-org/react";
 
 import { useGetUser } from "@/hooks/useAuth";
 import CartItem from "./CartItem";
+import CartSummary from "./CartSummary";
 
 export default function CartPage() {
   const { data, isLoading } = useGetUser();
@@ -36,11 +37,21 @@ export default function CartPage() {
     );
 
   return (
-    <div>
-      {cart &&
-        cart.productDetail.map((item) => {
-          return <CartItem key={item._id} cartItem={item} />;
-        })}
+    <div className="grid grid-cols-4 gap-6">
+      {/* Cart item */}
+      <div className="col-span-3 space-y-5">
+        {cart &&
+          cart.productDetail.map((item) => {
+            return <CartItem key={item._id} cartItem={item} />;
+          })}
+      </div>
+
+      {/* cart summary */}
+      <div>
+        <div className="col-span-1">
+          <CartSummary payDetail={cart.payDetail} />
+        </div>
+      </div>
     </div>
   );
 }
