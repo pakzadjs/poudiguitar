@@ -11,6 +11,7 @@ import {
   toPersianNumbersWithColon,
   toPersianNumbersWithComma,
 } from "@/utils/toPersianNumbers";
+import AddToCart from "@/pages/(user)/courses/[slug]/AddToCart";
 
 export default function ProductCard({ product }) {
   return (
@@ -72,12 +73,7 @@ export default function ProductCard({ product }) {
 
         {/* Add to cart btn */}
         <div className="flex justify-between items-center">
-          <Button
-            color="primary"
-            className="shadow-lg shadow-blue-800/70 hover:shadow-blue-700"
-          >
-            ثبت نام
-          </Button>
+          <AddToCart product={product} />
 
           {/* Price */}
           <div className="flex flex-col justify-between ">

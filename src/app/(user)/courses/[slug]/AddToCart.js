@@ -7,6 +7,7 @@ import { useGetUser } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/react";
 import { useAddToCart } from "@/hooks/useCart";
+import Link from "next/link";
 
 export default function AddToCart({ product }) {
   const router = useRouter();
@@ -33,16 +34,27 @@ export default function AddToCart({ product }) {
     }
   };
 
+  const isInCart = (user, product) => {
+    if (!user) return false;
+    return user.cart?.products.some((p) => p.productId === product._id);
+  };
+
   return (
     <div>
-      <Button
-        isLoading={isLoading}
-        color="primary"
-        onClick={addToCartHandler}
-        className="btn py-2"
-      >
-        اضافه کردن به سبد خرید
-      </Button>
+      {isInCart(user, product) ? (
+        <Button as={Link} color="primary" href="/cart" className="btn font-bold">
+          ادامه سفارش
+        </Button>
+      ) : (
+        <Button
+          isLoading={isLoading}
+          color="primary"
+          onClick={addToCartHandler}
+          className="btn"
+        >
+          ثبت نام
+        </Button>
+      )}
     </div>
   );
 }
