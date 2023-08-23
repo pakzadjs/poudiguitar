@@ -9,7 +9,7 @@ import { Button } from "@nextui-org/react";
 import { useAddToCart } from "@/hooks/useCart";
 import Link from "next/link";
 
-export default function AddToCart({ product }) {
+export default function AddToCart({ product, widthFull }) {
   const router = useRouter();
   const { data } = useGetUser();
   const { user } = data || {};
@@ -42,7 +42,12 @@ export default function AddToCart({ product }) {
   return (
     <div>
       {isInCart(user, product) ? (
-        <Button as={Link} color="primary" href="/cart" className="btn font-bold">
+        <Button
+          as={Link}
+          color="primary"
+          href="/cart"
+          className={`btn font-bold ${widthFull && "w-full"}`}
+        >
           ادامه سفارش
         </Button>
       ) : (
@@ -50,7 +55,7 @@ export default function AddToCart({ product }) {
           isLoading={isLoading}
           color="primary"
           onClick={addToCartHandler}
-          className="btn"
+          className={`btn ${widthFull && "w-full"}`}
         >
           ثبت نام
         </Button>
