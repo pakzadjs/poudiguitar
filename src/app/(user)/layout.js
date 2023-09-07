@@ -4,6 +4,7 @@ import { Providers } from "../Providers";
 import { Toaster } from "react-hot-toast";
 
 import vazirFont from "@/constants/localFonts";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "پودی | آموزش موسیقی و گیتار",
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
           <Toaster />
           <Header />
           {children}
+          <Footer />
         </Providers>
       </body>
     </html>
