@@ -37,9 +37,9 @@ export default function CartPage() {
     );
 
   return (
-    <div className="grid grid-cols-4 gap-6">
+    <div className="grid grid-cols-10 gap-10 lg:max-w-screen-lg m-auto">
       {/* Cart item */}
-      <div className="col-span-3 space-y-5">
+      <div className="col-span-7 space-y-5">
         {cart &&
           cart.productDetail.map((item) => {
             return <CartItem key={item._id} cartItem={item} />;
@@ -47,10 +47,8 @@ export default function CartPage() {
       </div>
 
       {/* cart summary */}
-      <div>
-        <div className="col-span-1">
-          <CartSummary payDetail={cart.payDetail} />
-        </div>
+      <div className="col-span-3">
+        <CartSummary payDetail={cart.payDetail} />
       </div>
     </div>
   );
