@@ -28,3 +28,11 @@ body {
   color: azure;
   background-color: rgb(7, 12, 22);
 }
+
+
+@font-face {
+  font-family: vazir;
+  src: url("../../public/fonts/vazir/Vazirmatn-Medium.woff2");
+  format: ("woff2");
+  font-display: swap;
+}
