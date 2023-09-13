@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -7,14 +7,19 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export default function Lessons({ product }) {
+export default function FAQ({ product }) {
+  console.log(product.FAQ);
   return (
     <Fragment>
-      {product?.lessons.map((lesson) => {
+      {product?.FAQ.map((q) => {
         return (
           <Accordion
-            key={lesson?._id}
-            sx={{ bgcolor: "#113A63", borderRadius: "10px", marginBottom: "5px" }}
+            key={q?._id}
+            sx={{
+              bgcolor: "#113A63",
+              borderRadius: "10px",
+              marginBottom: "5px",
+            }}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon className="text-white" />}
@@ -23,12 +28,12 @@ export default function Lessons({ product }) {
               sx={{ padding: "10px" }}
             >
               <Typography sx={{ fontFamily: `vazir`, color: "#dcdcdc" }}>
-                {lesson?.title}
+                {q?.question}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography sx={{ fontFamily: `vazir`, color: "#a9cbef" }}>
-                {lesson?.body}
+                {q?.answer}
               </Typography>
             </AccordionDetails>
           </Accordion>
