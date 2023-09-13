@@ -1,6 +1,15 @@
+import { LiaChalkboardTeacherSolid } from "react-icons/lia";
+import { TbClock } from "react-icons/tb";
+import { BiSupport } from "react-icons/bi";
+
 import { getOneProductBySlug, getProducts } from "@/services/productService";
 import AddToCart from "./AddToCart";
-import { toPersianNumbers, toPersianNumbersWithComma } from "@/utils/toPersianNumbers";
+import {
+  toPersianNumbers,
+  toPersianNumbersWithColon,
+  toPersianNumbersWithComma,
+} from "@/utils/toPersianNumbers";
+import Lessons from "./Lessons";
 
 export const dynamic = "force-static"; // SSG or {cache : "force-cache"}
 export const dynamicParams = false;
@@ -18,15 +27,39 @@ async function ProductDetail({ params }) {
         <div className="col-span-1 lg:col-span-7 xl:col-span-6">
           {/* Title and description */}
           <div>
-            <h1 className="text-slate-100 font-black text-2xl mb-2">{product?.title}</h1>
+            <h1 className="text-slate-100 font-black text-2xl mb-3">{product?.title}</h1>
             <p className="text-slate-300 text-sm md:text-base leading-7 font-bold md:leading-8 mb-7">
               {product?.description}
             </p>
           </div>
 
-          <div className="flex flex-col gap-y-7 mb-8 lg:justify-between lg:flex-row"></div>
+          <div className="flex flex-col gap-y-7 mb-8 lg:justify-around lg:flex-row">
+            <div className="flex flex-col items-center gap-1">
+              <TbClock size={70} className="p-4 bg-slate-700/60 rounded-3xl" />
+              <h3 className="text-lg font-medium">
+                {toPersianNumbersWithColon(product?.tags?.[0])}
+              </h3>
+            </div>
 
-          <div className="flex items-start gap-y-2 gap-x-3 flex-col md:flex-row md:items-center flex-wrap text-xs"></div>
+            <div className="flex flex-col items-center gap-1">
+              <LiaChalkboardTeacherSolid
+                size={70}
+                className="p-4 bg-slate-700/60 rounded-3xl"
+              />
+              <h3 className="text-lg font-medium">
+                {toPersianNumbers(product?.lessonsNumber)} جلسه
+              </h3>
+            </div>
+
+            <div className="flex flex-col items-center gap-1">
+              <BiSupport size={70} className="p-4 bg-slate-700/60 rounded-3xl" />
+              <h3 className="text-lg ">پشتیبانی دائمی</h3>
+            </div>
+          </div>
+
+          {/* <div className="flex items-start gap-y-2 gap-x-3 flex-col md:flex-row md:items-center flex-wrap text-xs">
+            sdgsdgs
+          </div> */}
         </div>
 
         {/* Course demo video */}
@@ -76,12 +109,21 @@ async function ProductDetail({ params }) {
         <div className="col-span-12 md:col-span-8 lg:col-span-9 order-2 md:order-2 space-y-8">
           {/* more description */}
           <div className="bg-blue-950/50 rounded-xl p-3 lg:p-6">
-            <h2 className="text-2xl font-black text-blue-500 mb-5">توضیحات دوره</h2>
+            <h2 className="text-2xl font-black text-sky-500 mb-5">توضیحات دوره</h2>
             <div className="">
               <p>{product?.description}</p>
               <div></div>
             </div>
           </div>
+
+          {/* Lessons */}
+          <div className="relative bg-blue-950/50 rounded-xl p-3 lg:p-6 overflow-hidden">
+            <h2 className="text-2xl font-black text-sky-500 mb-5">سرفصل ها</h2>
+            <Lessons product={product} />
+          </div>
+
+          {/* FAQ */}
+          <div></div>
         </div>
       </div>
     </main>
