@@ -1,5 +1,5 @@
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
-import { TbClock } from "react-icons/tb";
+import { TbClock, TbQuestionMark, TbSchool } from "react-icons/tb";
 import { BiSupport } from "react-icons/bi";
 
 import { getOneProductBySlug, getProducts } from "@/services/productService";
@@ -10,6 +10,7 @@ import {
   toPersianNumbersWithComma,
 } from "@/utils/toPersianNumbers";
 import Lessons from "./Lessons";
+import FAQ from "./FAQ";
 
 export const dynamic = "force-static"; // SSG or {cache : "force-cache"}
 export const dynamicParams = false;
@@ -17,8 +18,6 @@ export const dynamicParams = false;
 async function ProductDetail({ params }) {
   const { slug } = params;
   const { product } = await getOneProductBySlug(slug);
-
-  console.log(product);
 
   return (
     <main className="container mt-10 xl:max-w-screen-xl max-sm:px-4">
@@ -118,12 +117,21 @@ async function ProductDetail({ params }) {
 
           {/* Lessons */}
           <div className="relative bg-blue-950/50 rounded-xl p-3 lg:p-6 overflow-hidden">
-            <h2 className="text-2xl font-black text-sky-500 mb-5">سرفصل ها</h2>
+            <div className="flex gap-1">
+              <TbSchool size={28} className="text-yellow-300" />
+              <h2 className="text-2xl font-black text-sky-500 mb-5">سرفصل ها</h2>
+            </div>
             <Lessons product={product} />
           </div>
 
           {/* FAQ */}
-          <div></div>
+          <div className="relative bg-blue-950/40 rounded-xl p-3 lg:p-6 overflow-hidden">
+            <div className="flex">
+              <TbQuestionMark size={30} className="text-yellow-300" />
+              <h2 className="text-2xl font-black text-sky-500 mb-5">سوالات متداول</h2>
+            </div>
+            <FAQ product={product} />
+          </div>
         </div>
       </div>
     </main>
