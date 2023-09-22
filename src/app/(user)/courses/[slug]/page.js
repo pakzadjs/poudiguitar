@@ -1,8 +1,18 @@
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
-import { TbClock, TbQuestionMark, TbSchool } from "react-icons/tb";
+import {
+  TbClock,
+  TbQuestionMark,
+  TbSchool,
+  TbCalendarBolt,
+  TbCalendarCheck,
+  TbCloudDownload,
+  TbHeart,
+  TbHeartFilled,
+} from "react-icons/tb";
 import { BiSupport } from "react-icons/bi";
 
 import { getCourses, getOneProductBySlug } from "@/services/productService";
+import { toLocalDateStringShort } from "@/utils/toLocalDate";
 import AddToCart from "./AddToCart";
 import {
   toPersianNumbers,
@@ -33,7 +43,7 @@ async function ProductDetail({ params }) {
             </p>
           </div>
 
-          <div className="flex flex-col gap-y-7 mb-8 lg:justify-around lg:flex-row">
+          <div className="flex gap-y-7 mb-8 justify-around">
             <div className="flex flex-col items-center gap-1">
               <TbClock size={70} className="p-4 bg-slate-700/60 rounded-3xl" />
               <h3 className="text-lg font-medium">
@@ -53,12 +63,12 @@ async function ProductDetail({ params }) {
 
             <div className="flex flex-col items-center gap-1">
               <BiSupport size={70} className="p-4 bg-slate-700/60 rounded-3xl" />
-              <h3 className="text-lg ">پشتیبانی دائمی</h3>
+              <h3 className="font-bold text-[15px] md:text-[16px]">پشتیبانی دائمی</h3>
             </div>
           </div>
 
           {/* <div className="flex items-start gap-y-2 gap-x-3 flex-col md:flex-row md:items-center flex-wrap text-xs">
-            sdgsdgs
+            <div>agshs</div>
           </div> */}
         </div>
 
@@ -113,8 +123,35 @@ async function ProductDetail({ params }) {
             {/* Add to cart Button */}
             <AddToCart product={product} widthFull={true} />
           </div>
-          <div className="rounded-xl p-3 lg:p-5 bg-blue-950/50">مشخصات مدرس</div>
-          <div className=""></div>
+          <div className="rounded-xl p-3 lg:p-5 bg-blue-950/50">
+            <div className="bg-blue-900/30 p-3 my-2 rounded-lg">
+              <div className="flex items-center">
+                <TbCalendarCheck size={20} className="ml-2" /> تاریخ انتشار:
+              </div>
+              <span>{toLocalDateStringShort(product.createdAt)}</span>
+
+              <div className="flex items-center mt-3">
+                <TbCalendarBolt size={20} className="ml-2" /> آخرین بروزرسانی:
+              </div>
+              <span>{toLocalDateStringShort(product.updatedAt)}</span>
+            </div>
+
+            <div className="bg-blue-900/30 p-3 my-2 rounded-lg">
+              <div className="flex items-center">
+                <TbCloudDownload size={20} className="ml-2" /> روش دریافت:
+              </div>
+              اسپات پلیر
+            </div>
+          </div>
+          <div className="rounded-xl bg-blue-950/90 hover:bg-blue-900/30 transition-all duration-250">
+            <button className="p-3 lg:p-5 w-full h-full flex justify-center hover:text-red-600 transition-all duration-250">
+              <TbHeart size={25} />
+              {/* <TbHeartFilled
+                size={25}
+                className="text-red-600 hover:text-red-700 transition-all duration-250"
+              /> */}
+            </button>
+          </div>
         </div>
 
         {/* more details */}
