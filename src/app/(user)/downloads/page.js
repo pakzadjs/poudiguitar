@@ -1,18 +1,12 @@
 import queryString from "query-string";
 
+import CategorySidebar from "../courses/CategorySidebar";
+import { getDownloadables } from "@/services/productService";
 import { getCategories } from "@/services/categoryService";
-import { getCourses } from "@/services/productService";
-import CategorySidebar from "./CategorySidebar";
-
 import ProductCard from "@/common/ProductCard";
 
-export const dynamic = "force-dynamic"; // eq to {cache :"no-store"} or SSR in pages Dir. :)
-
-async function Courses({ searchParams }) {
-  // const { products } = await getCourses(queryString.stringify(searchParams));
-  // const { categories } = await getCategories();
-
-  const productsPromise = getCourses(queryString.stringify(searchParams));
+async function Downloads({ searchParams }) {
+  const productsPromise = getDownloadables(queryString.stringify(searchParams));
   const categoryPromise = getCategories();
 
   const [{ products }, { categories }] = await Promise.all([productsPromise, categoryPromise]);
@@ -37,5 +31,4 @@ async function Courses({ searchParams }) {
     </div>
   );
 }
-
-export default Courses;
+export default Downloads;
