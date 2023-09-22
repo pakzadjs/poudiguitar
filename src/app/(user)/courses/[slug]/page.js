@@ -138,13 +138,13 @@ async function ProductDetail({ params }) {
           </div>
 
           {/* FAQ */}
-          {/* <div className="relative bg-blue-950/40 rounded-xl p-3 lg:p-6 overflow-hidden">
+          <div className="relative bg-blue-950/40 rounded-xl p-3 lg:p-6 overflow-hidden">
             <div className="flex">
               <TbQuestionMark size={30} className="text-yellow-300" />
               <h2 className="text-2xl font-black text-sky-500 mb-5">سوالات متداول</h2>
             </div>
             <FAQ product={product} />
-          </div> */}
+          </div>
         </div>
       </div>
     </main>
