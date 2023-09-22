@@ -2,7 +2,7 @@ import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { TbClock, TbQuestionMark, TbSchool } from "react-icons/tb";
 import { BiSupport } from "react-icons/bi";
 
-import { getOneProductBySlug, getProducts } from "@/services/productService";
+import { getCourses, getOneProductBySlug } from "@/services/productService";
 import AddToCart from "./AddToCart";
 import {
   toPersianNumbers,
@@ -14,6 +14,7 @@ import FAQ from "./FAQ";
 
 export const dynamic = "force-static"; // SSG or {cache : "force-cache"}
 export const dynamicParams = false;
+const baseUrl = process.env.NEXT_PUBLIC_API_URL2;
 
 async function ProductDetail({ params }) {
   const { slug } = params;
@@ -24,11 +25,11 @@ async function ProductDetail({ params }) {
       {/* Course description */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-x-14 bg-blue-950/50 rounded-2xl p-3 py-6 lg:p-5 mb-10">
         <div className="col-span-1 lg:col-span-7 xl:col-span-6">
-          {/* Title and description */}
+          {/* Title and description summary */}
           <div>
             <h1 className="text-slate-100 font-black text-2xl mb-3">{product?.title}</h1>
             <p className="text-slate-300 text-sm md:text-base leading-7 font-bold md:leading-8 mb-7">
-              {product?.description}
+              {product?.descriptionSummary}
             </p>
           </div>
 
@@ -63,7 +64,19 @@ async function ProductDetail({ params }) {
 
         {/* Course demo video */}
         <div className="col-span-1 lg:col-span-5 xl:col-span-6 order-1 md:order-2 self-center">
-          ویدیو
+          <div className="">
+            <video
+              className="rounded-xl w-full h-full"
+              preload="none"
+              controls
+              poster={`${baseUrl}/public/uploads/productImages/${product?.image}`}
+            >
+              <source
+                src={`${baseUrl}/public/uploads/productVideos/${product?.introductionVideo}`}
+                type="video/mp4"
+              />
+            </video>
+          </div>
         </div>
       </div>
 
@@ -125,13 +138,13 @@ async function ProductDetail({ params }) {
           </div>
 
           {/* FAQ */}
-          <div className="relative bg-blue-950/40 rounded-xl p-3 lg:p-6 overflow-hidden">
+          {/* <div className="relative bg-blue-950/40 rounded-xl p-3 lg:p-6 overflow-hidden">
             <div className="flex">
               <TbQuestionMark size={30} className="text-yellow-300" />
               <h2 className="text-2xl font-black text-sky-500 mb-5">سوالات متداول</h2>
             </div>
             <FAQ product={product} />
-          </div>
+          </div> */}
         </div>
       </div>
     </main>
@@ -140,7 +153,7 @@ async function ProductDetail({ params }) {
 export default ProductDetail;
 
 export async function generateStaticParams() {
-  const { products } = await getProducts();
+  const { products } = await getCourses();
 
   return products.map((product) => ({
     slug: product.slug,
