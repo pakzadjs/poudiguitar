@@ -13,6 +13,8 @@ import {
 } from "@/utils/toPersianNumbers";
 import AddToCart from "@/pages/(user)/courses/[slug]/AddToCart";
 
+const baseUrl = process.env.NEXT_PUBLIC_API_URL2;
+
 export default function ProductCard({ product }) {
   return (
     <div className="bg-blue-950/50 shadow-lg shadow-blue-900/50 rounded-xl relative p-3 flex flex-col h-full hover:shadow-xl hover:shadow-blue-800/40 transition-all duration-300 ease-in-out">
@@ -22,9 +24,9 @@ export default function ProductCard({ product }) {
           <Link href={`/courses/${product.slug}`}>
             <div className="h-[170px]">
               <Image
-                src={product?.imageLink}
-                width={100}
-                height={50}
+                src={`${baseUrl}/public/uploads/productImages/${product?.image}`}
+                width={300}
+                height={100}
                 className="object-cover object-center h-full w-full rounded-xl"
               />
             </div>
