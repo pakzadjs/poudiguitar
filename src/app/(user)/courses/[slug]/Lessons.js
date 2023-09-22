@@ -1,11 +1,14 @@
 "use client";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { toPersianNumbers } from "@/utils/toPersianNumbers";
+
+import { BiTimeFive } from "react-icons/bi";
 
 export default function Lessons({ product }) {
   return (
@@ -22,14 +25,38 @@ export default function Lessons({ product }) {
               id="panel1a-header"
               sx={{ padding: "10px" }}
             >
-              <Typography sx={{ fontFamily: `vazir`, color: "#dcdcdc" }}>
+              <Typography
+                sx={{
+                  fontFamily: `vazir`,
+                  color: "#dcdcdc",
+                  paddingX: "8px",
+                  fontWeight: "800",
+                }}
+              >
                 {lesson?.title}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography sx={{ fontFamily: `vazir`, color: "#a9cbef" }}>
-                {lesson?.body}
-              </Typography>
+              {lesson?.body.map((body, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="flex items-center justify-between bg-[#365d85] my-2 p-3 rounded-md"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span>{toPersianNumbers(i + 1)}-</span>
+                      <Typography sx={{ fontFamily: `vazir`, color: "#a9cbef" }}>
+                        {body?.title}
+                      </Typography>
+                    </div>
+
+                    <div className="text-[#a9cbef] flex items-center gap-2">
+                      <span className="text-sm">{toPersianNumbers(body?.duration)} دقیقه</span>
+                      <BiTimeFive size={20} className="text-yellow-300" />
+                    </div>
+                  </div>
+                );
+              })}
             </AccordionDetails>
           </Accordion>
         );
