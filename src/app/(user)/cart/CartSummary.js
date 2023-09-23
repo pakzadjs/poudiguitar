@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@nextui-org/react";
 import { TbReceipt } from "react-icons/tb";
 import { toPersianNumbersWithComma } from "@/utils/toPersianNumbers";
@@ -22,7 +24,7 @@ export default function CartSummary({ payDetail }) {
       <div className="mb-4 flex items-center justify-between">
         <span>تخفیف</span>
         <span className="text-rose-500 font-black">
-          {toPersianNumbersWithComma(totalOffAmount)} -{" "}
+          {toPersianNumbersWithComma(totalOffAmount)} -
         </span>
       </div>
 

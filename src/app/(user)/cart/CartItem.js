@@ -1,14 +1,15 @@
 import { toPersianNumbers, toPersianNumbersWithComma } from "@/utils/toPersianNumbers";
 import { TbTrashX, TbUserHeart } from "react-icons/tb";
 
-export default function CartItem({ cartItem }) {
-  const addToCartHandler = () => {};
+const baseUrl = process.env.NEXT_PUBLIC_API_URL2;
 
-  console.log(cartItem);
+export default function CartItem({ cartItem }) {
+  const cartItem = cartItem?.productId;
+
   return (
     <div className="bg-slate-500/30 px-8 py-6 rounded-xl flex items-center">
       <img
-        src={cartItem?.imageLink}
+        src={`${baseUrl}/public/uploads/productImages/${cartItem?.image}`}
         alt="Course Image"
         className="rounded-xl"
         width={100}
@@ -17,7 +18,7 @@ export default function CartItem({ cartItem }) {
 
       {/* Title */}
       <div className="mx-4 flex-1">
-        <span className="font-black text-2xl">{cartItem.title}</span>
+        <span className="font-black text-2xl">{cartItem?.title}</span>
         <div className="text-xs mt-2 flex gap-1 items-center">
           <TbUserHeart size={18} /> مدرس دوره: پوریا احمدی
         </div>
@@ -26,26 +27,26 @@ export default function CartItem({ cartItem }) {
       {/* Remove btn and Prise */}
       <div className="flex items-center gap-8">
         <div>
-          {!!cartItem.discount && (
+          {!!cartItem?.discount && (
             <div className="flex items-center gap-2">
               <span className="line-through text-gray-400/80 flex-1">
-                {toPersianNumbersWithComma(cartItem.price)}
+                {toPersianNumbersWithComma(cartItem?.price)}
               </span>
 
               <div className="bg-rose-500 px-2 py-0.5 rounded-xl text-white text-sm">
-                {toPersianNumbers(cartItem.discount)} %
+                {toPersianNumbers(cartItem?.discount)} %
               </div>
             </div>
           )}
 
           <div className="flex items-center">
-            {!!cartItem.discount ? (
+            {!!cartItem?.discount ? (
               <span className="text-2xl font-extrabold">
-                {toPersianNumbersWithComma(cartItem.offPrice)}
+                {toPersianNumbersWithComma(cartItem?.offPrice)}
               </span>
             ) : (
               <span className="text-2xl font-extrabold">
-                {toPersianNumbersWithComma(cartItem.price)}
+                {toPersianNumbersWithComma(cartItem?.price)}
               </span>
             )}
 

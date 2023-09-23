@@ -1,3 +1,5 @@
+'use client'
+
 import { getUserProfile } from "@/services/authServices";
 import { useQuery } from "@tanstack/react-query";
 
