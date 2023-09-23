@@ -21,7 +21,18 @@ export default function ProductCard({ product }) {
       {/* image */}
       <div className="-mt-14 mb-6">
         <div className="relative shadow-lg rounded-xl shadow-blue-700/30">
-          <Link href={`/courses/${product.slug}`}>
+          {product?.type == "course" ? (
+            <Link href={`/courses/${product.slug}`}>
+              <div className="h-[170px]">
+                <Image
+                  src={`${baseUrl}/public/uploads/productImages/${product?.image}`}
+                  width={300}
+                  height={100}
+                  className="object-cover object-center h-full w-full rounded-xl"
+                />
+              </div>
+            </Link>
+          ) : (
             <div className="h-[170px]">
               <Image
                 src={`${baseUrl}/public/uploads/productImages/${product?.image}`}
@@ -30,7 +41,8 @@ export default function ProductCard({ product }) {
                 className="object-cover object-center h-full w-full rounded-xl"
               />
             </div>
-          </Link>
+          )}
+
           <div className="flex items-center w-full justify-between absolute top-0 right-0 p-3">
             {/* Like button*/}
             <button></button>
@@ -41,12 +53,18 @@ export default function ProductCard({ product }) {
       {/* detail */}
       <div>
         {/* Title */}
-        <Link
-          href={`/courses/${product.slug}`}
-          className="text-gray-300 text-lg sm:text-lg block hover:text-blue-500 transition-all duration-500 ease-in-out mb-3 font-black"
-        >
-          {product?.title}
-        </Link>
+        {product?.type == "course" ? (
+          <Link
+            href={`/courses/${product.slug}`}
+            className="text-gray-300 text-lg sm:text-lg block hover:text-blue-500 transition-all duration-500 ease-in-out mb-3 font-black"
+          >
+            {product?.title}
+          </Link>
+        ) : (
+          <div className="text-gray-300 text-lg sm:text-lg block hover:text-blue-500 transition-all duration-500 ease-in-out mb-3 font-black">
+            {product?.title}
+          </div>
+        )}
 
         {/* tags */}
         <div className="flex gap-x-6 items-center mb-3 text-sm">
@@ -58,24 +76,44 @@ export default function ProductCard({ product }) {
 
           {product?.tags?.[1] && (
             <div className="flex items-center gap-x-1 text-green-600">
-              {product?.tags?.[1]}
+              {toPersianNumbers(product?.tags?.[1])}
             </div>
           )}
         </div>
 
         {/* Link */}
-        <Link
-          href={`/courses/${product.slug}`}
-          className="flex items-center gap-x-2 text-sm font-bold text-sky-500 hover:text-sky-400 transition-all duration-300"
-        >
-          مشاهده اطلاعات دوره <TbArrowLeft />
-        </Link>
+        {product?.type == "course" && (
+          <Link
+            href={`/courses/${product.slug}`}
+            className="flex items-center gap-x-2 text-sm font-bold text-sky-500 hover:text-sky-400 transition-all duration-300"
+          >
+            مشاهده اطلاعات دوره <TbArrowLeft />
+          </Link>
+        )}
+
+        {/* downloadable description */}
+        {product?.type == "downloadable" && (
+          <p className="flex items-center gap-x-2 text-sm font-bold text-sky-500 hover:text-sky-400 transition-all duration-300">
+            {product?.descriptionSummary}
+          </p>
+        )}
 
         <div className="border-b-1 border-slate-600/80 pb-6 mb-4"></div>
 
         {/* Add to cart btn */}
         <div className="flex justify-between items-center">
-          <AddToCart product={product} />
+          {product?.type == "course" ? (
+            <AddToCart product={product} />
+          ) : (
+            <Button
+              // isLoading={isLoading}
+              color="primary"
+              onClick={"addToCartHandler"}
+              className={`btn`}
+            >
+              دانلود
+            </Button>
+          )}
 
           {/* Price */}
           <div className="flex flex-col justify-between ">
@@ -93,14 +131,16 @@ export default function ProductCard({ product }) {
             )}
 
             {/* Price */}
-            <div className="font-bold flex items-center">
-              <span className="text-gray-300 font-black ml-2 md:text-xl">
-                {product?.discount > 0
-                  ? toPersianNumbersWithComma(product?.offPrice)
-                  : toPersianNumbersWithComma(product?.price)}
-              </span>
-              <span className="text-xs text-gray-400">تومان</span>
-            </div>
+            {product?.price !== 0 && (
+              <div className="font-bold flex items-center">
+                <span className="text-gray-300 font-black ml-2 md:text-xl">
+                  {product?.discount > 0
+                    ? toPersianNumbersWithComma(product?.offPrice)
+                    : toPersianNumbersWithComma(product?.price)}
+                </span>
+                <span className="text-xs text-gray-400">تومان</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
