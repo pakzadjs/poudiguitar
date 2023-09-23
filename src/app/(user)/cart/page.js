@@ -1,18 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { Spinner } from "@nextui-org/react";
 
 import { useGetUser } from "@/hooks/useAuth";
 import CartItem from "./CartItem";
 import CartSummary from "./CartSummary";
+import SpinnerComponent from "@/common/Spinner";
 
-export default function CartPage() {
+function CartPage() {
   const { data, isLoading } = useGetUser();
-  const { user, cart } = data || {};
+  const { user } = data || {};
+  const { cart } = user || {};
 
-  if (isLoading)
-    return <Spinner color="primary" size="lg" className="flex items-center justify-center" />;
+  if (isLoading) return <SpinnerComponent />;
+
+  console.log(data);
 
   if (!user || !data)
     return (
@@ -41,15 +43,17 @@ export default function CartPage() {
       {/* Cart item */}
       <div className="col-span-7 space-y-5">
         {cart &&
-          cart.productDetail.map((item) => {
+          cart?.products?.map((item) => {
             return <CartItem key={item._id} cartItem={item} />;
           })}
       </div>
 
       {/* cart summary */}
       <div className="col-span-3">
-        <CartSummary payDetail={cart.payDetail} />
+        <CartSummary payDetail={cart} />
       </div>
     </div>
   );
 }
+
+export default CartPage;
