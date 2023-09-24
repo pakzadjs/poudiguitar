@@ -100,19 +100,19 @@ export default function ProductCard({ product }) {
 
         <div className="border-b-1 border-slate-600/80 pb-6 mb-4"></div>
 
-        {/* Add to cart btn */}
+        {/* Add to cart & download button */}
         <div className="flex justify-between items-center">
           {product?.type == "course" ? (
             <AddToCart product={product} />
           ) : (
-            <Button
-              // isLoading={isLoading}
-              color="primary"
-              onClick={"addToCartHandler"}
-              className={`btn`}
+            <a
+              target="_blank"
+              href={`${baseUrl}/public/uploads/productFiles/${product?.file}`}
             >
-              دانلود
-            </Button>
+              <Button color="primary" className={`btn`}>
+                دانلود
+              </Button>
+            </a>
           )}
 
           {/* Price */}
