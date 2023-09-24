@@ -20,8 +20,9 @@ import { logout } from "@/services/authServices";
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const { data, error, isLoading } = useGetUser();
-  const { user, cart } = data || {};
+  const { data, isLoading } = useGetUser();
+  const { user } = data || {};
+  const { cart } = user || {};
 
   const menuItems = [
     { name: "صفحه اصلی", href: "/", icon: <TbHome size={20} /> },
@@ -70,7 +71,7 @@ function Header() {
             <NavbarItem className="flex">
               <Badge
                 color="danger"
-                content={cart ? cart.payDetail.productIds.length : 0}
+                content={cart ? user?.cart?.products?.length : 0}
                 classNames={"hidden"}
                 size="lg"
               >

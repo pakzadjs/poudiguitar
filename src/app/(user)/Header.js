@@ -31,11 +31,14 @@ import {
 import { useGetUser } from "@/hooks/useAuth";
 import { logout } from "@/services/authServices";
 
+const baseUrl = process.env.NEXT_PUBLIC_API_URL2;
+
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const { data, error, isLoading } = useGetUser();
-  const { user, cart } = data || {};
+  const { data, isLoading } = useGetUser();
+  const { user } = data || {};
+  const { cart } = user || {};
 
   const menuItems = [
     { name: "دانلود ها", href: "/downloads" },
@@ -73,7 +76,7 @@ function Header() {
             {/* Logo */}
             <NavbarItem>
               <Link href="/" className="font-bold text-inherit flex items-center">
-                <Image src="/images/poudi-logo.png" alt="logo" width={50} height={0} />
+                <Image src="/images/poudi-logo.png" alt="logo" width={50} height={50} />
                 {/* <h1>پودی</h1> */}
               </Link>
             </NavbarItem>
@@ -150,7 +153,7 @@ function Header() {
             <NavbarItem className="flex">
               <Badge
                 color="danger"
-                content={cart ? cart.payDetail.productIds.length : 0}
+                content={cart ? user?.cart?.products?.length : 0}
                 classNames={"hidden"}
                 size="lg"
               >
@@ -191,14 +194,25 @@ function Header() {
                             description: "text-default-500",
                           }}
                           avatarProps={{
-                            size: "sm",
-                            src: "",
+                            size: "md",
+                            src: `${baseUrl}/public/uploads/avatars/${user?.avatar}`,
                           }}
                         />
                       </DropdownItem>
                     </DropdownSection>
 
                     <DropdownSection aria-label="Actions">
+                      {/* Profile */}
+                      <DropdownItem
+                        key="user"
+                        startContent={<TbHome className={iconStyles} />}
+                        className="py-3"
+                        as={Link}
+                        href="/profile"
+                      >
+                        حساب کاربری
+                      </DropdownItem>
+
                       {/* Admin pannel */}
                       {user?.role == "ADMIN" && (
                         <DropdownItem
@@ -211,17 +225,6 @@ function Header() {
                           پنل ادمین
                         </DropdownItem>
                       )}
-
-                      {/* Profile */}
-                      <DropdownItem
-                        key="user"
-                        startContent={<TbHome className={iconStyles} />}
-                        className="py-3"
-                        as={Link}
-                        href="/profile"
-                      >
-                        حساب کاربری
-                      </DropdownItem>
 
                       {/* My courses */}
                       <DropdownItem
@@ -257,10 +260,9 @@ function Header() {
           {/* Burger menu */}
           <NavbarMenu className="bg-gray">
             {menuItems.map((item, index) => (
-              <div>
+              <div key={`${item}-${index}`}>
                 {item.href ? (
                   <Link
-                    key={`${item}-${index}`}
                     className="w-full hover:bg-slate-400/20 py-2 px-3 rounded-2xl "
                     color={
                       index === 2
