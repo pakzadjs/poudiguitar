@@ -36,7 +36,7 @@ export default function AddToCart({ product, widthFull }) {
 
   const isInCart = (user, product) => {
     if (!user) return false;
-    return user.cart?.products.some((p) => p.productId === product._id);
+    return user.cart?.products.some((p) => p.productId._id === product._id);
   };
 
   return (
