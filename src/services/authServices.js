@@ -24,6 +24,14 @@ export function updateProfile(data) {
   return http.patch("/user/update", data).then(({ data }) => data.data);
 }
 
+export function changeAvatar(formData) {
+  return http.post(`/user/upload-avatar`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+}
+
 export function logout() {
   return http.post("/user/logout");
 }
