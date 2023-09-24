@@ -116,7 +116,7 @@ export default function Me() {
         </div>
 
         <div className="flex items-center gap-1">
-          <p>لطفا یک عکس انتخاب کنید</p> <FaRegHandPointDown />
+          <p>یک عکس انتخاب کنید</p> <FaRegHandPointDown />
         </div>
 
         <input
