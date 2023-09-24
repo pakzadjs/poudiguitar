@@ -2,12 +2,12 @@ import queryString from "query-string";
 
 import CategorySidebar from "../courses/CategorySidebar";
 import { getDownloadables } from "@/services/productService";
-import { getCategories } from "@/services/categoryService";
+import { getDownloadsCategories } from "@/services/categoryService";
 import ProductCard from "@/common/ProductCard";
 
 async function Downloads({ searchParams }) {
   const productsPromise = getDownloadables(queryString.stringify(searchParams));
-  const categoryPromise = getCategories();
+  const categoryPromise = getDownloadsCategories();
 
   const [{ products }, { categories }] = await Promise.all([productsPromise, categoryPromise]);
 
