@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { logout } from "@/services/authServices";
 import { TbHome, TbLogout, TbBooks, TbUserEdit, TbSettings2 } from "react-icons/tb";
+import { PiPasswordBold } from "react-icons/pi";
 
 function SideBar() {
   const logoutHandler = async () => {
@@ -26,24 +27,35 @@ function SideBar() {
             صفحه اصلی
           </Link>
         </li>
+
         <li>
           <Link href="/profile" className={listStyles}>
             <TbSettings2 size={20} className="ml-3" />
             داشبورد
           </Link>
         </li>
-        <li>
-          <Link href="/profile/me" className={listStyles}>
-            <TbUserEdit size={20} className="ml-3" />
-            ویرایش اطلاعات
-          </Link>
-        </li>
+
         <li>
           <Link href="/profile/payments" className={listStyles}>
             <TbBooks size={20} className="ml-3" />
             سفارشات
           </Link>
         </li>
+
+        <li>
+          <Link href="/profile/me" className={listStyles}>
+            <TbUserEdit size={20} className="ml-3" />
+            ویرایش مشخصات
+          </Link>
+        </li>
+
+        <li>
+          <Link href="/profile/password" className={listStyles}>
+            <PiPasswordBold size={20} className="ml-3" />
+            ویرایش گذرواژه
+          </Link>
+        </li>
+
         <li>
           <button onClick={logoutHandler} className={listStyles}>
             <TbLogout size={20} className="ml-3" />

@@ -19,8 +19,8 @@ const loginWithPassValidationSchema = Yup.object({
     .required("شماره موبایل خود را وارد کنید")
     .matches(/^(0)?9\d{9}$/, "شماره موبایل معتبر را وارد کنید"),
   password: Yup.string()
-    .required("رمز خود را وارد کنید")
-    .matches(/^\S*$/, "فضای خالی در رمز مجاز نیست")
+    .required("گذرواژه خود را وارد کنید")
+    .matches(/^\S*$/, "فضای خالی در گذرواژه مجاز نیست")
     .min(6, "حداقل شش کارکتر وارد کنید"),
 });
 
