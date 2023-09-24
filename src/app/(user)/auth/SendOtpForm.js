@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -27,6 +27,7 @@ const loginWithPassValidationSchema = Yup.object({
 export default function SendOTPForm({ onSubmit, isLoading, formik }) {
   const [loginWithPass, setLoginWithPass] = useState(true);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { isLoading: LoginLoading, mutateAsync: mutateLogin } = useMutation({
     mutationFn: login,
@@ -39,6 +40,7 @@ export default function SendOTPForm({ onSubmit, isLoading, formik }) {
       const data = await mutateLogin({ phoneNumber, password });
       toast.success(data.message);
       router.push("/");
+      queryClient.invalidateQueries({ queryKey: ["get-user"] });
     } catch (error) {
       toast.error(error?.response?.data?.message || "خطایی رخ داده، یکم دیرتر امتحان کن");
     }

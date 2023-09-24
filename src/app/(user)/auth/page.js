@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -27,6 +27,7 @@ export default function AuthPage() {
   const [step, setStep] = useState(1);
   const [otp, setOtp] = useState("");
   const [time, setTime] = useState(RESEND_TIME);
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   const {
@@ -64,6 +65,7 @@ export default function AuthPage() {
       toast.success(message);
       if (user.isActive) {
         router.push("/");
+        queryClient.invalidateQueries({ queryKey: ["get-user"] });
       } else {
         router.push("/complete-profile");
       }
