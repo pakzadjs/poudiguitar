@@ -1,11 +1,33 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { Button } from "@nextui-org/react";
 import { TbReceipt } from "react-icons/tb";
 import { toPersianNumbersWithComma } from "@/utils/toPersianNumbers";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createPayment } from "@/services/paymentService";
 
 export default function CartSummary({ payDetail }) {
   const { totalOffAmount, totalPrice, totalGrossPrice } = payDetail;
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const { isLoading, mutateAsync } = useMutation({ mutationFn: createPayment });
+
+  const createPaymentHandler = async () => {
+    try {
+      const { message, url } = await mutateAsync();
+      toast.success("در حال انتقال به صفحه پرداخت");
+
+      router.push(url);
+      queryClient.invalidateQueries({ queryKey: ["get-user"] });
+    } catch (error) {
+      if (error?.response?.data) {
+        toast.error(error.response.data.message);
+      }
+    }
+  };
 
   return (
     <div className="bg-slate-500/30 px-4 py-6 rounded-xl">
@@ -37,7 +59,12 @@ export default function CartSummary({ payDetail }) {
         </div>
       </div>
 
-      <Button color="primary" className="btn w-full">
+      <Button
+        isLoading={isLoading}
+        color="primary"
+        className="btn w-full"
+        onClick={createPaymentHandler}
+      >
         پرداخت سفارش
       </Button>
     </div>
