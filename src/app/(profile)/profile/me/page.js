@@ -56,6 +56,7 @@ export default function Me() {
           formData.append("avatar", file);
 
           const { data } = await mutateAvatar(formData);
+          queryClient.invalidateQueries({ queryKey: ["get-user"] });
 
           // routerPush(router);
           router.refresh();
