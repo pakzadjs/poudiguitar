@@ -14,8 +14,6 @@ function CartPage() {
 
   if (isLoading) return <SpinnerComponent />;
 
-  console.log(data);
-
   if (!user || !data)
     return (
       <div className="container lg:max-w-screen-lg py-6">
