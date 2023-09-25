@@ -119,29 +119,30 @@ function Header() {
                   <DropdownItem
                     key="Instagram"
                     startContent={<BiLogoInstagram className={iconStyles} />}
+                    as={Link}
+                    href="https://www.instagram.com/poudiguitar/"
+                    target="_blank rel=noopener"
                   >
-                    <a
-                      href="https://www.instagram.com/poudiguitar/"
-                      target="_blank rel=noopener"
-                    >
-                      صفحه اینستاگرام
-                    </a>
+                    صفحه اینستاگرام
                   </DropdownItem>
 
                   <DropdownItem
                     key="About us"
                     startContent={<HiOutlineExclamationCircle className={iconStyles} />}
+                    as={Link}
+                    href="/about"
                   >
-                    <Link href="/about">درباره ما</Link>
+                    درباره ما
                   </DropdownItem>
 
                   <DropdownItem
                     key="Telegram"
                     startContent={<BiLogoTelegram className={iconStyles} />}
+                    as={Link}
+                    href="https://t.me/pakzadjs"
+                    target="_blank rel=noopener"
                   >
-                    <a href="https://t.me/pakzadjs" target="_blank rel=noopener">
-                      کانال تلگرام
-                    </a>
+                    کانال تلگرام
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
@@ -242,8 +243,9 @@ function Header() {
                         key="Log out"
                         startContent={<TbLogout className={iconStyles} />}
                         className="py-3"
+                        onClick={logoutHandler}
                       >
-                        <button onClick={logoutHandler}>خروج</button>
+                        خروج
                       </DropdownItem>
                     </DropdownSection>
                   </DropdownMenu>
