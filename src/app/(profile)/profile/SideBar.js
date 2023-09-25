@@ -36,9 +36,9 @@ function SideBar() {
         </li>
 
         <li>
-          <Link href="/profile/payments" className={listStyles}>
+          <Link href="/profile/courses" className={listStyles}>
             <TbBooks size={20} className="ml-3" />
-            سفارشات
+            دوره ها
           </Link>
         </li>
 
