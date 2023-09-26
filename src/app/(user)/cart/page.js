@@ -6,8 +6,10 @@ import { useGetUser } from "@/hooks/useAuth";
 import CartItem from "./CartItem";
 import CartSummary from "./CartSummary";
 import SpinnerComponent from "@/common/Spinner";
+import { useState } from "react";
 
 function CartPage() {
+  const [paying, setPaying] = useState(false);
   const { data, isLoading } = useGetUser();
   const { user } = data || {};
   const { cart } = user || {};
@@ -20,17 +22,29 @@ function CartPage() {
         <p className="text-slate-100 font-bold mb-4">
           برای مشاهده سبد خرید لطفا به حساب خود وارد شوید
         </p>
-        <Link href="/auth" className="text-lg font-bold text-slate-300 btn inline-block">
+        <Link href="/auth" className="text-lg font-bold btn inline-block">
           رفتن به صفحه لاگین
         </Link>
       </div>
+    );
+
+  if (paying)
+    return (
+      <section className="mt-10">
+        <div className="flex justify-center relative">
+          <div className="receipt-section flex flex-col items-center gap-8">
+            <SpinnerComponent />
+            <p className="text-lg font-bold">در حال انتقال به صفحه پرداخت</p>
+          </div>
+        </div>
+      </section>
     );
 
   if (!user.cart?.products || user.cart?.products.length === 0)
     return (
       <div className="container lg:max-w-screen-lg py-6">
         <p className="text-slate-100 font-bold mb-4">دوره ای در سبد خرید شما وجود ندارد</p>
-        <Link href="/courses" className="text-lg font-bold text-slate-300 btn inline-block">
+        <Link href="/courses" className="text-lg font-bold btn inline-block">
           رفتن به صفحه دوره ها
         </Link>
       </div>
@@ -48,7 +62,7 @@ function CartPage() {
 
       {/* cart summary */}
       <div className="col-span-3">
-        <CartSummary payDetail={cart} />
+        <CartSummary payDetail={cart} paying={paying} setPaying={setPaying} />
       </div>
     </div>
   );

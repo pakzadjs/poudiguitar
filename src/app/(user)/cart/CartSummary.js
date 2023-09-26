@@ -8,7 +8,7 @@ import { toPersianNumbersWithComma } from "@/utils/toPersianNumbers";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createPayment } from "@/services/paymentService";
 
-export default function CartSummary({ payDetail }) {
+export default function CartSummary({ payDetail, setPaying }) {
   const { totalOffAmount, totalPrice, totalGrossPrice } = payDetail;
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -19,6 +19,7 @@ export default function CartSummary({ payDetail }) {
     try {
       const { message, url } = await mutateAsync();
       toast.success("در حال انتقال به صفحه پرداخت");
+      setPaying(true);
 
       router.push(url);
       queryClient.invalidateQueries({ queryKey: ["get-user"] });
