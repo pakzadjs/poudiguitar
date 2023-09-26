@@ -7,6 +7,12 @@
   .textField__input {
     @apply w-full py-3 px-4 rounded-xl bg-gray-100 text-gray-900 border border-gray-100 outline-none duration-200 transition-all ease-in-out hover:border-gray-300 focus:outline-none focus:border-gray-300 focus:shadow-input-focus focus:bg-white;
   }
+  .table__th {
+    @apply whitespace-nowrap border-b-1 border-sky-900 text-right pr-[2rem] pl-[1rem] pb-[0.75rem]
+  }
+  .table__td {
+    @apply text-slate-200 border-b-2 border-sky-900 py-[1rem] pr-[2rem] pl-[1rem]
+  }
   .btn {
     @apply px-4 py-2 text-white rounded-3xl bg-blue-600 flex items-center font-bold hover:bg-blue-500 transition-all duration-250 shadow-lg shadow-blue-800;
   }
@@ -41,4 +47,21 @@ body {
   src: url("../../public/fonts/vazir/Vazirmatn-Medium.woff2");
   format: ("woff2");
   font-display: swap;
+}
+
+::-webkit-scrollbar {
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #134a9c6c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1b60cfd2;
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2f73e1;
 }
