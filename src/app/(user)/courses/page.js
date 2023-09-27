@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import queryString from "query-string";
 
 import { getCategories } from "@/services/categoryService";
@@ -5,14 +6,18 @@ import { getCourses } from "@/services/productService";
 import CategorySidebar from "./CategorySidebar";
 
 import ProductCard from "@/common/ProductCard";
+import { toStringCookies } from "@/utils/toStringCookies";
 
 export const dynamic = "force-dynamic"; // eq to {cache :"no-store"} or SSR in pages Dir. :)
 
 async function Courses({ searchParams }) {
+  const cookieStore = cookies();
+  const strCookies = toStringCookies(cookieStore);
+
   // const { products } = await getCourses(queryString.stringify(searchParams));
   // const { categories } = await getCategories();
 
-  const productsPromise = getCourses(queryString.stringify(searchParams));
+  const productsPromise = getCourses(queryString.stringify(searchParams), strCookies);
   const categoryPromise = getCategories();
 
   const [{ products }, { categories }] = await Promise.all([productsPromise, categoryPromise]);
