@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 import {
   TbClock,
@@ -6,13 +7,12 @@ import {
   TbCalendarBolt,
   TbCalendarCheck,
   TbCloudDownload,
-  TbHeart,
-  TbHeartFilled,
 } from "react-icons/tb";
 import { BiSupport } from "react-icons/bi";
 
 import { getCourses, getOneProductBySlug } from "@/services/productService";
 import { toLocalDateStringShort } from "@/utils/toLocalDate";
+import { toStringCookies } from "@/utils/toStringCookies";
 import AddToCart from "./AddToCart";
 import {
   toPersianNumbers,
@@ -21,6 +21,7 @@ import {
 } from "@/utils/toPersianNumbers";
 import Lessons from "./Lessons";
 import FAQ from "./FAQ";
+import Like from "@/common/Like";
 
 export const dynamic = "force-static"; // SSG or {cache : "force-cache"}
 export const dynamicParams = false;
@@ -28,7 +29,10 @@ const baseUrl = process.env.NEXT_PUBLIC_API_URL2;
 
 async function ProductDetail({ params }) {
   const { slug } = params;
-  const { product } = await getOneProductBySlug(slug);
+  const cookieStore = cookies();
+  const strCookies = toStringCookies(cookieStore);
+
+  const { product } = await getOneProductBySlug(slug, strCookies);
 
   return (
     <main className="container mt-10 xl:max-w-screen-xl max-sm:px-4">
@@ -143,14 +147,8 @@ async function ProductDetail({ params }) {
               اسپات پلیر
             </div>
           </div>
-          <div className="rounded-xl bg-blue-950/90 hover:bg-blue-900/30 transition-all duration-250">
-            <button className="p-3 lg:p-5 w-full h-full flex justify-center hover:text-red-600 transition-all duration-250">
-              <TbHeart size={25} />
-              {/* <TbHeartFilled
-                size={25}
-                className="text-red-600 hover:text-red-700 transition-all duration-250"
-              /> */}
-            </button>
+          <div className="">
+            <Like product={product} styles={"productDetails__like"} />
           </div>
         </div>
 

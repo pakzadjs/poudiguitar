@@ -12,6 +12,7 @@ import {
   toPersianNumbersWithComma,
 } from "@/utils/toPersianNumbers";
 import AddToCart from "@/pages/(user)/courses/[slug]/AddToCart";
+import Like from "./Like";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL2;
 
@@ -45,7 +46,10 @@ export default function ProductCard({ product }) {
 
           <div className="flex items-center w-full justify-between absolute top-0 right-0 p-3">
             {/* Like button*/}
-            <button></button>
+            <Like
+              product={product}
+              styles={"text-rose-600 p-3 hover:text-rose-400 transition-all duration-250"}
+            />
           </div>
         </div>
       </div>
