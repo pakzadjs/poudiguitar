@@ -19,6 +19,9 @@
   .btn-secendary {
     @apply mb-4 border rounded-lg p-1 bg-gray-800/40 hover:bg-gray-500/40 border-gray-700 transition-all duration-250
   }
+  .btn__third {
+    @apply bg-slate-800/50 hover:bg-slate-700 transition-all duration-250 py-1 px-2 rounded-lg flex items-center justify-center gap-1
+  }
   .receipt-section {
     @apply w-full sm:max-w-sm bg-sky-600/50 p-8 rounded-2xl shadow-blue-900/50 hover:shadow-xl hover:shadow-blue-800/40 transition-all duration-300
   }

@@ -43,6 +43,13 @@ function SideBar() {
         </li>
 
         <li>
+          <Link href="/profile/payments" className={listStyles}>
+            <TbBooks size={20} className="ml-3" />
+            تراکنش ها
+          </Link>
+        </li>
+
+        <li>
           <Link href="/profile/me" className={listStyles}>
             <TbUserEdit size={20} className="ml-3" />
             ویرایش مشخصات
