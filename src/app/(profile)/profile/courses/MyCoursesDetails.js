@@ -22,9 +22,11 @@ export default function MyCoursesDetails({ license, channel, product, createdAt 
   return (
     <tr>
       <td className="table__td text-lg">{product?.title}</td>
+
       <td className="table__td">
         <CopyToClipboard copyText={license?.key} />
       </td>
+
       <td className="table__td">
         <div>
           <Tooltip
@@ -49,29 +51,60 @@ export default function MyCoursesDetails({ license, channel, product, createdAt 
             <ModalContent className="text-slate-900 bg-sky-100/70 p-3">
               {(onClose) => (
                 <>
-                  <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+                  <ModalHeader className="text-xl font-extrabold">
+                    راهنمای دسترسی به دوره ها
+                  </ModalHeader>
                   <ModalBody>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar
-                      risus non risus hendrerit venenatis. Pellentesque sit amet hendrerit
-                      risus, sed porttitor quam.
-                    </p>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar
-                      risus non risus hendrerit venenatis. Pellentesque sit amet hendrerit
-                      risus, sed porttitor quam.
-                    </p>
-                    <p>
-                      Magna exercitation reprehenderit magna aute tempor cupidatat consequat
-                      elit dolor adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum
-                      quis. Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor
-                      eiusmod. Et mollit incididunt nisi consectetur esse laborum eiusmod
-                      pariatur proident Lorem eiusmod et. Culpa deserunt nostrud ad veniam.
-                    </p>
+                    <ul className="flex flex-col gap-4">
+                      <li>
+                        1. ابتدا وارد سایت spotplayer.ir بشید و بر پایه سیستم عامل خودتون نرم
+                        افزار رو دانلود کنید.
+                      </li>
+                      <li>
+                        2. بعد از نصب نرم افزار، ثبت دوره جدید با علامت + را کلیک کنید و لایسنس
+                        خودتون رو وارد کنید.
+                      </li>
+                      <li>
+                        3. کادر کوچک پایینی (location) هم برای تغییر محل ذخیره سازی هست. حتما
+                        محل ذخیره سازی تو درایو C نباشه تا بعد تغییر ویندوز لایسنس استفاده بشه.
+                        کافیه روی کادر کلیک کنید تا محل ذخیره سازی رو به داریو دیگه تغییر بدین.
+                      </li>
+                      <li>4. روی تایید کلیک کنید.</li>
+                      <li>
+                        برای دیدن راهنمای کامل نرم افزار روی{" "}
+                        <a
+                          href="https://app.spotplayer.ir/player/help/register"
+                          target="_blank"
+                          className="font-extrabold text-white  bg-blue-500 hover:bg-blue-600 px-2 rounded-lg transition-all duration-250"
+                        >
+                          لینک
+                        </a>{" "}
+                        کلیک کنید.
+                      </li>
+                    </ul>
+
+                    <div className="p-5">
+                      <video
+                        className="rounded-xl w-full h-full"
+                        poster="/images/spotplayer.png"
+                        preload="none"
+                        controls
+                      >
+                        <source
+                          src={`https://spotplayer.ir/assets/img/index/vid/v1.mp4?a9a3c3756c682e9a72c1cb739866112a`}
+                          type="video/mp4"
+                        />
+                      </video>
+                    </div>
                   </ModalBody>
                   <ModalFooter>
-                    <Button color="danger" variant="light" onPress={onClose}>
-                      Close
+                    <Button
+                      color="danger"
+                      variant="light"
+                      onPress={onClose}
+                      className="font-bold"
+                    >
+                      بستن
                     </Button>
                   </ModalFooter>
                 </>
@@ -80,6 +113,7 @@ export default function MyCoursesDetails({ license, channel, product, createdAt 
           </Modal>
         </div>
       </td>
+
       <td className="table__td">
         {channel ? (
           <Link
@@ -94,7 +128,9 @@ export default function MyCoursesDetails({ license, channel, product, createdAt 
           <span className="py-1 px-2">ندارد</span>
         )}
       </td>
+
       <td className="table__td">پوریا احمدی</td>
+
       <td className="table__td">{toLocalDateStringShort(createdAt)}</td>
     </tr>
   );
