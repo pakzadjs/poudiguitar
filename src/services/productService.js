@@ -1,7 +1,13 @@
 import http from "./httpService";
 
-export function getCourses(queryString) {
-  return http.get(`/product/list?${queryString}&type=course`).then(({ data }) => data.data);
+export function getCourses(queryString, cookies) {
+  return http
+    .get(`/product/list?${queryString}&type=course`, {
+      headers: {
+        Cookie: cookies,
+      },
+    })
+    .then(({ data }) => data.data);
 }
 
 export function getDownloadables(queryString) {
@@ -10,6 +16,16 @@ export function getDownloadables(queryString) {
     .then(({ data }) => data.data);
 }
 
-export function getOneProductBySlug(slug) {
-  return http.get(`/product/slug/${slug}`).then(({ data }) => data.data);
+export function getOneProductBySlug(slug, cookies) {
+  return http
+    .get(`/product/slug/${slug}`, {
+      headers: {
+        Cookie: cookies,
+      },
+    })
+    .then(({ data }) => data.data);
+}
+
+export function likeProduct(id) {
+  return http.post(`/product/like/${id}`).then(({ data }) => data.data);
 }
