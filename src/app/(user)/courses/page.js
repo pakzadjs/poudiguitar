@@ -3,12 +3,11 @@ import queryString from "query-string";
 
 import { getCategories } from "@/services/categoryService";
 import { getCourses } from "@/services/productService";
-import CategorySidebar from "./CategorySidebar";
-
-import ProductCard from "@/common/ProductCard";
 import { toStringCookies } from "@/utils/toStringCookies";
+import CategorySidebar from "./CategorySidebar";
+import ProductCard from "@/common/ProductCard";
 
-export const dynamic = "force-dynamic"; // eq to {cache :"no-store"} or SSR in pages Dir. :)
+export const dynamic = "force-dynamic"; // eq to {cache :"no-store"} or SSR in pages Dir.
 
 async function Courses({ searchParams }) {
   const cookieStore = cookies();

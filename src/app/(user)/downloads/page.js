@@ -1,12 +1,19 @@
+import { cookies } from "next/headers";
 import queryString from "query-string";
 
-import CategorySidebar from "../courses/CategorySidebar";
-import { getDownloadables } from "@/services/productService";
 import { getDownloadsCategories } from "@/services/categoryService";
+import { getDownloadables } from "@/services/productService";
+import { toStringCookies } from "@/utils/toStringCookies";
+import CategorySidebar from "../courses/CategorySidebar";
 import ProductCard from "@/common/ProductCard";
 
+export const dynamic = "force-dynamic"; // eq to {cache :"no-store"} or SSR in pages Dir.
+
 async function Downloads({ searchParams }) {
-  const productsPromise = getDownloadables(queryString.stringify(searchParams));
+  const cookieStore = cookies();
+  const strCookies = toStringCookies(cookieStore);
+
+  const productsPromise = getDownloadables(queryString.stringify(searchParams), strCookies);
   const categoryPromise = getDownloadsCategories();
 
   const [{ products }, { categories }] = await Promise.all([productsPromise, categoryPromise]);

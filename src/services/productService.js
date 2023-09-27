@@ -10,9 +10,13 @@ export function getCourses(queryString, cookies) {
     .then(({ data }) => data.data);
 }
 
-export function getDownloadables(queryString) {
+export function getDownloadables(queryString, cookies) {
   return http
-    .get(`/product/list?${queryString}&type=downloadable`)
+    .get(`/product/list?${queryString}&type=downloadable`, {
+      headers: {
+        Cookie: cookies,
+      },
+    })
     .then(({ data }) => data.data);
 }
 
