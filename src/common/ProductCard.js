@@ -48,7 +48,8 @@ export default function ProductCard({ product }) {
             {/* Like button*/}
             <Like
               product={product}
-              styles={"text-rose-600 p-3 hover:text-rose-400 transition-all duration-250"}
+              styles={"text-rose-600 hover:text-rose-400 transition-all duration-250 bg-slate-100 px-1 rounded-md"}
+              size={20}
             />
           </div>
         </div>

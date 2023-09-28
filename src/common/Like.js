@@ -5,7 +5,7 @@ import { TbHeart, TbHeartFilled } from "react-icons/tb";
 import { likeProduct } from "@/services/productService";
 import { usePathname, useRouter } from "next/navigation";
 
-export default function Like({ product, styles }) {
+export default function Like({ product, styles, size }) {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -20,8 +20,13 @@ export default function Like({ product, styles }) {
   };
 
   return (
-    <button onClick={likeHandler} className={styles}>
-      {product?.isLiked ? <TbHeartFilled size={25} /> : <TbHeart size={25} />}
+    <button onClick={likeHandler} className={`${styles} flex items-center gap-1`}>
+      {product?.isLiked ? (
+        <TbHeartFilled size={size ? size : 25} />
+      ) : (
+        <TbHeart size={size ? size : 25} />
+      )}
+      <span className="text-sm">{product?.likesCount}</span>
     </button>
   );
 }
