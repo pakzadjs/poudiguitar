@@ -98,10 +98,9 @@ function Header() {
           {/* Burger menu */}
           <NavbarMenu className="bg-gray">
             {menuItems.map((item, index) => (
-              <div className="md:px-10">
+              <div className="md:px-10" key={`${item}-${index}`}>
                 {item.href ? (
                   <Link
-                    key={`${item}-${index}`}
                     className="w-full hover:bg-slate-400/20 py-3 px-3 rounded-2xl flex items-center transition-all duration-250"
                     color={
                       index === 2

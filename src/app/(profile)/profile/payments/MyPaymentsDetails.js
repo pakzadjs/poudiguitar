@@ -49,8 +49,12 @@ export default function MyPaymentsDetails({
             <Tooltip
               className="text-slate-900"
               showArrow={true}
-              content={cart?.payDetail?.productIds.map((course) => {
-                return <h5 className="p-1 font-bold">{course}</h5>;
+              content={cart?.payDetail?.productIds.map((course, i) => {
+                return (
+                  <h5 className="p-1 font-bold" key={i}>
+                    {course}
+                  </h5>
+                );
               })}
               placement="bottom"
             >
@@ -71,9 +75,12 @@ export default function MyPaymentsDetails({
                 {(onClose) => (
                   <>
                     <ModalBody className="m-auto">
-                      {cart?.payDetail?.productIds.map((course) => {
+                      {cart?.payDetail?.productIds.map((course, i) => {
                         return (
-                          <h5 className="py-1 px-3 bg-slate-100/70 rounded-lg font-bold">
+                          <h5
+                            key={i}
+                            className="py-1 px-3 bg-slate-100/70 rounded-lg font-bold"
+                          >
                             {course}
                           </h5>
                         );
