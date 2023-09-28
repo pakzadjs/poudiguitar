@@ -12,7 +12,7 @@ export default function CheckBox({ id, name, value, onChange, checked, label }) 
         classNames={classNames}
         name={name}
         id={id}
-        checked={checked}
+        isSelected={checked}
         value={value}
         onChange={onChange}
       >
