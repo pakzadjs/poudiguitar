@@ -23,7 +23,6 @@ import Lessons from "./Lessons";
 import FAQ from "./FAQ";
 import Like from "@/common/Like";
 
-export const dynamic = "force-static"; // SSG or {cache : "force-cache"}
 export const dynamicParams = false;
 const baseUrl = process.env.NEXT_PUBLIC_API_URL2;
 

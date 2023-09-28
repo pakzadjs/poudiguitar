@@ -9,8 +9,6 @@ export default function Like({ product, styles }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  console.log(product);
-
   const likeHandler = async () => {
     try {
       const { message } = await likeProduct(product?._id);
