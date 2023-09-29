@@ -5,7 +5,15 @@ import Link from "next/link";
 
 import { CartIcon } from "@/public/icons/CartIcon";
 
-import { TbUser, TbHome, TbLogout, TbBooks, TbUserEdit, TbSettings2 } from "react-icons/tb";
+import {
+  TbUser,
+  TbHome,
+  TbLogout,
+  TbBooks,
+  TbUserEdit,
+  TbSettings2,
+  TbList,
+} from "react-icons/tb";
 import {
   Badge,
   Navbar,
@@ -14,6 +22,7 @@ import {
   NavbarMenu,
   NavbarMenuToggle,
 } from "@nextui-org/react";
+import { PiPasswordBold } from "react-icons/pi";
 import { useGetUser } from "@/hooks/useAuth";
 import { logout } from "@/services/authServices";
 
@@ -27,8 +36,10 @@ function Header() {
   const menuItems = [
     { name: "صفحه اصلی", href: "/", icon: <TbHome size={20} /> },
     { name: "داشبورد", href: "/profile", icon: <TbSettings2 size={20} /> },
-    { name: "اطلاعات کاربری", href: "/profile/me", icon: <TbUserEdit size={20} /> },
-    { name: "سفارش های من", href: "/profile/payments", icon: <TbBooks size={20} /> },
+    { name: "دوره ها", href: "/profile/courses", icon: <TbBooks size={20} /> },
+    { name: "تراکنش ها", href: "/profile/payments", icon: <TbList size={20} /> },
+    { name: "ویرایش مشخصات", href: "/profile/me", icon: <TbUserEdit size={20} /> },
+    { name: "ویرایش گذرواژه", href: "/profile/password", icon: <PiPasswordBold size={20} /> },
     { name: "خروج", icon: <TbLogout size={20} /> },
   ];
 
@@ -48,6 +59,7 @@ function Header() {
           onMenuOpenChange={setIsMenuOpen}
           className="bg-slate sm:rounded-b-2xl lg:rounded-none min-[1535px]:rounded-b-2xl transition-all duration-300"
           isBlurred={true}
+          isMenuOpen={isMenuOpen}
         >
           <NavbarContent>
             <NavbarMenuToggle
@@ -111,6 +123,7 @@ function Header() {
                     }
                     href={item?.href}
                     size="lg"
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     <div className="ml-3">{item?.icon}</div>
                     {item?.name}
