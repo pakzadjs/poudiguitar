@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { logout } from "@/services/authServices";
-import { TbHome, TbLogout, TbBooks, TbUserEdit, TbSettings2 } from "react-icons/tb";
+import { TbHome, TbLogout, TbBooks, TbUserEdit, TbSettings2, TbList } from "react-icons/tb";
 import { PiPasswordBold } from "react-icons/pi";
 
 function SideBar() {
@@ -44,7 +44,7 @@ function SideBar() {
 
         <li>
           <Link href="/profile/payments" className={listStyles}>
-            <TbBooks size={20} className="ml-3" />
+            <TbList size={20} className="ml-3" />
             تراکنش ها
           </Link>
         </li>
