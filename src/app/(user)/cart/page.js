@@ -51,20 +51,26 @@ function CartPage() {
     );
 
   return (
-    <div className="grid grid-cols-10 gap-10 lg:max-w-screen-lg m-auto">
-      {/* Cart item */}
-      <div className="col-span-7 space-y-5">
-        {cart &&
-          cart?.products?.map((item) => {
-            return <CartItem key={item._id} cartItem={item} />;
-          })}
+    <section className="container mt-4 lg:max-w-screen-lg px-4">
+      <div className="flex items-center text-secondary-800 mb-5">
+        <h1 className="font-black text-2xl text-slate-50">سبد خرید شما</h1>
       </div>
 
-      {/* cart summary */}
-      <div className="col-span-3">
-        <CartSummary payDetail={cart} paying={paying} setPaying={setPaying} />
+      <div className="grid grid-cols-12 gap-6 lg:gap-x-10">
+        {/* Cart item */}
+        <div className="col-span-12 lg:col-span-8">
+          {cart &&
+            cart?.products?.map((item) => {
+              return <CartItem key={item._id} cartItem={item} />;
+            })}
+        </div>
+
+        {/* cart summary */}
+        <div className="col-span-12 lg:col-span-4">
+          <CartSummary payDetail={cart} paying={paying} setPaying={setPaying} />
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
