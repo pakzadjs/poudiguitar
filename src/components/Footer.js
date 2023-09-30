@@ -32,7 +32,7 @@ export default function Footer() {
             </div>
           </div>
           <div className="mt-6">
-            <ul className="flex  justify-between items-center w-full">
+            <ul className="flex justify-around items-center w-full">
               {/* Instagram */}
               <li className="block">
                 <a
