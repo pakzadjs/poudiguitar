@@ -63,7 +63,7 @@ export default function Footer() {
 
               {/* Telegram */}
               <li className="block">
-                <a rel="noreferrer" href="https://t.me/poudisupport" target="_blank">
+                <a rel="noreferrer" href="https://t.me/PoudiGuitar" target="_blank">
                   <BsTelegram
                     size={26}
                     className="hover:text-sky-500 transition-all duration-250"

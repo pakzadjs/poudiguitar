@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { CartIcon } from "@/public/icons/CartIcon";
-import { BiLogoInstagram, BiLogoTelegram } from "react-icons/bi";
+import { BiLogoInstagram, BiLogoTelegram, BiSupport } from "react-icons/bi";
 import { FaBookOpen } from "react-icons/fa";
 import { TbUser, TbUserStar, TbHome, TbSchool, TbLogout } from "react-icons/tb";
 import {
@@ -140,10 +140,20 @@ function Header() {
                     key="Telegram"
                     startContent={<BiLogoTelegram className={iconStyles} />}
                     as={Link}
-                    href="https://t.me/pakzadjs"
+                    href="https://t.me/PoudiGuitar"
                     target="_blank rel=noopener"
                   >
                     کانال تلگرام
+                  </DropdownItem>
+
+                  <DropdownItem
+                    key="Telegram"
+                    startContent={<BiSupport className={iconStyles} />}
+                    as={Link}
+                    href="https://t.me/PoudiSupport"
+                    target="_blank rel=noopener"
+                  >
+                    پشتیبانی
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
