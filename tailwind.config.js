@@ -12,6 +12,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      aspectRatio: {
+        "13/9": "13 / 9",
+      },
       fontFamily: {
         sans: ["var(--font-vazir)", ...fontFamily.sans],
       },
