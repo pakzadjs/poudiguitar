@@ -1,22 +1,9 @@
-FROM node:lts AS development
+FROM node:lts
 
-# Set working directory
-WORKDIR /app
+WORKDIR /var/www/html
 
-# 
-COPY package.json /app/package.json
-COPY package-lock.json /app/package-lock.json
+COPY package.json ./
+RUN npm install
+COPY . .
 
-# Same as npm install
-RUN npm ci
-
-COPY . /app
-
-ENV CI=true
-ENV PORT=3000
-
-CMD [ "npm", "start" ]
-
-FROM development AS build
-
-RUN npm run build
+CMD ["npm", "run", "dev"]
