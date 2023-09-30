@@ -34,7 +34,7 @@ export default function ProductCard({ product }) {
               </div>
             </Link>
           ) : (
-            <div className="h-[170px]">
+            <div className="">
               <Image
                 src={`${baseUrl}/public/uploads/productImages/${product?.image}`}
                 width={300}
