@@ -66,6 +66,7 @@ function Header() {
           onMenuOpenChange={setIsMenuOpen}
           className="bg-gray-800/0 sm:rounded-b-2xl transition-all duration-300"
           isBlurred={true}
+          isMenuOpen={isMenuOpen}
         >
           <NavbarContent>
             <NavbarMenuToggle
@@ -162,6 +163,7 @@ function Header() {
                   <CartIcon
                     size={30}
                     className="text-blue-100 hover:text-blue-500 transition-all duration-250"
+                    onClick={() => setIsMenuOpen(false)}
                   />
                 </Link>
               </Badge>
@@ -234,6 +236,7 @@ function Header() {
                         className="py-3"
                         as={Link}
                         href="/courses"
+                        onClick={() => setIsMenuOpen(false)}
                       >
                         دوره های من
                       </DropdownItem>
@@ -275,6 +278,7 @@ function Header() {
                     }
                     href={item?.href}
                     size="lg"
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     {item?.name}
                   </Link>
