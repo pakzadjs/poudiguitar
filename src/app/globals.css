@@ -34,6 +34,9 @@
   .main-bg-color {
     @apply bg-gradient-to-tl from-sky-950 from-10% via-blue-950 via-30% to-sky-900 to-90%
   }
+  .footer__list {
+    @apply list-disc mb-3 mr-4 hover:text-white transition-all duration-250
+  }
 }
 
 html,
