@@ -20,7 +20,7 @@ async function Downloads({ searchParams }) {
 
   return (
     <div className="max-w-6xl m-auto max-xl:px-14 max-md:px-0">
-      <h1 className="text-xl font-extrabold mb-10 max-md:mr-8">دوره های آموزشی</h1>
+      <h1 className="text-xl font-extrabold mb-10 max-md:mr-8">دانلود ها</h1>
       <div className="grid grid-cols-12">
         <CategorySidebar categories={categories} />
         <div className="mt-12 col-span-12 lg:col-span-8 xl:col-span-9 order-1 lg:order-2 max-xl:px-5">
