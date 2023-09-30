@@ -9,6 +9,11 @@ import ProductCard from "@/common/ProductCard";
 
 export const dynamic = "force-dynamic"; // eq to {cache :"no-store"} or SSR in pages Dir.
 
+export const metadata = {
+  title: "پودی گیتار | دانلود ها",
+  description: "آموزش موسیقی و گیتار",
+};
+
 async function Downloads({ searchParams }) {
   const cookieStore = cookies();
   const strCookies = toStringCookies(cookieStore);

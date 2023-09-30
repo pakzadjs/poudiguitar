@@ -12,6 +12,11 @@ const { value } = cookieStore.get("accessToken");
 
 const access = `accessToken=${value}`;
 
+export const metadata = {
+  title: "تراکنش ها",
+  description: "پروفایل کاربر",
+};
+
 const getPaymentsData = async () => {
   try {
     const data = await axios

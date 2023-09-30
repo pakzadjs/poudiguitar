@@ -7,7 +7,7 @@ import SideBar from "./SideBar";
 import Header from "./Header";
 
 export const metadata = {
-  title: "پروفایل کاربر",
+  title: "پروفایل",
   description: "پروفایل کاربر",
 };
 

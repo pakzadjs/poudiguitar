@@ -11,6 +11,11 @@ const { value } = cookieStore.get("accessToken");
 
 const access = `accessToken=${value}`;
 
+export const metadata = {
+  title: "دوره های من",
+  description: "پروفایل کاربر",
+};
+
 const getData = async (id) => {
   try {
     const data = await axios

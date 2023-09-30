@@ -26,6 +26,13 @@ import Like from "@/common/Like";
 export const dynamicParams = false;
 const baseUrl = process.env.NEXT_PUBLIC_API_URL2;
 
+// {product?.title}
+
+export const metadata = {
+  title: ` پودی گیتار | دوره آموزشی`,
+  description: "آموزش موسیقی و گیتار",
+};
+
 async function ProductDetail({ params }) {
   const { slug } = params;
   const cookieStore = cookies();
@@ -184,6 +191,7 @@ async function ProductDetail({ params }) {
     </main>
   );
 }
+
 export default ProductDetail;
 
 export async function generateStaticParams() {

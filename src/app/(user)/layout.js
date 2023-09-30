@@ -7,7 +7,7 @@ import vazirFont from "@/constants/localFonts";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "پودی | آموزش موسیقی و گیتار",
+  title: "پودی گیتار | آموزش موسیقی و گیتار",
   description: "آموزش موسیقی و گیتار",
 };
 
