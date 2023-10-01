@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import queryString from "query-string";
 import { IoIosArrowBack } from "react-icons/io";
 
+import Search from "./Search";
 import UsersTable from "./UsersTable";
 import SpinnerComponent from "@/common/Spinner";
 import { getAllUsers } from "@/services/adminServices";
@@ -12,18 +13,21 @@ async function Users({ searchParams }) {
   const cookieStore = cookies();
   const strCookies = toStringCookies(cookieStore);
 
-  console.log(queryString.stringify(searchParams));
-
   const data = await getAllUsers(strCookies, queryString.stringify(searchParams));
-
   const { users } = data || {};
 
   if (!users) return <SpinnerComponent />;
 
   return (
     <div className="xl:max-w-screen-xl m-auto">
-      <h2 className="text-xl font-extrabold mb-4 mr-1">کاربر ها</h2>
+      <div className="flex md:items-center gap-x-4 max-md:flex-col">
+        <h2 className="text-xl font-extrabold mr-1">کاربر ها</h2>
+        <div className="ml-3">
+          <Search />
+        </div>
+      </div>
 
+      {/* Table */}
       <div className="z-30 bg-blue-950/50 p-10 rounded-3xl flex items-center">
         {users ? (
           <div className="relative rounded-xl overflow-auto">
@@ -40,6 +44,7 @@ async function Users({ searchParams }) {
                     <th className="table__th">OTP</th>
                   </tr>
                 </thead>
+
                 <tbody className="bg-blue-900/50">
                   {users?.map((detail, index) => {
                     const {
