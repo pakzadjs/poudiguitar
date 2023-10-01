@@ -57,11 +57,10 @@ async function MyCourses() {
                 </thead>
                 <tbody className="bg-blue-900/50">
                   {students?.map((detail) => {
-                    const { license, channel, product, createdAt, _id } = detail;
+                    const { license, product, createdAt, _id } = detail;
                     return (
                       <MyCoursesDetails
                         license={license}
-                        channel={channel}
                         product={product}
                         createdAt={createdAt}
                         key={_id}

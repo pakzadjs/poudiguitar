@@ -16,7 +16,7 @@ import {
 import CopyToClipboard from "@/components/CopyToClipboard";
 import { toLocalDateStringShort } from "@/utils/toLocalDate";
 
-export default function MyCoursesDetails({ license, channel, product, createdAt }) {
+export default function MyCoursesDetails({ license, product, createdAt }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
@@ -147,9 +147,9 @@ export default function MyCoursesDetails({ license, channel, product, createdAt 
       </td>
 
       <td className="table__td">
-        {channel ? (
+        {product?.channel ? (
           <Link
-            href={`https://${channel}`}
+            href={product?.channel}
             target="_blank rel=noopener"
             className="bg-slate-800/50 py-1 px-2 rounded-lg flex items-center justify-center gap-1"
           >
