@@ -84,23 +84,6 @@ function Header() {
           </NavbarContent>
 
           <NavbarContent justify="end">
-            {/* Cart */}
-            <NavbarItem className="flex">
-              <Badge
-                color="danger"
-                content={cart ? user?.cart?.products?.length : 0}
-                classNames={"hidden"}
-                size="lg"
-              >
-                <Link href="/cart">
-                  <CartIcon
-                    size={30}
-                    className="text-blue-100 hover:text-blue-500 transition-all duration-250"
-                  />
-                </Link>
-              </Badge>
-            </NavbarItem>
-
             {/* User button */}
             <NavbarItem className="flex items-center">
               <Link
