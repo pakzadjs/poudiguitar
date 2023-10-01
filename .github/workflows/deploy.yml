@@ -13,8 +13,7 @@ jobs:
           port: 22
           script: |
                   cd /home/ubuntu/poudiguitar
-                  git pull origin main
-                  docker-compose up -d --build
+                  bash deploy.sh
       # - name: Install SSH Key
       #   uses: shimataro/ssh-key-action@v2
       #   with:
