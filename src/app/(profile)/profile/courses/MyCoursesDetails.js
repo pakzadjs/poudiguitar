@@ -57,9 +57,41 @@ export default function MyCoursesDetails({ license, channel, product, createdAt 
                   <ModalBody>
                     <ul className="flex flex-col gap-4">
                       <li>
-                        1. ابتدا وارد سایت spotplayer.ir بشید و بر پایه سیستم عامل خودتون نرم
-                        افزار رو دانلود کنید.
+                        <p className="mb-2">
+                          1. بتدا از طریق لینک های زیر برنامه اسپات پلیر را متناسب با سیستم
+                          عامل خود دانلود و سپس نصب کنید.
+                        </p>
+
+                        <div className="flex items-center gap-2">
+                          <a
+                            rel="noreferrer"
+                            target="_blank"
+                            href="https://app.spotplayer.ir/assets/bin/spotplayer/setup.exe"
+                            className="btn__fourth"
+                          >
+                            نسخه ویندوز
+                          </a>
+
+                          <a
+                            rel="noreferrer"
+                            target="_blank"
+                            href="https://app.spotplayer.ir/assets/bin/spotplayer/setup.dmg"
+                            className="btn__fourth"
+                          >
+                            نسخه مک
+                          </a>
+
+                          <a
+                            rel="noreferrer"
+                            target="_blank"
+                            href="https://app.spotplayer.ir/assets/bin/spotplayer/setup.apk"
+                            className="btn__fourth"
+                          >
+                            نسخه اندروید
+                          </a>
+                        </div>
                       </li>
+
                       <li>
                         2. بعد از نصب نرم افزار، ثبت دوره جدید با علامت + را کلیک کنید و لایسنس
                         خودتون رو وارد کنید.
