@@ -24,7 +24,7 @@ export default function MyCoursesDetails({ license, channel, product, createdAt 
       <td className="table__td text-lg">{product?.title}</td>
 
       <td className="table__td">
-        <CopyToClipboard copyText={license?.key} />
+        <CopyToClipboard copyText={license?.key} title={"کپی لایسنس"} />
       </td>
 
       <td className="table__td">
