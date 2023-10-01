@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { HiExclamationCircle } from "react-icons/hi";
 import { TbCircleCheckFilled, TbCircleXFilled } from "react-icons/tb";
 import {
@@ -14,16 +15,13 @@ import {
 import { toLocalDateStringShort } from "@/utils/toLocalDate";
 import { toPersianNumbers } from "@/utils/toPersianNumbers";
 
-export default function MyPaymentsDetails({
-  paymentMethod,
-  amount,
-  isPaid,
-  createdAt,
-  refId,
-  _id,
-  cart,
-}) {
+const baseClientUrl = process.env.NEXT_PUBLIC_CLIENT_URL;
+
+export default function MyPaymentsDetails(props) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { paymentMethod, amount, isPaid, createdAt, refId, _id, cart } = props;
+
+  console.log(cart?.payDetail?.productIds);
 
   return (
     <tr>
@@ -51,9 +49,16 @@ export default function MyPaymentsDetails({
               showArrow={true}
               content={cart?.payDetail?.productIds.map((course, i) => {
                 return (
-                  <h5 className="p-1 font-bold" key={i}>
-                    {course}
-                  </h5>
+                  <div className="p-1 flex justify-between items-center gap-1">
+                    <span className="font-bold">{toPersianNumbers(i + 1)} -</span>
+                    <Link
+                      href={`${baseClientUrl}/courses/${course?.slug}`}
+                      className="py-1 px-2 font-bold hover:text-blue-500 bg-gray-200/50 rounded-md transition-all duration-250"
+                      key={i}
+                    >
+                      {course?.title}
+                    </Link>
+                  </div>
                 );
               })}
               placement="bottom"
@@ -77,12 +82,16 @@ export default function MyPaymentsDetails({
                     <ModalBody className="m-auto">
                       {cart?.payDetail?.productIds.map((course, i) => {
                         return (
-                          <h5
-                            key={i}
-                            className="py-1 px-3 bg-slate-100/70 rounded-lg font-bold"
-                          >
-                            {course}
-                          </h5>
+                          <div className="py-1 px-2 flex justify-between items-center gap-1 bg-gray-200/50 rounded-md">
+                            <span className="font-bold">{toPersianNumbers(i + 1)} -</span>
+                            <Link
+                              href={`${baseClientUrl}/courses/${course?.slug}`}
+                              className="p-1 font-bold hover:text-blue-500 transition-all duration-250"
+                              key={i}
+                            >
+                              {course?.title}
+                            </Link>
+                          </div>
                         );
                       })}
                     </ModalBody>

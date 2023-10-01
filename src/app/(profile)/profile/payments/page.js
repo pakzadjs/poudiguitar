@@ -59,7 +59,7 @@ async function MyPayments() {
                 <tbody className="bg-blue-900/50">
                   {payments?.map((detail) => {
                     const { paymentMethod, amount, isPaid, createdAt, refId, _id, cart } =
-                      detail;
+                      detail || {};
 
                     return (
                       <MyPaymentsDetails
