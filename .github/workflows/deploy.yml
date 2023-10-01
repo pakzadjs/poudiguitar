@@ -1,7 +1,7 @@
 name: Deployment
 on: [push]
 jobs:
-  write-to-console:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: executing remote ssh commands using key
@@ -14,7 +14,7 @@ jobs:
           script: |
                   cd /home/ubuntu/poudiguitar
                   git pull origin main
-                  sudo docker-compose up -d --build
+                  docker-compose up -d --build
       # - name: Install SSH Key
       #   uses: shimataro/ssh-key-action@v2
       #   with:
