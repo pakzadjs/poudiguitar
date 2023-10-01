@@ -12,7 +12,7 @@ services:
 
   nginx:  
     restart: always
-    image: nginx:alpine
+    image: nginx
     environment: 
       - PANGO_CAIRO_ENABLED=0
       - PANGO_FREETYPE_ENABLED=0
