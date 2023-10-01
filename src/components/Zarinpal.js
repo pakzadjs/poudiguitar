@@ -1,7 +1,9 @@
+"use client";
+
 export default function Zarinpal() {
   return (
     <a
-      href={`https://www.zarinpal.com/trustPage/${window.location.hostname}`}
+      href={`https://www.zarinpal.com/trustPage/${window?.location?.hostname}`}
       title="دروازه پرداخت معتبر"
       target="_blank"
       rel="noreferrer noopener"
