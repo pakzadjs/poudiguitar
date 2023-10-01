@@ -6,6 +6,9 @@
   .textField__input {
     @apply w-full py-3 px-4 rounded-xl bg-gray-100 text-gray-900 border border-gray-100 outline-none duration-200 transition-all ease-in-out hover:border-gray-300 focus:outline-none focus:border-gray-300 focus:shadow-input-focus focus:bg-white;
   }
+  .sidebar__list {
+    @apply w-full hover:bg-slate-400/20 py-3 px-3 rounded-2xl flex items-center transition-all duration-250;
+  }
   .table__th {
     @apply whitespace-nowrap border-b-1 border-sky-900 text-right pr-[2rem] pl-[1rem] pb-[0.75rem];
   }
