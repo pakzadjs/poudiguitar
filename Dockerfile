@@ -33,7 +33,7 @@ EXPOSE 3000
 
 # Run container as non-root (unprivileged) user
 # The node user is provided in the Node.js Alpine base image
-USER node
+USER 1000
 RUN chmod -R 777 /usr/app/.next/cache
 # Run npm start script when container starts
 CMD [ "npm" , "run" , "start" ]
