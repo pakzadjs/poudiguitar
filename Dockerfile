@@ -23,6 +23,7 @@ RUN npm install --production
 
 # Copy all files
 COPY ./ ./
+RUN chmod -R 777 /usr/app/.next/cache
 
 # Build app
 RUN npm run build
