@@ -1,6 +1,7 @@
 import http from "./httpService";
 
 export function getCourses(queryString, cookies) {
+  console.log("Sending request...")
   return http
     .get(`/product/list?${queryString}&type=course`, {
       headers: {
