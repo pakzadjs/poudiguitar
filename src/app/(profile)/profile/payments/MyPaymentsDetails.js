@@ -21,8 +21,6 @@ export default function MyPaymentsDetails(props) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { paymentMethod, amount, isPaid, createdAt, refId, _id, cart } = props;
 
-  console.log(cart?.payDetail?.productIds);
-
   return (
     <tr>
       <td className="table__td">

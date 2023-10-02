@@ -1,40 +1,21 @@
-import axios from "axios";
 import { cookies } from "next/headers";
-import MyPaymentsDetails from "./MyPaymentsDetails";
 import Link from "next/link";
-
+import axios from "axios";
 import { IoIosArrowBack } from "react-icons/io";
-
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
-
-const cookieStore = cookies();
-const { value } = cookieStore.get("accessToken");
-
-const access = `accessToken=${value}`;
+import MyPaymentsDetails from "./MyPaymentsDetails";
+import { toStringCookies } from "@/utils/toStringCookies";
+import { getPayments } from "@/services/paymentService";
 
 export const metadata = {
   title: "تراکنش ها",
   description: "پروفایل کاربر",
 };
 
-const getPaymentsData = async () => {
-  try {
-    const data = await axios
-      .get(`${baseURL}/payment/list`, {
-        headers: {
-          Cookie: access,
-          Origin: process.env.NEXT_PUBLIC_CLIENT_URL,
-        },
-      })
-      .then(({ data }) => data.data);
-    return data;
-  } catch (error) {
-    console.log(error?.response?.data);
-  }
-};
-
 async function MyPayments() {
-  const data = await getPaymentsData();
+  const cookieStore = cookies();
+  const strCookies = toStringCookies(cookieStore);
+
+  const data = await getPayments(strCookies);
   const { payments } = data || {};
 
   return (

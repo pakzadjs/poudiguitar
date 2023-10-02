@@ -1,39 +1,21 @@
-import Link from "next/link";
 import { cookies } from "next/headers";
+import Link from "next/link";
 import axios from "axios";
 import { IoIosArrowBack } from "react-icons/io";
 import MyCoursesDetails from "./MyCoursesDetails";
-
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
-
-const cookieStore = cookies();
-const { value } = cookieStore.get("accessToken");
-
-const access = `accessToken=${value}`;
+import { toStringCookies } from "@/utils/toStringCookies";
+import { getPaidCourses } from "@/services/studentService";
 
 export const metadata = {
   title: "دوره های من",
   description: "پروفایل کاربر",
 };
 
-const getData = async (id) => {
-  try {
-    const data = await axios
-      .get(`${baseURL}/student/list`, {
-        headers: {
-          Cookie: access,
-          Origin: process.env.NEXT_PUBLIC_CLIENT_URL,
-        },
-      })
-      .then(({ data }) => data.data);
-    return data;
-  } catch (error) {
-    console.log(error?.response?.data);
-  }
-};
-
 async function MyCourses() {
-  const data = await getData();
+  const cookieStore = cookies();
+  const strCookies = toStringCookies(cookieStore);
+
+  const data = await getPaidCourses(strCookies);
   const { students } = data || {};
 
   return (

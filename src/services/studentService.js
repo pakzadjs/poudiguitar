@@ -1,5 +1,11 @@
 import http from "./httpService";
 
-export function getPaidCourses() {
-  return http.get("/student/list").then(({ data }) => data.data);
+export function getPaidCourses(cookies) {
+  return http
+    .get("/student/list", {
+      headers: {
+        Cookie: cookies,
+      },
+    })
+    .then(({ data }) => data.data);
 }
