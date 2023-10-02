@@ -195,7 +195,9 @@ async function ProductDetail({ params }) {
 export default ProductDetail;
 
 export async function generateStaticParams() {
+  console.log("Here")
   const { products } = await getCourses();
+  console.log("After")
   if(products && products != null){
     return products.map((product) => ({
       slug: product.slug,
