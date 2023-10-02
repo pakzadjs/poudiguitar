@@ -34,20 +34,37 @@ export default function CartItem({ cartItem }) {
         {/* Title */}
         <div className="col-span-12 sm:col-span-8 flex items-center">
           <div className="relative w-16 h-16 lg:w-28 lg:h-28 ml-2 sm:ml-3 flex-shrink-0">
-            <img
-              src={`${baseUrl2}/public/uploads/productImages/${image}`}
-              alt="Course Image"
-              className="object-cover object-center rounded-xl"
-              width={100}
-              height={100}
-              style={{
-                position: "absolute",
-                height: "100%",
-                width: "100%",
-                inset: "0px",
-                color: "transparent",
-              }}
-            />
+            {image ? (
+              <img
+                src={`${baseUrl2}/public/uploads/productImages/${image}`}
+                alt="Course Image"
+                className="object-cover object-center rounded-xl"
+                width={100}
+                height={100}
+                style={{
+                  position: "absolute",
+                  height: "100%",
+                  width: "100%",
+                  inset: "0px",
+                  color: "transparent",
+                }}
+              />
+            ) : (
+              <img
+                src="images/no-image.jpg"
+                alt="Course Image"
+                className="object-cover object-center rounded-xl"
+                width={100}
+                height={100}
+                style={{
+                  position: "absolute",
+                  height: "100%",
+                  width: "100%",
+                  inset: "0px",
+                  color: "transparent",
+                }}
+              />
+            )}
           </div>
 
           <div className="">
