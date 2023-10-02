@@ -30,6 +30,7 @@ export default function ProductCard({ product }) {
                     src={`${baseUrl}/public/uploads/productImages/${product?.image}`}
                     width={300}
                     height={100}
+                    alt={product?.slug}
                     className="object-cover object-center h-full w-full rounded-xl aspect-13/9"
                   />
                 ) : (
@@ -37,6 +38,7 @@ export default function ProductCard({ product }) {
                     src="/images/no-image.jpg"
                     width={300}
                     height={100}
+                    alt={product?.slug}
                     className="object-cover object-center h-full w-full rounded-xl aspect-13/9"
                   />
                 )}
@@ -49,6 +51,7 @@ export default function ProductCard({ product }) {
                   src={`${baseUrl}/public/uploads/productImages/${product?.image}`}
                   width={300}
                   height={100}
+                  alt={product?.slug}
                   className="object-cover object-center h-full w-full rounded-xl aspect-13/9"
                 />
               ) : (
@@ -56,6 +59,7 @@ export default function ProductCard({ product }) {
                   src="/images/no-image.jpg"
                   width={300}
                   height={100}
+                  alt={product?.slug}
                   className="object-cover object-center h-full w-full rounded-xl aspect-13/9"
                 />
               )}
