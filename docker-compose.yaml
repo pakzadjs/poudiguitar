@@ -29,8 +29,10 @@ services:
   nextjs:
     build: ./
     volumes:
-      - ./cache:/usr/app/.next/cache/*:rw,Z
+      - ./next-cache:/usr/app/.next/cache:rw,Z 
   nginx:
     build: ./nginx
     ports:
       - 83:80
+volumes:
+  next-cache: {}
