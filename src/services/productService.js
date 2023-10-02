@@ -1,14 +1,22 @@
 import http from "./httpService";
 
+
 export function getCourses(queryString, cookies) {
-  console.log("Sending request...")
   return http
-    .get(`/product/list?${queryString}&type=course`, {
-      headers: {
-        Cookie: cookies,
-      },
-    })
-    .then(({ data }) => data.data);
+  .get(`/product/list?${queryString}&type=course`, {
+    headers: {
+      Cookie: cookies,
+    },
+  }).then(({data}) => {
+    if (!data) {
+      throw new Error('No data returned') 
+    }
+    return data.data;
+  })
+  .catch(err => {
+    console.error(err);
+    return []; // return empty array on error
+  });
 }
 
 export function getDownloadables(queryString, cookies) {
