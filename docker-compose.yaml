@@ -28,6 +28,8 @@ version: '3'
 services:
   nextjs:
     build: ./
+    volumes:
+      - ./cache:/usr/app/.next/cache:rw,Z
   nginx:
     build: ./nginx
     ports:
