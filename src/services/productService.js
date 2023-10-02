@@ -9,7 +9,7 @@ export function getCourses(queryString, cookies) {
     },
   }).then(({data}) => {
     if (!data) {
-      throw new Error('No data returned') 
+      return []
     }
     return data.data;
   })
