@@ -2,6 +2,7 @@
 const nextConfig = {};
 
 module.exports = {
+  staticGeneration: false ,
   images: {
     remotePatterns: [
       {

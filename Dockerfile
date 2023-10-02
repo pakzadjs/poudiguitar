@@ -1,4 +1,4 @@
-FROM node:lts
+FROM node:18.13.0
 
 # WORKDIR /var/www/html
 
@@ -35,4 +35,4 @@ EXPOSE 3000
 USER node
 
 # Run npm start script when container starts
-CMD [ "npm", "run" ]
+CMD [ "npm" , "run" , "start" ]
