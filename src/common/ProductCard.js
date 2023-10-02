@@ -25,22 +25,40 @@ export default function ProductCard({ product }) {
           {product?.type == "course" ? (
             <Link href={`/courses/${product?.slug}`}>
               <div className="">
+                {product?.image ? (
+                  <Image
+                    src={`${baseUrl}/public/uploads/productImages/${product?.image}`}
+                    width={300}
+                    height={100}
+                    className="object-cover object-center h-full w-full rounded-xl aspect-13/9"
+                  />
+                ) : (
+                  <Image
+                    src="/images/no-image.jpg"
+                    width={300}
+                    height={100}
+                    className="object-cover object-center h-full w-full rounded-xl aspect-13/9"
+                  />
+                )}
+              </div>
+            </Link>
+          ) : (
+            <div className="">
+              {product?.image ? (
                 <Image
                   src={`${baseUrl}/public/uploads/productImages/${product?.image}`}
                   width={300}
                   height={100}
                   className="object-cover object-center h-full w-full rounded-xl aspect-13/9"
                 />
-              </div>
-            </Link>
-          ) : (
-            <div className="">
-              <Image
-                src={`${baseUrl}/public/uploads/productImages/${product?.image}`}
-                width={300}
-                height={100}
-                className="object-cover object-center h-full w-full rounded-xl aspect-13/9"
-              />
+              ) : (
+                <Image
+                  src="/images/no-image.jpg"
+                  width={300}
+                  height={100}
+                  className="object-cover object-center h-full w-full rounded-xl aspect-13/9"
+                />
+              )}
             </div>
           )}
 
