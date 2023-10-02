@@ -198,6 +198,6 @@ export async function generateStaticParams() {
   const { products } = await getCourses();
 
   return products.map((product) => ({
-    slug: product.slug,
+    slug: product.slug ?? 1,
   }));
 }
