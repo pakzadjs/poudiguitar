@@ -33,6 +33,9 @@ EXPOSE 3000
 
 # Run container as non-root (unprivileged) user
 # The node user is provided in the Node.js Alpine base image
-USER node
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+USER nextjs
 # Run npm start script when container starts
 CMD [ "npm" , "run" , "start" ]
