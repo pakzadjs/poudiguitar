@@ -2,6 +2,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import queryString from "query-string";
 import { IoIosArrowBack } from "react-icons/io";
+import { FaArrowRotateLeft } from "react-icons/fa6";
 
 import Search from "./Search";
 import UsersTable from "./UsersTable";
@@ -22,9 +23,17 @@ async function Users({ searchParams }) {
     <div className="xl:max-w-screen-xl m-auto">
       <div className="flex md:items-center gap-x-4 max-md:flex-col">
         <h2 className="text-xl font-extrabold mr-1">کاربر ها</h2>
+
         <div className="ml-3">
           <Search />
         </div>
+
+        <Link href="/admin/users">
+          <FaArrowRotateLeft
+            size={25}
+            className="text-blue-100/70 hover:text-white transition-all duration-250"
+          />
+        </Link>
       </div>
 
       {/* Table */}

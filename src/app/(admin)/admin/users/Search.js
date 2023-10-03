@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Input } from "@nextui-org/react";
 import { TbSearch } from "react-icons/tb";
 
-export default function Search() {
+export default function Search({ placeholder }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -61,7 +61,7 @@ export default function Search() {
             "!cursor-text",
           ],
         }}
-        placeholder="جستجو"
+        placeholder={placeholder ? placeholder : "جستجو"}
       />
 
       <button className="btn rounded-2xl py-[13px] px-5" onClick={searchHandler}>
