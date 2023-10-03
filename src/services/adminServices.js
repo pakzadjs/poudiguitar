@@ -29,3 +29,13 @@ export function getAllPayments(cookies, queryString) {
     })
     .then(({ data }) => data.data);
 }
+
+export function getAllCourses(cookies, queryString) {
+  return http
+    .get(`/admin/product/list?${queryString}&type=course`, {
+      headers: {
+        Cookie: cookies,
+      },
+    })
+    .then(({ data }) => data.data);
+}
