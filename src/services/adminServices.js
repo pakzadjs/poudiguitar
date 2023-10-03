@@ -19,3 +19,13 @@ export function getAllStudents(cookies, queryString) {
     })
     .then(({ data }) => data.data);
 }
+
+export function getAllPayments(cookies, queryString) {
+  return http
+    .get(`/admin/payment/list?${queryString}`, {
+      headers: {
+        Cookie: cookies,
+      },
+    })
+    .then(({ data }) => data.data);
+}
