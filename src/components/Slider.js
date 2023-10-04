@@ -27,7 +27,7 @@ export default function Slider({ courses }) {
         modules={[Autoplay, Navigation]}
         className="mySwiper cursor-grab"
       >
-        {courses.map((course, i) => {
+        {courses?.map((course, i) => {
           return (
             <SwiperSlide className="swiper-slide" key={i}>
               <div className="my-20">
