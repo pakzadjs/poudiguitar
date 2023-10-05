@@ -15,18 +15,20 @@ export default function Zarinpal() {
     //   />
     // </a>
 
-    <a
-      referrerPolicy="origin"
-      target="_blank"
-      href="https://trustseal.enamad.ir/u?id=386830&code=HqIN3GAgKs9rmyFeYFODYW8UPF0Qdipt"
-    >
-      <img
-        referrerPolicy="origin"
-        src="https://trustseal.enamad.ir/logo.aspx?id=386830&code=HqIN3GAgKs9rmyFeYFODYW8UPF0Qdipt"
-        alt=""
-        style={{ cursor: "pointer" }}
-        code="HqIN3GAgKs9rmyFeYFODYW8UPF0Qdipt"
-      />
-    </a>
+    // <a
+    //   referrerPolicy="origin"
+    //   target="_blank"
+    //   href="https://trustseal.enamad.ir/u?id=386830&code=HqIN3GAgKs9rmyFeYFODYW8UPF0Qdipt"
+    // >
+    //   <img
+    //     referrerPolicy="origin"
+    //     src="https://trustseal.enamad.ir/logo.aspx?id=386830&code=HqIN3GAgKs9rmyFeYFODYW8UPF0Qdipt"
+    //     alt=""
+    //     style={{ cursor: "pointer" }}
+    //     code="HqIN3GAgKs9rmyFeYFODYW8UPF0Qdipt"
+    //   />
+    // </a>
+
+    <div></div>
   );
 }
