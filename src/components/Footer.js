@@ -13,24 +13,25 @@ export default function Footer() {
       <div className="grid gap-10 md:gap-14 grid-cols-5 grid-row-2 container md:max-w-screen-xl mx-auto px-3 lg:px-20">
         <div className="col-span-5 md:col-span-2 flex flex-col justify-start">
           <div>
-            <h2 className="font-bold text-xs sm:text-sm mb-4 text-white">
+            {/* <h2 className="font-bold text-xs sm:text-sm mb-4 text-white">
               لورم ایپسوم با تولید سادگی نامفهوم از صنعت چاپ <strong>متن ساختگی</strong>
-            </h2>
+            </h2> */}
 
             <div className="sm:leading-7 text-xs sm:text-sm leading-5">
-              <span className="text-white">
+              {/* <span className="text-white">
                 <strong className="font-bold">پوریا احمدی هستم، موزیسین </strong>و مدیر وبسایت
                 آموزش گیتار و موزیکِ پودی گیتار.
-              </span>
+              </span> */}
 
               <p className="leading-5 md:leading-7">
-                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
-                طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطان امید داشت
-                که تمام و دشواری موجود در ارائه راهکارها، و جوابگوی سوالات پیوسته اهل دنیای
-                موجود طراحی اساسا مورد استفاده قرار گیرد.
+                هدف پودی گیتار صرفا آموزش دانسته های موسیقی من نیست، تربیت موج جدیدی از
+                موسیقیدان ها و نوازنده های استاندارده که بتونن حرفی برای گفتن داشته باشن، خلاق
+                باشن و از آزمون و خطا و بیرون زدن از چهارچوب ها نترسن. بتونن ذهنیت هاشونو تبدیل
+                موج های صوتی کنن تا هم خودشون لذت ببرن، هم بیننده ها و شنونده ها
               </p>
             </div>
           </div>
+
           <div className="mt-6">
             <ul className="flex justify-around items-center w-full">
               {/* Instagram */}
