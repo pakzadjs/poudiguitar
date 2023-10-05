@@ -9,6 +9,7 @@ import UsersTable from "./UsersTable";
 import SpinnerComponent from "@/common/Spinner";
 import { getAllUsers } from "@/services/adminServices";
 import { toStringCookies } from "@/utils/toStringCookies";
+import { toPersianNumbers } from "@/utils/toPersianNumbers";
 
 async function Users({ searchParams }) {
   const cookieStore = cookies();
@@ -22,13 +23,21 @@ async function Users({ searchParams }) {
   return (
     <div className="xl:max-w-screen-xl m-auto">
       <div className="flex md:items-center gap-x-4 max-md:flex-col">
-        <h2 className="text-xl font-extrabold mr-1">کاربر ها</h2>
+        <h2 className="text-xl font-extrabold mr-1 flex items-center gap-2">
+          <span>کاربر ها:</span>
+          <span className="px-2 py-1 rounded-md bg-blue-500/20">
+            {toPersianNumbers(users?.length)}
+          </span>
+        </h2>
 
         <div className="ml-3">
           <Search />
         </div>
 
-        <Link href="/admin/users">
+        <Link
+          href="/admin/users"
+          className="max-md:mx-3 max-md:mb-4 max-md:bg-blue-500/20 max-md:hover:bg-blue-500/40 max-md:p-2 max-md:rounded-xl flex justify-center transition-all duration-250"
+        >
           <FaArrowRotateLeft
             size={25}
             className="text-blue-100/70 hover:text-white transition-all duration-250"
