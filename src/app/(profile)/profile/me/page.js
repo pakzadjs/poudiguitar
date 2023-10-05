@@ -151,19 +151,15 @@ export default function Me() {
         />
 
         <div className="pt-2">
-          {isUpdating ? (
-            "loading"
-          ) : (
-            <Button
-              type="submit"
-              color="primary"
-              className="w-full"
-              isLoading={isLoading && true}
-              isDisabled={!formik.isValid}
-            >
-              ثبت تغییرات
-            </Button>
-          )}
+          <Button
+            type="submit"
+            color="primary"
+            className="w-full"
+            isLoading={isUpdating && true}
+            isDisabled={!formik.isValid}
+          >
+            ثبت تغییرات
+          </Button>
         </div>
       </form>
     </div>
