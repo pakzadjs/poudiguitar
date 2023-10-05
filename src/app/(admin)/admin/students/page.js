@@ -1,15 +1,16 @@
+import Link from "next/link";
 import { cookies } from "next/headers";
 import queryString from "query-string";
 import { IoIosArrowBack } from "react-icons/io";
 import { FaArrowRotateLeft } from "react-icons/fa6";
 
+import { toPersianNumbers } from "@/utils/toPersianNumbers";
 import { toStringCookies } from "@/utils/toStringCookies";
 import { getAllStudents } from "@/services/adminServices";
 import SpinnerComponent from "@/common/Spinner";
 import StudentsTable from "./StudentsTable";
 import Search from "../users/Search";
 import SearchByProducts from "./SearchByProducts";
-import Link from "next/link";
 
 async function Students({ searchParams }) {
   const cookieStore = cookies();
@@ -23,7 +24,12 @@ async function Students({ searchParams }) {
   return (
     <div className="xl:max-w-screen-xl m-auto">
       <div className="flex md:items-center gap-x-4 max-md:flex-col">
-        <h2 className="text-xl font-extrabold mr-1">لایسنس های هنرجو ها</h2>
+        <h2 className="text-xl font-extrabold mr-1 flex items-center gap-2">
+          <span>لایسنس های هنرجو ها:</span>
+          <span className="px-2 py-1 rounded-md bg-blue-500/20">
+            {toPersianNumbers(students?.length)}
+          </span>
+        </h2>
 
         <div className="ml-3">
           <Search />
@@ -33,7 +39,10 @@ async function Students({ searchParams }) {
           <SearchByProducts placeholder="جستجو با آیدیِ دوره" />
         </div>
 
-        <Link href="/admin/students">
+        <Link
+          href="/admin/students"
+          className="max-md:mx-3 max-md:mb-4 max-md:bg-blue-500/20 max-md:hover:bg-blue-500/40 max-md:p-2 max-md:rounded-xl flex justify-center transition-all duration-250"
+        >
           <FaArrowRotateLeft
             size={25}
             className="text-blue-100/70 hover:text-white transition-all duration-250"
