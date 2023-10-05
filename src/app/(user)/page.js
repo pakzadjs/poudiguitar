@@ -7,6 +7,7 @@ import { toStringCookies } from "@/utils/toStringCookies";
 import { getCourses } from "@/services/productService";
 import Hero from "@/components/Hero";
 import Slider from "@/components/Slider";
+import EffectCardsComponent from "@/components/EffectCards";
 
 async function Home({ searchParams }) {
   const cookieStore = cookies();
@@ -38,15 +39,19 @@ async function Home({ searchParams }) {
       >
         <div className="">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-black">جدید ترین دوره ها</h2>
-            <Link href="/courses" className="btn gap-1">
-              <span>همه دوره ها</span>
-              <TbArrowBigLeftFilled size={20}/>
+            <h2 className="text-2xl max-md:text-xl font-black">جدید ترین دوره ها</h2>
+            <Link href="/courses" className="btn gap-2">
+              <span className="max-md:text-sm">همه دوره ها</span>
+              <TbArrowBigLeftFilled size={20} />
             </Link>
           </div>
 
           <div className="flex-1 overflow-x-hidden rounded-lg overflow-hidden">
             <Slider courses={products} />
+          </div>
+
+          <div>
+            <EffectCardsComponent />
           </div>
         </div>
       </div>
