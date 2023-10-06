@@ -7,6 +7,7 @@ import { CartIcon } from "@/public/icons/CartIcon";
 
 import {
   TbUser,
+  TbUserStar,
   TbHome,
   TbLogout,
   TbBooks,
@@ -98,12 +99,21 @@ function Header() {
 
             {/* User button */}
             <NavbarItem className="flex items-center">
-              <Link
-                href="/profile"
-                className={`hover:bg-blue-600 bg-blue-600/30 p-3 transition-all duration-250 rounded-2xl inline-block cursor-pointer`}
-              >
-                <TbUser size={20} />
-              </Link>
+              {user?.role == "ADMIN" ? (
+                <Link
+                  href="/admin"
+                  className={`hover:bg-blue-600 bg-blue-600/30 p-3 transition-all duration-250 rounded-2xl inline-block cursor-pointer`}
+                >
+                  <TbUserStar size={20} />
+                </Link>
+              ) : (
+                <Link
+                  href="/profile"
+                  className={`hover:bg-blue-600 bg-blue-600/30 p-3 transition-all duration-250 rounded-2xl inline-block cursor-pointer`}
+                >
+                  <TbUser size={20} />
+                </Link>
+              )}
             </NavbarItem>
           </NavbarContent>
 
