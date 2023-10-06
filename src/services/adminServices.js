@@ -63,3 +63,21 @@ export function removeStaticPage(id) {
 export function updateStaticPage({ body, id }) {
   return http.patch(`/admin/staticPage/update/${id}`, body).then(({ data }) => data.data);
 }
+
+// Categories
+
+export function getAllCategories() {
+  return http.get("/category/list").then(({ data }) => data.data);
+}
+
+export function createCategory(body) {
+  return http.post("/admin/category/add", body).then(({ data }) => data.data);
+}
+
+export function removeCategory(id) {
+  return http.delete(`/admin/category/remove/${id}`).then(({ data }) => data.data);
+}
+
+export function updateCategory({ body, id }) {
+  return http.patch(`/admin/category/update/${id}`, body).then(({ data }) => data.data);
+}
