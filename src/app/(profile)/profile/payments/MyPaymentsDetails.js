@@ -47,7 +47,7 @@ export default function MyPaymentsDetails(props) {
               showArrow={true}
               content={cart?.payDetail?.productIds.map((course, i) => {
                 return (
-                  <div className="p-1 flex justify-between items-center gap-1" key={i}>
+                  <div className="flex items-center justify-between p-2 w-full gap-2" key={i}>
                     <span className="font-bold">{toPersianNumbers(i + 1)} -</span>
                     <Link
                       href={`${baseClientUrl}/courses/${course?.slug}`}
