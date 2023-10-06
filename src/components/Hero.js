@@ -27,9 +27,9 @@ export default function Hero() {
 
             <div className="flex items-center gap-2">
               <Link href="/courses" className="">
-                <button className="btn gap-1">
+                <button className="btn gap-1 max-sm:w-36">
                   <MdMusicNote size={20} />
-                  <span className="max-md:text-sm">مشاهده دوره ها</span>
+                  <span className="max-md:text-sm max-sm:text-xs">مشاهده دوره ها</span>
                 </button>
               </Link>
 
