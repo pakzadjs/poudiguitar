@@ -1,15 +1,20 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 
 import { IoIosArrowBack } from "react-icons/io";
 import SpinnerComponent from "@/common/Spinner";
 import { getAllCategories } from "@/services/adminServices";
 import { toPersianNumbers } from "@/utils/toPersianNumbers";
+import { toStringCookies } from "@/utils/toStringCookies";
 
 import CategoriesTable from "./CategoriesTable";
 import AddCategory from "./AddCategory";
 
 async function Categories({ searchParams }) {
-  const data = await getAllCategories();
+  const cookieStore = cookies();
+  const strCookies = toStringCookies(cookieStore);
+
+  const data = await getAllCategories(strCookies);
   const { categories } = data || {};
 
   if (!categories) return <SpinnerComponent />;

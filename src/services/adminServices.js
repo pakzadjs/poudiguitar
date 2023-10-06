@@ -66,8 +66,14 @@ export function updateStaticPage({ body, id }) {
 
 // Categories
 
-export function getAllCategories() {
-  return http.get("/category/list").then(({ data }) => data.data);
+export function getAllCategories(cookies) {
+  return http
+    .get("/category/list", {
+      headers: {
+        Cookie: cookies,
+      },
+    })
+    .then(({ data }) => data.data);
 }
 
 export function createCategory(body) {
