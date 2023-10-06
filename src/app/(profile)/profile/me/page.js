@@ -22,7 +22,7 @@ const initialUserProfileValues = {
 };
 
 const userProfileValidationSchema = Yup.object({
-  biography: Yup.string().min(6, "بیشتر از شش کارکتر وارد کن"),
+  biography: Yup.string(),
   name: Yup.string()
     .required("نام کامل خود را وارد کنید")
     .matches(/^[\u0600-\u06FF\s]+$/, "نام خود را فارسی وارد کنید")
