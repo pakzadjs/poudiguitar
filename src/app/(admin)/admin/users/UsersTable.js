@@ -37,7 +37,7 @@ export default function UsersTable({
             className="text-slate-900"
             showArrow={true}
             content={
-              <div className="">
+              <div className="flex flex-col items-center gap-y-4 my-3">
                 <div>
                   {avatar ? (
                     <Image
@@ -45,13 +45,31 @@ export default function UsersTable({
                       height={100}
                       src={`${baseUrl}/public/uploads/avatars/${avatar}`}
                       alt="Avatar"
+                      className="rounded-md"
                     />
                   ) : (
                     <div>کاربر عکس ندارد</div>
                   )}
                 </div>
 
-                <div className=""></div>
+                <div>
+                  <div className="flex items-center justify-between p-2">
+                    <p className="px-5">نام</p>
+                    <span className=" px-2 py-1 bg-slate-200 rounded-md">{name}</span>
+                  </div>
+
+                  <div className="flex items-center justify-between p-2">
+                    <p className="px-5">شماره موبایل</p>
+                    <span className=" px-2 py-1 bg-slate-200 rounded-md">
+                      {toPersianNumbers(phoneNumber)}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between p-2">
+                    <p className="px-5">ایمیل</p>
+                    <span className=" px-2 py-1 bg-slate-200 rounded-md">{email}</span>
+                  </div>
+                </div>
               </div>
             }
             placement="bottom"
