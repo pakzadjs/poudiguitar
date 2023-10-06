@@ -21,7 +21,7 @@ async function Payments() {
         {payments ? (
           <div className="relative rounded-xl overflow-auto">
             <div className="shadow-sm overflow-auto my-8">
-              <table className="border-collapse table-auto w-full min-w-[900px] text-sm">
+              <table className="border-collapse table-auto w-full min-w-[1000px] text-sm">
                 <thead>
                   <tr>
                     <th className="table__th">وضعیت</th>
