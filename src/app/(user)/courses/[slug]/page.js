@@ -9,6 +9,7 @@ import {
   TbCloudDownload,
 } from "react-icons/tb";
 import { BiSupport } from "react-icons/bi";
+import sanitizeHtml from "sanitize-html";
 
 import { getCourses, getOneProductBySlug } from "@/services/productService";
 import { toLocalDateStringShort } from "@/utils/toLocalDate";
@@ -164,8 +165,9 @@ async function ProductDetail({ params }) {
           <div className="bg-blue-950/50 rounded-xl p-3 lg:p-6">
             <h2 className="text-2xl font-black text-sky-500 mb-5">توضیحات دوره</h2>
             <div className="">
-              <p>{product?.description}</p>
-              <div></div>
+              <div
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(product?.description) }}
+              ></div>
             </div>
           </div>
 
@@ -196,13 +198,12 @@ export default ProductDetail;
 
 export async function generateStaticParams() {
   const { products } = await getCourses();
-  if(!products) {
+  if (!products) {
     return [];
   }
-  if(products && products != null){
+  if (products && products != null) {
     return products.map((product) => ({
       slug: product.slug,
     }));
   }
-  
 }
