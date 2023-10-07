@@ -30,16 +30,6 @@ export function getAllPayments(cookies, queryString) {
     .then(({ data }) => data.data);
 }
 
-export function getAllCourses(cookies, queryString) {
-  return http
-    .get(`/admin/product/list?${queryString}&type=course`, {
-      headers: {
-        Cookie: cookies,
-      },
-    })
-    .then(({ data }) => data.data);
-}
-
 // Static Pages
 
 export function getAllStaticPages(cookies, queryString) {
@@ -86,4 +76,38 @@ export function removeCategory(id) {
 
 export function updateCategory({ body, id }) {
   return http.patch(`/admin/category/update/${id}`, body).then(({ data }) => data.data);
+}
+
+// Product
+
+export function getAllCourses(cookies, queryString) {
+  return http
+    .get(`/admin/product/list?${queryString}&type=course`, {
+      headers: {
+        Cookie: cookies,
+      },
+    })
+    .then(({ data }) => data.data);
+}
+
+export function getAllDownloadables(cookies, queryString) {
+  return http
+    .get(`/admin/product/list?${queryString}&type=downloadable`, {
+      headers: {
+        Cookie: cookies,
+      },
+    })
+    .then(({ data }) => data.data);
+}
+
+export function createProduct(body) {
+  return http.post("/admin/product/add", body).then(({ data }) => data.data);
+}
+
+export function removeProduct(id) {
+  return http.delete(`/admin/product/remove/${id}`).then(({ data }) => data.data);
+}
+
+export function updateProduct({ id, body }) {
+  return http.patch(`/admin/product/update/${id}`, body).then(({ data }) => data.data);
 }

@@ -1,18 +1,22 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
-import { TbPlus } from "react-icons/tb";
 
 import { toStringCookies } from "@/utils/toStringCookies";
+import { getCategories } from "@/services/categoryService";
 import { getAllCourses } from "@/services/adminServices";
 import CoursesTable from "./CoursesTable";
+import AddCourse from "./AddCourse";
 
 async function Allcourses() {
   const cookieStore = cookies();
   const strCookies = toStringCookies(cookieStore);
 
-  const data = await getAllCourses(strCookies);
-  const { products } = data || {};
+  const productsData = await getAllCourses(strCookies);
+  const { products } = productsData || {};
+
+  const categoryData = await getCategories(strCookies);
+  const { categories } = categoryData || {};
 
   return (
     <div className="xl:max-w-screen-xl m-auto">
@@ -20,15 +24,14 @@ async function Allcourses() {
         <h2 className="text-xl font-extrabold mr-1">دوره ها</h2>
 
         <div className="flex items-center gap-1 hover:text-green-500 transition-all duration-250">
-          <p>اضافه کردن دوره جدید</p>
-          <TbPlus size={25} />
+          <AddCourse categories={categories} />
         </div>
       </div>
       <div className="z-30 bg-blue-950/50 p-10 rounded-3xl flex items-center">
         {products ? (
           <div className="relative rounded-xl overflow-auto">
             <div className="shadow-sm overflow-auto my-8">
-              <table className="border-collapse table-auto w-full min-w-[1100px] text-sm">
+              <table className="border-collapse table-auto w-full min-w-[1500px] text-sm">
                 <thead>
                   <tr>
                     <th className="table__th">#</th>
@@ -43,7 +46,14 @@ async function Allcourses() {
                 </thead>
                 <tbody className="bg-blue-900/50">
                   {products?.map((course, index) => {
-                    return <CoursesTable key={index} index={index} course={course} />;
+                    return (
+                      <CoursesTable
+                        key={index}
+                        index={index}
+                        course={course}
+                        categories={categories}
+                      />
+                    );
                   })}
                 </tbody>
               </table>

@@ -2,9 +2,11 @@
 
 import { toPersianNumbers, toPersianNumbersWithComma } from "@/utils/toPersianNumbers";
 import { toLocalDateStringShort } from "@/utils/toLocalDate";
-import TooltipComponent from "./Tooltip";
+import UpdateCourse from "./UpdateCourse";
+import RemoveProduct from "./RemoveProduct";
+import ReviewCourse from "./ReviewCourse";
 
-export default function CoursesTable({ course, index }) {
+export default function CoursesTable({ course, index, categories }) {
   const { title, category, price, offPrice, discount, createdAt } = course || {};
 
   return (
@@ -58,7 +60,23 @@ export default function CoursesTable({ course, index }) {
 
       {/* Options */}
       <td className="table__td">
-        <TooltipComponent />
+        <div className="flex items-center gap-2">
+          <UpdateCourse course={course} categories={categories} />
+
+          <RemoveProduct course={course} />
+
+          <ReviewCourse course={course} />
+
+          <div className="flex items-center gap-4">
+            <div className="btn__third">اضافه کردن عکس</div>
+
+            <div className="btn__third">اضافه کردن ویدیو</div>
+
+            <div className="btn__third">FAQ</div>
+
+            <div className="btn__third">سرفصل ها</div>
+          </div>
+        </div>
       </td>
     </tr>
   );
