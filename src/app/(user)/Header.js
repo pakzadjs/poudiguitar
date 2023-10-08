@@ -287,7 +287,7 @@ function Header() {
                         startContent={<TbSchool className={iconStyles} />}
                         className="py-3"
                         as={Link}
-                        href="/courses"
+                        href="/profile/courses"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         دوره های من
