@@ -1,7 +1,7 @@
 "use client";
 
 import { toPersianNumbers, toPersianNumbersWithComma } from "@/utils/toPersianNumbers";
-import { toLocalDateStringShort } from "@/utils/toLocalDate";
+import CopyToClipboard from "@/components/CopyToClipboard";
 import UpdateCourse from "./UpdateCourse";
 import RemoveProduct from "./RemoveProduct";
 import ReviewCourse from "./ReviewCourse";
@@ -9,7 +9,7 @@ import UploadImage from "./UploadImage";
 import UploadVideo from "./UploadVideo";
 
 export default function CoursesTable({ course, index, categories }) {
-  const { title, category, price, offPrice, discount, createdAt } = course || {};
+  const { title, category, price, offPrice, discount, createdAt, _id } = course || {};
 
   return (
     <tr>
@@ -58,14 +58,16 @@ export default function CoursesTable({ course, index, categories }) {
       </td>
 
       {/* Created at */}
-      <td className="table__td">{toLocalDateStringShort(createdAt)}</td>
+      <td className="table__td">
+        <CopyToClipboard copyText={_id} title={"کپی"} />
+      </td>
 
       {/* Options */}
       <td className="table__td">
-        <div className="flex items-center gap-2">
-          <UpdateCourse course={course} categories={categories} />
+        <div className="flex items-center gap-4">
+      
 
-          <RemoveProduct course={course} />
+          <UpdateCourse course={course} categories={categories} />
 
           <ReviewCourse course={course} />
 
@@ -78,6 +80,8 @@ export default function CoursesTable({ course, index, categories }) {
 
             <div className="btn__third">سرفصل ها</div>
           </div>
+
+          <RemoveProduct course={course} />
         </div>
       </td>
     </tr>

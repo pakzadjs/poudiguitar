@@ -40,7 +40,7 @@ async function Allcourses() {
                     <th className="table__th">قیمت</th>
                     <th className="table__th">تخفیف</th>
                     <th className="table__th">قیمت با تخفیف</th>
-                    <th className="table__th">تاریخ</th>
+                    <th className="table__th">ID</th>
                     <th className="table__th">تنظیمات</th>
                   </tr>
                 </thead>

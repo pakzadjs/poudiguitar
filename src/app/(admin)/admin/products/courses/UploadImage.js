@@ -55,7 +55,7 @@ export default function UploadImage({ product }) {
   return (
     <>
       <button onClick={onOpen} className="btn__third">
-        اضافه کردن عکس
+        عکس
       </button>
 
       <Modal

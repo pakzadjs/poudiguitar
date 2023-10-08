@@ -55,7 +55,7 @@ export default function UploadVideo({ product }) {
   return (
     <>
       <button onClick={onOpen} className="btn__third">
-        اضافه کردن ویدیو
+        ویدیو
       </button>
 
       <Modal
