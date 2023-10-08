@@ -111,3 +111,23 @@ export function removeProduct(id) {
 export function updateProduct({ id, body }) {
   return http.patch(`/admin/product/update/${id}`, body).then(({ data }) => data.data);
 }
+
+export function uploadImage({ image, id }) {
+  return http
+    .post(`/admin/product/upload-image/${id}`, image, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then(({ data }) => data.data);
+}
+
+export function uploadVideo({ video, id }) {
+  return http
+    .post(`/admin/product/upload-video/${id}`, video, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then(({ data }) => data.data);
+}

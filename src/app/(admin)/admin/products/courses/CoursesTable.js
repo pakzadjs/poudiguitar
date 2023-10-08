@@ -5,6 +5,8 @@ import { toLocalDateStringShort } from "@/utils/toLocalDate";
 import UpdateCourse from "./UpdateCourse";
 import RemoveProduct from "./RemoveProduct";
 import ReviewCourse from "./ReviewCourse";
+import UploadImage from "./UploadImage";
+import UploadVideo from "./UploadVideo";
 
 export default function CoursesTable({ course, index, categories }) {
   const { title, category, price, offPrice, discount, createdAt } = course || {};
@@ -68,9 +70,9 @@ export default function CoursesTable({ course, index, categories }) {
           <ReviewCourse course={course} />
 
           <div className="flex items-center gap-4">
-            <div className="btn__third">اضافه کردن عکس</div>
+            <UploadImage product={course} />
 
-            <div className="btn__third">اضافه کردن ویدیو</div>
+            <UploadVideo product={course} />
 
             <div className="btn__third">FAQ</div>
 
