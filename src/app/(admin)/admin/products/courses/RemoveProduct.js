@@ -14,7 +14,7 @@ import {
 
 import { removeProduct } from "@/services/adminServices";
 
-export default function RemoveProduct({ course }) {
+export default function RemoveProduct({ product }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
   const pathname = usePathname();
@@ -25,7 +25,7 @@ export default function RemoveProduct({ course }) {
 
   const removeStaticPageHandler = async () => {
     try {
-      const { message } = await mutateAsync(course?._id);
+      const { message } = await mutateAsync(product?._id);
 
       toast.success(message);
       router.refresh(pathname);
@@ -56,7 +56,7 @@ export default function RemoveProduct({ course }) {
               <ModalHeader className="text-xl font-extrabold">پاک کردن محصول</ModalHeader>
 
               <ModalBody>
-                <h5 className="">{course?.title}</h5>
+                <h5 className="">{product?.title}</h5>
 
                 <Button
                   type="submit"

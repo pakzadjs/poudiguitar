@@ -81,7 +81,7 @@ export default function CoursesTable({ course, index, categories }) {
             <div className="btn__third">سرفصل ها</div>
           </div>
 
-          <RemoveProduct course={course} />
+          <RemoveProduct product={course} />
         </div>
       </td>
     </tr>

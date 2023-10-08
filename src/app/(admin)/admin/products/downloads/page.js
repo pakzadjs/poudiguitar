@@ -2,10 +2,12 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { IoIosArrowBack } from "react-icons/io";
 
+import AddDownload from "./AddDownload";
 import DownloadsTable from "./DownloadsTable";
 import { toStringCookies } from "@/utils/toStringCookies";
-import { getCategories } from "@/services/categoryService";
+import { toPersianNumbers } from "@/utils/toPersianNumbers";
 import { getAllDownloadables } from "@/services/adminServices";
+import { getDownloadsCategories } from "@/services/categoryService";
 
 async function AllDownloads() {
   const cookieStore = cookies();
@@ -14,23 +16,28 @@ async function AllDownloads() {
   const productsData = await getAllDownloadables(strCookies);
   const { products } = productsData || {};
 
-  const categoryData = await getCategories(strCookies);
+  const categoryData = await getDownloadsCategories(strCookies);
   const { categories } = categoryData || {};
 
   return (
     <div className="xl:max-w-screen-xl m-auto">
       <div className="flex max-xs:flex-col items-center xs: justify-between mb-4">
-        <h2 className="text-xl font-extrabold mr-1">دانلود ها</h2>
+        <h2 className="text-xl font-extrabold mr-1 flex items-center gap-2">
+          <span>دانلود ها:</span>
+          <span className="px-2 py-1 rounded-md bg-blue-500/20">
+            {toPersianNumbers(products?.length)}
+          </span>
+        </h2>
 
         <div className="flex items-center gap-1 hover:text-green-500 transition-all duration-250">
-          {/* <AddCourse categories={categories} /> */}
+          <AddDownload categories={categories} />
         </div>
       </div>
       <div className="z-30 bg-blue-950/50 p-10 rounded-3xl flex items-center">
         {products ? (
           <div className="relative rounded-xl overflow-auto">
             <div className="shadow-sm overflow-auto my-8">
-              <table className="border-collapse table-auto w-full min-w-[1500px] text-sm">
+              <table className="border-collapse table-auto w-full min-w-[1000px] text-sm">
                 <thead>
                   <tr>
                     <th className="table__th">#</th>

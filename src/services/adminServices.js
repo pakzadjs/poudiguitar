@@ -131,3 +131,13 @@ export function uploadVideo({ video, id }) {
     })
     .then(({ data }) => data.data);
 }
+
+export function uploadFile({ file, id }) {
+  return http
+    .post(`/admin/product/upload-file/${id}`, file, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then(({ data }) => data.data);
+}
