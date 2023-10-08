@@ -25,7 +25,7 @@ export default function Hero() {
 
             <div className="max-w-screen-sm h-0.5 bg-[#BEC1F333] mb-4 md:mb-7"></div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 max-md:justify-center">
               <Link href="/courses" className="">
                 <button className="btn gap-1 max-sm:w-36">
                   <MdMusicNote size={20} />
@@ -47,7 +47,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="w-[80%] md:w-[45%] max-w-screen-sm relative">
+          <div className="w-[80%] md:w-[45%] max-w-screen-sm relative pointer-events-none">
             <div className="aspect-w-4 aspect-h-4 mb-0">
               <Image
                 src="/images/poudi-hero.png"

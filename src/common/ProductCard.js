@@ -24,7 +24,7 @@ export default function ProductCard({ product }) {
         <div className="relative shadow-lg rounded-xl shadow-blue-700/30">
           {product?.type == "course" ? (
             <Link href={`/courses/${product?.slug}`}>
-              <div className="">
+              <div className="pointer-events-none">
                 {product?.image ? (
                   <Image
                     src={`${baseUrl}/public/uploads/productImages/${product?.image}`}
@@ -45,7 +45,7 @@ export default function ProductCard({ product }) {
               </div>
             </Link>
           ) : (
-            <div className="">
+            <div className="pointer-events-none">
               {product?.image ? (
                 <Image
                   src={`${baseUrl}/public/uploads/productImages/${product?.image}`}

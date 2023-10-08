@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
+import { MdMusicNote } from "react-icons/md";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCards, Pagination, Navigation } from "swiper/modules";
 
@@ -14,7 +16,7 @@ export default function EffectCardsComponent() {
   return (
     <div className="flex max-md:flex-col max-md:pb-10 max-md:gap-6 items-center justify-center bg-gradient-to-r from-blue-950/70 to-sky-700/50 rounded-xl">
       {/* Picture */}
-      <div className="w-[65%] md:w-[35%] max-w-screen-sm relative">
+      <div className="w-[65%] md:w-[35%] max-w-screen-sm relative pointer-events-none">
         <div className="aspect-w-4 aspect-h-4 mb-0 max-md:mt-4">
           <Image
             src="/images/poudi-about.png"
@@ -47,7 +49,7 @@ export default function EffectCardsComponent() {
           </div>
         </SwiperSlide>
         <SwiperSlide className={SwiperSlideStyles}>
-          <div className="xl:py-[70px] xl:px-20 lg:py-10 lg:px-16 md:py-8 px-12  py-10">
+          <div className="xl:py-[70px] xl:px-20 lg:py-8 lg:px-16 md:py-8 px-12 py-10">
             <h5 className="text-2xl max-lg:text-lg font-extrabold mb-6">
               چی میتونی ازم یاد بگیری؟
             </h5>
@@ -57,6 +59,13 @@ export default function EffectCardsComponent() {
               راک، میکس و مسترینگ، تئوری موسیقی و هارمونی و آهنگسازی. تمام اتفاقاتی که تورو به
               اون رویای موسیقایی توی سرت برسونه.
             </p>
+
+            <Link href="/courses" className="hidden lg:block mb-3 xl:mt-4 lg:mt-2">
+              <button className="btn gap-1 max-sm:w-36">
+                <MdMusicNote size={20} />
+                <span className="text-sm max-sm:text-xs">مشاهده دوره ها</span>
+              </button>
+            </Link>
           </div>
         </SwiperSlide>
         {/* <SwiperSlide className={SwiperSlideStyles}>Slide 3</SwiperSlide>
