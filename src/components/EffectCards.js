@@ -15,13 +15,13 @@ export default function EffectCardsComponent() {
     <div className="flex max-md:flex-col max-md:pb-10 max-md:gap-6 items-center justify-center bg-gradient-to-r from-blue-950/70 to-sky-700/50 rounded-xl">
       {/* Picture */}
       <div className="w-[65%] md:w-[35%] max-w-screen-sm relative">
-        <div className="aspect-w-4 aspect-h-4 mb-0">
+        <div className="aspect-w-4 aspect-h-4 mb-0 max-md:mt-4">
           <Image
-            src="/images/poudi-hero.png"
+            src="/images/poudi-about.png"
             alt="Hero Image"
             width={700}
             height={800}
-            className="object-cover object-center z-10"
+            className=" z-10"
           />
         </div>
         <div className="absolute -bottom-0 w-full h-48 z-2"></div>

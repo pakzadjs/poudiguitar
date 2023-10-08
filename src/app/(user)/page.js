@@ -17,15 +17,7 @@ async function Home({ searchParams }) {
   const { products } = data || [];
 
   return (
-    <main className="">
-      {/* <Image
-        src="/images/studio-hero.png"
-        alt="Hero Image"
-        width={800}
-        height={700}
-        className="absolute left-0 top-0 hidden md:block z-0"
-      /> */}
-
+    <main>
       <div className="container mx-auto mt-6 mb-4">
         <Hero />
       </div>
@@ -37,7 +29,7 @@ async function Home({ searchParams }) {
           backgroundSize: "cover",
         }}
       >
-        <div className="">
+        <div>
           <div className="flex items-center justify-between">
             <h2 className="text-2xl max-md:text-xl font-black">جدید ترین دوره ها</h2>
             <Link href="/courses" className="btn gap-2">
