@@ -1,8 +1,9 @@
-import { cookies } from "next/headers";
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { IoIosArrowBack } from "react-icons/io";
 
 import { toStringCookies } from "@/utils/toStringCookies";
+import { toPersianNumbers } from "@/utils/toPersianNumbers";
 import { getCategories } from "@/services/categoryService";
 import { getAllCourses } from "@/services/adminServices";
 import CoursesTable from "./CoursesTable";
@@ -21,7 +22,12 @@ async function Allcourses() {
   return (
     <div className="xl:max-w-screen-xl m-auto">
       <div className="flex max-xs:flex-col items-center xs: justify-between mb-4">
-        <h2 className="text-xl font-extrabold mr-1">دوره ها</h2>
+        <h2 className="text-xl font-extrabold mr-1 flex items-center gap-2">
+          <span>دوره ها:</span>
+          <span className="px-2 py-1 rounded-md bg-blue-500/20">
+            {toPersianNumbers(products?.length)}
+          </span>
+        </h2>
 
         <div className="flex items-center gap-1 hover:text-green-500 transition-all duration-250">
           <AddCourse categories={categories} />
