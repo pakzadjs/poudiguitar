@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
+import { FaBookOpen } from "react-icons/fa";
 import { CartIcon } from "@/public/icons/CartIcon";
 import { BiLogoInstagram, BiLogoTelegram, BiSupport } from "react-icons/bi";
-import { FaBookOpen } from "react-icons/fa";
 import { TbUser, TbUserStar, TbHome, TbSchool, TbLogout } from "react-icons/tb";
 import {
   HiOutlineLogin,
@@ -29,12 +30,17 @@ import {
   User,
 } from "@nextui-org/react";
 import { useGetUser } from "@/hooks/useAuth";
+import SpinnerComponent from "@/common/Spinner";
 import { logout } from "@/services/authServices";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL2;
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [coursesLoading, setCoursesLoading] = useState(false);
+  const [downloadsLoading, setDownloadsLoading] = useState(false);
+
+  const pathname = usePathname();
 
   const { data, isLoading } = useGetUser();
   const { user } = data || {};
@@ -54,6 +60,28 @@ function Header() {
     await logout();
     document.location.href = "/";
   };
+
+  const coursesLoadingHandler = () => {
+    if (pathname !== "/courses") {
+      setCoursesLoading(true);
+    }
+  };
+
+  const downloadsLoadingHandler = () => {
+    if (pathname !== "/downloads") {
+      setDownloadsLoading(true);
+    }
+  };
+
+  useEffect(() => {
+    if (pathname == "/courses") {
+      setCoursesLoading(false);
+    }
+
+    if (pathname == "/downloads") {
+      setDownloadsLoading(false);
+    }
+  }, [pathname]);
 
   return (
     <header
@@ -90,9 +118,16 @@ function Header() {
                 color="foreground"
                 href="/downloads"
                 className={`${linkStyles} flex items-center`}
+                onClick={downloadsLoadingHandler}
               >
-                <HiOutlineDownload className="ml-1 mb-0.5" />
-                <span>دانلود ها</span>
+                {downloadsLoading ? (
+                  <SpinnerComponent size={"sm"} />
+                ) : (
+                  <div className="flex items-center">
+                    <HiOutlineDownload className="ml-1 mb-0.5" />
+                    <span>دانلود ها</span>
+                  </div>
+                )}
               </Link>
             </NavbarItem>
 
@@ -102,8 +137,15 @@ function Header() {
                 href="/courses"
                 aria-current="page"
                 className={`${linkStyles} flex items-center font-semibold hover:border border-gray-500`}
+                onClick={coursesLoadingHandler}
               >
-                <FaBookOpen className="ml-1.5" /> <span>دوره های آموزشی</span>
+                {coursesLoading ? (
+                  <SpinnerComponent size={"sm"} />
+                ) : (
+                  <div className="flex items-center">
+                    <FaBookOpen className="ml-1.5" /> <span>دوره های آموزشی</span>
+                  </div>
+                )}
               </Link>
             </NavbarItem>
 
