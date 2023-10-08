@@ -4,7 +4,7 @@ import { TbArrowLeftBar } from "react-icons/tb";
 export default function NotFound() {
   return (
     <main className="flex items-center justify-center">
-      <div className="bg-blue-950/50 p-10 rounded-3xl min-w-xl flex flex-col items-center justify-center gap-3">
+      <div className="bg-blue-950/50 p-20 rounded-3xl min-w-xl flex flex-col items-center justify-center gap-3 my-40">
         <h1 className="text-2xl font-bold text-red-600">صفحه موردنظر پیدا نشد</h1>
         <Link
           href="/"
