@@ -55,7 +55,7 @@ export default function ReviewDownload({ download }) {
                   <div>
                     {download?.image ? (
                       <Image
-                        src={`${baseUrl}/public/uploads/productImages/${course?.image}`}
+                        src={`${baseUrl}/public/uploads/productImages/${download?.image}`}
                         width={300}
                         height={100}
                         alt={download?.slug}
