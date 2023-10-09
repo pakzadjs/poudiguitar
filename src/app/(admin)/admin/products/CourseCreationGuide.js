@@ -31,7 +31,7 @@ export default function CourseCreationGuide() {
               <ModalBody>
                 <div className="flex items-center gap-2 max-md:flex-col">
                   <p>
-                    1. ابتدا برای ایجاد دوره یک دسته بندی از قبل مشخص کنید، اگر دسته .بندی
+                    1. ابتدا برای ایجاد دوره یک دسته بندی از قبل مشخص کنید، اگر دسته بندی
                     ندارد، ایجاد کنید.
                   </p>
                   <Link

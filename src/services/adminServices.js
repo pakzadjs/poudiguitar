@@ -141,3 +141,19 @@ export function uploadFile({ file, id }) {
     })
     .then(({ data }) => data.data);
 }
+
+export function addFAQ({ id, body }) {
+  return http.post(`/admin/product/addFAQ/${id}`, body).then(({ data }) => data.data);
+}
+
+export function updateFAQ({ productID, FAQID, body }) {
+  return http
+    .put(`/admin/product/editFAQ/${productID}/${FAQID}`, body)
+    .then(({ data }) => data.data);
+}
+
+export function removeFAQ({ productID, FAQID }) {
+  return http
+    .delete(`/admin/product/removeFAQ/${productID}/${FAQID}`)
+    .then(({ data }) => data.data);
+}

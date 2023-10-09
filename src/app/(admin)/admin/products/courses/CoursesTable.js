@@ -7,6 +7,8 @@ import RemoveProduct from "./RemoveProduct";
 import ReviewCourse from "./ReviewCourse";
 import UploadImage from "./UploadImage";
 import UploadVideo from "./UploadVideo";
+import FAQ from "./FAQ";
+import Lessons from "./Lessons";
 
 export default function CoursesTable({ course, index, categories }) {
   const { title, category, price, offPrice, discount, createdAt, _id } = course || {};
@@ -65,22 +67,12 @@ export default function CoursesTable({ course, index, categories }) {
       {/* Options */}
       <td className="table__td">
         <div className="flex items-center gap-4">
-      
-
           <UpdateCourse course={course} categories={categories} />
-
           <ReviewCourse course={course} />
-
-          <div className="flex items-center gap-4">
-            <UploadImage product={course} />
-
-            <UploadVideo product={course} />
-
-            <div className="btn__third">FAQ</div>
-
-            <div className="btn__third">سرفصل ها</div>
-          </div>
-
+          <UploadImage product={course} />
+          <UploadVideo product={course} />
+          <FAQ product={course} />
+          <Lessons product={course} />
           <RemoveProduct product={course} />
         </div>
       </td>
