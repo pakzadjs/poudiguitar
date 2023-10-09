@@ -10,6 +10,12 @@ module.exports = {
         port: "5000",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "poudiguitar",
+        // port: "5000",
+        pathname: "/**",
+      },
     ],
   },
 };
