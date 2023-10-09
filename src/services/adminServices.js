@@ -1,22 +1,13 @@
 import http from "./httpService";
 
-export function getAllUsers(cookies, queryString) {
-  return http
-    .get(`/admin/user/list?${queryString}`, {
-      headers: {
-        Cookie: cookies,
-      },
-    })
-    .then(({ data }) => data.data);
+export function getAllUsers({ queryKey }) {
+  console.log(queryKey);
+  return http.get(`/admin/user/list?search=${queryKey[1]}`).then(({ data }) => data.data);
 }
 
-export function getAllStudents(cookies, queryString) {
+export function getAllStudents({ queryKey }) {
   return http
-    .get(`/admin/student/list?${queryString}`, {
-      headers: {
-        Cookie: cookies,
-      },
-    })
+    .get(`/admin/student/list?search=${queryKey[1]}&product=${queryKey[2]}`)
     .then(({ data }) => data.data);
 }
 
@@ -142,6 +133,8 @@ export function uploadFile({ file, id }) {
     .then(({ data }) => data.data);
 }
 
+// FAQ
+
 export function addFAQ({ id, body }) {
   return http.post(`/admin/product/addFAQ/${id}`, body).then(({ data }) => data.data);
 }
@@ -155,5 +148,23 @@ export function updateFAQ({ productID, FAQID, body }) {
 export function removeFAQ({ productID, FAQID }) {
   return http
     .delete(`/admin/product/removeFAQ/${productID}/${FAQID}`)
+    .then(({ data }) => data.data);
+}
+
+// Lessons
+
+export function addLesson({ id, data }) {
+  return http.post(`/admin/product/addLesson/${id}`, data).then(({ data }) => data.data);
+}
+
+export function updateLesson({ productID, lessonID, body }) {
+  return http
+    .put(`/admin/product/editLesson/${productID}/${lessonID}`, body)
+    .then(({ data }) => data.data);
+}
+
+export function removeLesson({ productID, lessonID }) {
+  return http
+    .delete(`/admin/product/removeLesson/${productID}/${lessonID}`)
     .then(({ data }) => data.data);
 }

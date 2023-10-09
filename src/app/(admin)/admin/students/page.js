@@ -1,25 +1,42 @@
+"use client";
+
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { cookies } from "next/headers";
-import queryString from "query-string";
+// import { cookies } from "next/headers";
+// import queryString from "query-string";
 import { IoIosArrowBack } from "react-icons/io";
+import { useQuery } from "@tanstack/react-query";
 import { FaArrowRotateLeft } from "react-icons/fa6";
 
 import { toPersianNumbers } from "@/utils/toPersianNumbers";
-import { toStringCookies } from "@/utils/toStringCookies";
+// import { toStringCookies } from "@/utils/toStringCookies";
 import { getAllStudents } from "@/services/adminServices";
 import SpinnerComponent from "@/common/Spinner";
 import StudentsTable from "./StudentsTable";
 import Search from "../users/Search";
 import SearchByProducts from "./SearchByProducts";
 
-async function Students({ searchParams }) {
-  const cookieStore = cookies();
-  const strCookies = toStringCookies(cookieStore);
+function Students() {
+  // const cookieStore = cookies();
+  // const strCookies = toStringCookies(cookieStore);
 
-  const data = await getAllStudents(strCookies, queryString.stringify(searchParams));
+  // const data = await getAllStudents(strCookies, queryString.stringify(searchParams));
+  // const { students } = data || {};
+
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search") || "";
+  const product = searchParams.get("product") || "";
+
+  const { isLoading, data } = useQuery({
+    queryKey: ["get-students", search, product],
+    queryFn: getAllStudents,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
   const { students } = data || {};
 
-  if (!students) return <SpinnerComponent />;
+  if (isLoading) return <SpinnerComponent />;
 
   return (
     <div className="xl:max-w-screen-xl m-auto">

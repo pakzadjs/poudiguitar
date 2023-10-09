@@ -1,24 +1,33 @@
+"use client";
+
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { cookies } from "next/headers";
-import queryString from "query-string";
+// import { cookies } from "next/headers";
+// import queryString from "query-string";
 import { IoIosArrowBack } from "react-icons/io";
+import { useQuery } from "@tanstack/react-query";
 import { FaArrowRotateLeft } from "react-icons/fa6";
 
 import Search from "./Search";
 import UsersTable from "./UsersTable";
 import SpinnerComponent from "@/common/Spinner";
 import { getAllUsers } from "@/services/adminServices";
-import { toStringCookies } from "@/utils/toStringCookies";
 import { toPersianNumbers } from "@/utils/toPersianNumbers";
 
-async function Users({ searchParams }) {
-  const cookieStore = cookies();
-  const strCookies = toStringCookies(cookieStore);
+function Users() {
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search") || "";
 
-  const data = await getAllUsers(strCookies, queryString.stringify(searchParams));
+  const { isLoading, data } = useQuery({
+    queryKey: ["get-users", search],
+    queryFn: getAllUsers,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
   const { users } = data || {};
 
-  if (!users) return <SpinnerComponent />;
+  if (isLoading) return <SpinnerComponent />;
 
   return (
     <div className="xl:max-w-screen-xl m-auto">
