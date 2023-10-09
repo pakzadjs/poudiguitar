@@ -1,21 +1,39 @@
-import { cookies } from "next/headers";
+"use client";
+
 import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
+import { useQuery } from "@tanstack/react-query";
 
-import { toStringCookies } from "@/utils/toStringCookies";
 import { getAllPayments } from "@/services/adminServices";
+import SpinnerComponent from "@/common/Spinner";
 import PaymentsTable from "./PaymentsTable";
+import { toPersianNumbers } from "@/utils/toPersianNumbers";
 
-async function Payments() {
-  const cookieStore = cookies();
-  const strCookies = toStringCookies(cookieStore);
+export default function Payments() {
+  // const cookieStore = cookies();
+  // const strCookies = toStringCookies(cookieStore);
 
-  const data = await getAllPayments(strCookies);
+  // const data = await getAllPayments(strCookies);
+
+  const { isLoading, data } = useQuery({
+    queryKey: ["get-payments"],
+    queryFn: getAllPayments,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
   const { payments } = data || {};
+
+  if (isLoading) return <SpinnerComponent />;
 
   return (
     <div className="xl:max-w-screen-xl m-auto">
-      <h2 className="text-xl font-extrabold mb-4 mr-1">تراکنش ها</h2>
+      <h2 className="text-xl font-extrabold mr-1 mb-4 flex items-center gap-2 max-md:mb-5">
+        <span>تراکنش ها:</span>
+        <span className="px-2 py-1 rounded-md bg-blue-500/20">
+          {toPersianNumbers(payments?.length)}
+        </span>
+      </h2>
 
       <div className="z-30 bg-blue-950/50 p-10 rounded-3xl flex items-center">
         {payments ? (
@@ -84,5 +102,3 @@ async function Payments() {
     </div>
   );
 }
-
-export default Payments;

@@ -2,8 +2,6 @@
 
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-// import { cookies } from "next/headers";
-// import queryString from "query-string";
 import { IoIosArrowBack } from "react-icons/io";
 import { useQuery } from "@tanstack/react-query";
 import { FaArrowRotateLeft } from "react-icons/fa6";

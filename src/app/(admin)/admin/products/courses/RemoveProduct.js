@@ -1,5 +1,5 @@
 import { usePathname, useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TbX } from "react-icons/tb";
 import toast from "react-hot-toast";
 import {
@@ -16,6 +16,7 @@ import { removeProduct } from "@/services/adminServices";
 
 export default function RemoveProduct({ product }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -26,6 +27,8 @@ export default function RemoveProduct({ product }) {
   const removeStaticPageHandler = async () => {
     try {
       const { message } = await mutateAsync(product?._id);
+      queryClient.invalidateQueries({ queryKey: ["get-courses"] });
+      queryClient.invalidateQueries({ queryKey: ["get-downloads"] });
 
       toast.success(message);
       router.refresh(pathname);

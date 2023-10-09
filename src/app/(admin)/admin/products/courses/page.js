@@ -1,23 +1,23 @@
+"use client";
+
 import Link from "next/link";
-import { cookies } from "next/headers";
 import { IoIosArrowBack } from "react-icons/io";
 
-import { toStringCookies } from "@/utils/toStringCookies";
 import { toPersianNumbers } from "@/utils/toPersianNumbers";
-import { getCategories } from "@/services/categoryService";
-import { getAllCourses } from "@/services/adminServices";
+import { useGetCategories } from "@/hooks/useCategories";
+import { useGetCourses } from "@/hooks/useProducts";
+import SpinnerComponent from "@/common/Spinner";
 import CoursesTable from "./CoursesTable";
 import AddCourse from "./AddCourse";
 
-async function Allcourses() {
-  const cookieStore = cookies();
-  const strCookies = toStringCookies(cookieStore);
-
-  const productsData = await getAllCourses(strCookies);
+export default function Allcourses() {
+  const { data: productsData, isLoading } = useGetCourses();
   const { products } = productsData || {};
 
-  const categoryData = await getCategories(strCookies);
-  const { categories } = categoryData || {};
+  const { data: categoriesData, isLoading: categoriesLoading } = useGetCategories();
+  const { categories } = categoriesData || {};
+
+  if (isLoading) return <SpinnerComponent />;
 
   return (
     <div className="xl:max-w-screen-xl m-auto">
@@ -86,5 +86,3 @@ async function Allcourses() {
     </div>
   );
 }
-
-export default Allcourses;

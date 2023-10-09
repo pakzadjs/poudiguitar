@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { TbPlus } from "react-icons/tb";
 import { toast } from "react-hot-toast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import {
@@ -38,6 +38,7 @@ export default function AddStaticPage() {
   const [isValid, setIsValid] = useState(false);
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -50,7 +51,8 @@ export default function AddStaticPage() {
 
     try {
       const { message } = await mutateAsync(formData);
-
+      queryClient.invalidateQueries({ queryKey: ["get-staticPages"] });
+      
       toast.success(message);
       router.refresh(pathname);
     } catch (error) {

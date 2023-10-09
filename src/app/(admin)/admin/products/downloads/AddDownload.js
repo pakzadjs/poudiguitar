@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { TbPlus } from "react-icons/tb";
 import { useFormik } from "formik";
@@ -46,6 +46,7 @@ const validationSchema = Yup.object({
 
 export default function AddDownload({ categories }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -79,6 +80,7 @@ export default function AddDownload({ categories }) {
 
     try {
       const { message } = await mutateAsync(body);
+      queryClient.invalidateQueries({ queryKey: ["get-downloads"] });
 
       toast.success(message);
       router.refresh(pathname);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
 import { TbEdit, TbPlus, TbX } from "react-icons/tb";
 import { useFormik } from "formik";
@@ -43,6 +43,8 @@ export default function Lessons({ product }) {
   const [edit, setEdit] = useState(null);
   const [remove, setRemove] = useState(null);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -59,12 +61,14 @@ export default function Lessons({ product }) {
   });
 
   const removeLessonHandler = async () => {
-    try {
-      const lessonID = remove?._id;
-      const productID = product?._id;
-      const data = await removeLessonMutate({ lessonID, productID });
-      setStep(1);
+    const lessonID = remove?._id;
+    const productID = product?._id;
 
+    try {
+      const data = await removeLessonMutate({ lessonID, productID });
+      queryClient.invalidateQueries({ queryKey: ["get-courses"] });
+
+      setStep(1);
       toast.success("سرفصل با موفقیت حذف شد");
       router.refresh(pathname);
     } catch (error) {
@@ -79,8 +83,9 @@ export default function Lessons({ product }) {
 
     try {
       const data = await addLessonMutate({ id, body: data });
-      setStep(1);
+      queryClient.invalidateQueries({ queryKey: ["get-courses"] });
 
+      setStep(1);
       toast.success("سرفصل با موفقیت اضافه شد");
       router.refresh(pathname);
     } catch (error) {
@@ -96,8 +101,9 @@ export default function Lessons({ product }) {
 
     try {
       const data = await updateLessonMutate({ productID, lessonID, body });
-      setStep(1);
+      queryClient.invalidateQueries({ queryKey: ["get-courses"] });
 
+      setStep(1);
       toast.success("سرفصل با موفقیت آپدیت شد");
       router.refresh(pathname);
     } catch (error) {

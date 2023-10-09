@@ -1,23 +1,23 @@
+"use client";
+
 import Link from "next/link";
-import { cookies } from "next/headers";
 import { IoIosArrowBack } from "react-icons/io";
 
 import AddDownload from "./AddDownload";
 import DownloadsTable from "./DownloadsTable";
-import { toStringCookies } from "@/utils/toStringCookies";
+import SpinnerComponent from "@/common/Spinner";
+import { useGetCategories } from "@/hooks/useCategories";
+import { useGetDownloads } from "@/hooks/useProducts";
 import { toPersianNumbers } from "@/utils/toPersianNumbers";
-import { getAllDownloadables } from "@/services/adminServices";
-import { getDownloadsCategories } from "@/services/categoryService";
 
-async function AllDownloads() {
-  const cookieStore = cookies();
-  const strCookies = toStringCookies(cookieStore);
-
-  const productsData = await getAllDownloadables(strCookies);
+export default function AllDownloads() {
+  const { data: productsData, isLoading } = useGetDownloads();
   const { products } = productsData || {};
 
-  const categoryData = await getDownloadsCategories(strCookies);
-  const { categories } = categoryData || {};
+  const { data: categoriesData, isLoading: categoriesLoading } = useGetCategories();
+  const { categories } = categoriesData || {};
+
+  if (isLoading) return <SpinnerComponent />;
 
   return (
     <div className="xl:max-w-screen-xl m-auto">
@@ -84,5 +84,3 @@ async function AllDownloads() {
     </div>
   );
 }
-
-export default AllDownloads;

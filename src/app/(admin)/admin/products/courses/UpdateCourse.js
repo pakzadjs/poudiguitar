@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { TbEdit } from "react-icons/tb";
@@ -75,6 +75,8 @@ export default function UpdateCourse({ course, categories }) {
   const [inputDescription, setInputDescription] = useState(null);
   const [isValid, setIsValid] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -121,6 +123,7 @@ export default function UpdateCourse({ course, categories }) {
 
     try {
       const { message } = await mutateAsync({ id, body });
+      queryClient.invalidateQueries({ queryKey: ["get-courses"] });
 
       toast.success(message);
       router.refresh(pathname);

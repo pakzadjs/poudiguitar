@@ -1,5 +1,5 @@
 import { usePathname, useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import toast from "react-hot-toast";
 import {
@@ -20,6 +20,7 @@ const baseUrl = process.env.NEXT_PUBLIC_API_URL2;
 
 export default function UploadImage({ product }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -40,6 +41,8 @@ export default function UploadImage({ product }) {
           const id = product?._id;
 
           const { message } = await mutateAsync({ image: formData, id });
+          queryClient.invalidateQueries({ queryKey: ["get-courses"] });
+          queryClient.invalidateQueries({ queryKey: ["get-downloads"] });
 
           toast.success("عکس با موفقیت آپلود شد");
           router.refresh(pathname);

@@ -1,5 +1,5 @@
 import { usePathname, useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import toast from "react-hot-toast";
 import {
@@ -20,6 +20,7 @@ const baseUrl = process.env.NEXT_PUBLIC_API_URL2;
 
 export default function UploadFile({ product }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -39,6 +40,7 @@ export default function UploadFile({ product }) {
         const id = product?._id;
 
         const { message } = await mutateAsync({ file: formData, id });
+        queryClient.invalidateQueries({ queryKey: ["get-downloads"] });
 
         toast.success("فایل با موفقیت آپلود شد");
         router.refresh(pathname);

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { toast } from "react-hot-toast";
@@ -75,6 +75,8 @@ export default function AddCourse({ categories }) {
   const [inputDescription, setInputDescription] = useState(null);
   const [isValid, setIsValid] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -119,11 +121,12 @@ export default function AddCourse({ categories }) {
 
     try {
       const { message } = await mutateAsync(body);
+      queryClient.invalidateQueries({ queryKey: ["get-courses"] });
 
-      toast.success(message);
+      toast.success("دوره با موفقیت اضافه شد");
       router.refresh(pathname);
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.data?.message || error?.response?.data?.message);
     }
   };
 

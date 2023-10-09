@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { TbPlus } from "react-icons/tb";
 import { useFormik } from "formik";
@@ -45,6 +45,7 @@ export default function AddCategory() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
   const pathname = usePathname();
+  const queryClient = useQueryClient();
 
   const { isLoading, mutateAsync } = useMutation({
     mutationFn: createCategory,
@@ -56,6 +57,7 @@ export default function AddCategory() {
     try {
       const { message } = await mutateAsync(formData);
 
+      queryClient.invalidateQueries({ queryKey: ["get-categories"] });
       toast.success(message);
       router.refresh(pathname);
     } catch (error) {

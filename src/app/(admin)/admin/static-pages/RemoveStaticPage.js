@@ -1,5 +1,5 @@
 import { usePathname, useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TbX } from "react-icons/tb";
 import toast from "react-hot-toast";
 import {
@@ -16,6 +16,7 @@ import { removeStaticPage } from "@/services/adminServices";
 
 export default function RemoveStaticPage({ id }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -26,6 +27,7 @@ export default function RemoveStaticPage({ id }) {
   const removeStaticPageHandler = async () => {
     try {
       const { message } = await mutateAsync(id);
+      queryClient.invalidateQueries({ queryKey: ["get-staticPages"] });
 
       toast.success(message);
       router.refresh(pathname);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
 import { TbEdit, TbPlus, TbX } from "react-icons/tb";
 import { useFormik } from "formik";
@@ -43,6 +43,8 @@ export default function FAQ({ product }) {
   const [edit, setEdit] = useState(null);
   const [remove, setRemove] = useState(null);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -59,12 +61,14 @@ export default function FAQ({ product }) {
   });
 
   const removeFAQHandler = async () => {
-    try {
-      const FAQID = remove?._id;
-      const productID = product?._id;
-      const data = await removeFAQMutate({ FAQID, productID });
-      setStep(1);
+    const FAQID = remove?._id;
+    const productID = product?._id;
 
+    try {
+      const data = await removeFAQMutate({ FAQID, productID });
+      queryClient.invalidateQueries({ queryKey: ["get-courses"] });
+
+      setStep(1);
       toast.success("FAQ با موفقیت حذف شد");
       router.refresh(pathname);
     } catch (error) {
@@ -80,8 +84,9 @@ export default function FAQ({ product }) {
 
     try {
       const data = await addFAQMutate({ id, body });
-      setStep(1);
+      queryClient.invalidateQueries({ queryKey: ["get-courses"] });
 
+      setStep(1);
       toast.success("FAQ با موفقیت اضافه شد");
       router.refresh(pathname);
     } catch (error) {
@@ -97,8 +102,9 @@ export default function FAQ({ product }) {
 
     try {
       const data = await updateFAQMutate({ productID, FAQID, body });
-      setStep(1);
+      queryClient.invalidateQueries({ queryKey: ["get-courses"] });
 
+      setStep(1);
       toast.success("FAQ با موفقیت آپدیت شد");
       router.refresh(pathname);
     } catch (error) {

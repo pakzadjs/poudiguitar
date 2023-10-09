@@ -1,5 +1,5 @@
 import { usePathname, useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { TbEdit } from "react-icons/tb";
 import { useFormik } from "formik";
@@ -43,6 +43,7 @@ export default function UpdateCategory({ id, category }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
   const pathname = usePathname();
+  const queryClient = useQueryClient();
 
   const { isLoading, mutateAsync } = useMutation({
     mutationFn: updateCategory,
@@ -53,7 +54,7 @@ export default function UpdateCategory({ id, category }) {
 
     try {
       const { message } = await mutateAsync({ body, id });
-
+      queryClient.invalidateQueries({ queryKey: ["get-categories"] });
       toast.success(message);
       router.refresh(pathname);
     } catch (error) {

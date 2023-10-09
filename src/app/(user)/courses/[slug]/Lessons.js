@@ -6,7 +6,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { toPersianNumbers } from "@/utils/toPersianNumbers";
+import { toPersianNumbers, toPersianNumbersWithColon } from "@/utils/toPersianNumbers";
 
 import { BiTimeFive } from "react-icons/bi";
 
@@ -51,7 +51,7 @@ export default function Lessons({ product }) {
                     </div>
 
                     <div className="text-[#a9cbef] flex items-center gap-2">
-                      <span className="text-sm">{toPersianNumbers(body?.duration)} دقیقه</span>
+                      <span className="text-sm">{toPersianNumbersWithColon(body?.duration)} دقیقه</span>
                       <BiTimeFive size={20} className="text-yellow-300" />
                     </div>
                   </div>

@@ -1,23 +1,19 @@
+"use client";
+
 import Link from "next/link";
-import { cookies } from "next/headers";
-import queryString from "query-string";
 import { IoIosArrowBack } from "react-icons/io";
 
 import AddStaticPage from "./AddStaticPage";
-import StaticPagesTable from "./StaticPagesTable";
 import SpinnerComponent from "@/common/Spinner";
-import { getAllStaticPages } from "@/services/adminServices";
+import StaticPagesTable from "./StaticPagesTable";
+import { useGetStaticPages } from "@/hooks/useStaticPages";
 import { toPersianNumbers } from "@/utils/toPersianNumbers";
-import { toStringCookies } from "@/utils/toStringCookies";
 
-async function StaticPages({ searchParams }) {
-  const cookieStore = cookies();
-  const strCookies = toStringCookies(cookieStore);
-
-  const data = await getAllStaticPages(strCookies, queryString.stringify(searchParams));
+export default function StaticPages() {
+  const { data, isLoading } = useGetStaticPages();
   const { staticPages } = data || {};
 
-  if (!staticPages) return <SpinnerComponent />;
+  if (isLoading) return <SpinnerComponent />;
 
   return (
     <div className="xl:max-w-screen-xl m-auto">
@@ -78,5 +74,3 @@ async function StaticPages({ searchParams }) {
     </div>
   );
 }
-
-export default StaticPages;

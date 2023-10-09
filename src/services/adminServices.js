@@ -11,26 +11,14 @@ export function getAllStudents({ queryKey }) {
     .then(({ data }) => data.data);
 }
 
-export function getAllPayments(cookies, queryString) {
-  return http
-    .get(`/admin/payment/list?${queryString}`, {
-      headers: {
-        Cookie: cookies,
-      },
-    })
-    .then(({ data }) => data.data);
+export function getAllPayments() {
+  return http.get(`/admin/payment/list`).then(({ data }) => data.data);
 }
 
 // Static Pages
 
-export function getAllStaticPages(cookies, queryString) {
-  return http
-    .get(`/admin/staticPage/list?${queryString}`, {
-      headers: {
-        Cookie: cookies,
-      },
-    })
-    .then(({ data }) => data.data);
+export function getAllStaticPages() {
+  return http.get(`/admin/staticPage/list`).then(({ data }) => data.data);
 }
 
 export function createStaticPage(body) {
@@ -47,14 +35,8 @@ export function updateStaticPage({ body, id }) {
 
 // Categories
 
-export function getAllCategories(cookies) {
-  return http
-    .get("/category/list", {
-      headers: {
-        Cookie: cookies,
-      },
-    })
-    .then(({ data }) => data.data);
+export function getAllCategories() {
+  return http.get("/category/list").then(({ data }) => data.data);
 }
 
 export function createCategory(body) {
@@ -71,23 +53,15 @@ export function updateCategory({ body, id }) {
 
 // Product
 
-export function getAllCourses(cookies, queryString) {
+export function getAllCourses(queryString) {
   return http
-    .get(`/admin/product/list?${queryString}&type=course`, {
-      headers: {
-        Cookie: cookies,
-      },
-    })
+    .get(`/admin/product/list?${queryString}&type=course`)
     .then(({ data }) => data.data);
 }
 
-export function getAllDownloadables(cookies, queryString) {
+export function getAllDownloadables(queryString) {
   return http
-    .get(`/admin/product/list?${queryString}&type=downloadable`, {
-      headers: {
-        Cookie: cookies,
-      },
-    })
+    .get(`/admin/product/list?${queryString}&type=downloadable`)
     .then(({ data }) => data.data);
 }
 

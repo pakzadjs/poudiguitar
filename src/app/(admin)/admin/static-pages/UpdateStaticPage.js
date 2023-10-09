@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TbEdit } from "react-icons/tb";
 import { useFormik } from "formik";
 import toast from "react-hot-toast";
@@ -31,10 +31,11 @@ const updateStaticPagesValidationSchema = Yup.object({
 });
 
 export default function UpdateStaticPage({ page }) {
-  const [inputDescription, setInputDescription] = useState(null);
   const [isValid, setIsValid] = useState(false);
-
+  const [inputDescription, setInputDescription] = useState(null);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -48,6 +49,7 @@ export default function UpdateStaticPage({ page }) {
 
     try {
       const { message } = await updateMutateAsync({ body, id });
+      queryClient.invalidateQueries({ queryKey: ["get-staticPages"] });
 
       toast.success(message);
       router.refresh(pathname);
