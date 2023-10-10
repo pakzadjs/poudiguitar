@@ -17,8 +17,14 @@ export function getAllPayments() {
 
 // Static Pages
 
-export function getAllStaticPages() {
-  return http.get(`/admin/staticPage/list`).then(({ data }) => data.data);
+export function getAllStaticPages(cookies) {
+  return http
+    .get(`/admin/staticPage/list`, {
+      headers: {
+        Cookie: cookies,
+      },
+    })
+    .then(({ data }) => data.data);
 }
 
 export function createStaticPage(body) {
