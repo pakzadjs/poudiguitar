@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
-import { TbEdit, TbPlus, TbX } from "react-icons/tb";
-import { useFormik } from "formik";
+import { TbEdit, TbMinus, TbPlus, TbX } from "react-icons/tb";
+import { FieldArray, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import {
@@ -16,16 +16,26 @@ import {
 } from "@nextui-org/react";
 import TextField from "@/common/TextField";
 import { toPersianNumbers, toPersianNumbersWithColon } from "@/utils/toPersianNumbers";
-import { addFAQ, removeLesson, updateFAQ } from "@/services/adminServices";
+import { addLesson, removeLesson, updateLesson } from "@/services/adminServices";
 
 const initiaAddLessonlValues = {
   title: "",
-  body: [],
+  body: [
+    {
+      title: "",
+      duration: "",
+    },
+  ],
 };
 
 const initiaUpdateLessonlValues = {
   title: "",
-  body: [],
+  body: [
+    {
+      title: "",
+      duration: "",
+    },
+  ],
 };
 
 const addLessonValidationSchema = Yup.object({
@@ -49,11 +59,21 @@ export default function Lessons({ product }) {
   const pathname = usePathname();
 
   const { isLoading: LessonLoading, mutateAsync: addLessonMutate } = useMutation({
-    mutationFn: addFAQ,
+    mutationFn: addLesson,
+    onSuccess: () => {
+      setStep(1);
+      toast.success("سرفصل با موفقیت اضافه شد");
+      router.refresh(pathname);
+      queryClient.invalidateQueries({ queryKey: ["get-courses"] });
+    },
+    onError: (error) => {
+      setStep(1);
+      toast.error(error?.response?.data?.message);
+    },
   });
 
   const { isLoading: updateLessonLoading, mutateAsync: updateLessonMutate } = useMutation({
-    mutationFn: updateFAQ,
+    mutationFn: updateLesson,
   });
 
   const { isLoading: removeLessonLoading, mutateAsync: removeLessonMutate } = useMutation({
@@ -77,21 +97,12 @@ export default function Lessons({ product }) {
     }
   };
 
-  const addLessonSumbitHandler = async ({ title, body }) => {
-    const data = { title, body } || {};
+  const addLessonSumbitHandler = async (value) => {
     const id = product?._id;
 
     try {
-      const data = await addLessonMutate({ id, body: data });
-      queryClient.invalidateQueries({ queryKey: ["get-courses"] });
-
-      setStep(1);
-      toast.success("سرفصل با موفقیت اضافه شد");
-      router.refresh(pathname);
-    } catch (error) {
-      setStep(1);
-      toast.error(error?.response?.data?.message);
-    }
+      await addLessonMutate({ id, value });
+    } catch (error) {}
   };
 
   const updateLessonSumbitHandler = async ({ question, answer }) => {
@@ -203,26 +214,86 @@ export default function Lessons({ product }) {
         );
       case 2:
         return (
-          <form
-            onSubmit={addLessonFormik.handleSubmit}
-            className="space-y-5 md:p-10 p-5 rounded-xl"
-          >
-            <TextField label="سرفصل" name="title" formik={addLessonFormik} />
+          <FormikProvider value={addLessonFormik}>
+            <form
+              onSubmit={addLessonFormik.handleSubmit}
+              className="space-y-5 md:p-10 p-5 rounded-xl"
+            >
+              <TextField label="سرفصل" name="title" formik={addLessonFormik} />
 
-            <TextField label="درس" name="body" formik={addLessonFormik} />
+              <FieldArray
+                name="body"
+                render={(arrayHelpers) => (
+                  <div className="mb-5">
+                    <h3 className="font-semibold mb-5">درس ها</h3>
 
-            <div className="pt-2">
-              <Button
-                type="submit"
-                color="primary"
-                className="w-full"
-                isLoading={LessonLoading && true}
-                isDisabled={!addLessonFormik.isValid}
-              >
-                ثبت
-              </Button>
-            </div>
-          </form>
+                    {addLessonFormik.values.body && addLessonFormik.values.body.length > 0 ? (
+                      addLessonFormik.values.body.map((body, index) => (
+                        <div className="my-3 bg-slate-100/50 p-3 rounded-xl" key={index}>
+                          <TextField
+                            label="نام درس"
+                            name={`body[${index}].title`}
+                            formik={addLessonFormik}
+                          />
+                          <TextField
+                            label="زمان درس"
+                            name={`body[${index}].duration`}
+                            formik={addLessonFormik}
+                          />
+
+                          {index + 1 === addLessonFormik.values.body.length && (
+                            <div className="mt-6 w-fit flex items-center gap-5 bg-white-overlay p-2 rounded-md">
+                              <button
+                                className="cursor-pointer p-2 rounded-lg hover:bg-slate-100/50 transition-all duration-250"
+                                type="button"
+                                onClick={() => {
+                                  arrayHelpers.push({ title: "", duration: "" });
+                                }}
+                              >
+                                <TbPlus size={"1.2rem"} />
+                              </button>
+
+                              <button
+                                className="cursor-pointer p-2 rounded-lg hover:bg-slate-100/50"
+                                type="button"
+                                onClick={() => arrayHelpers.remove(index)}
+                              >
+                                <TbMinus size={"1.2rem"} />
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      ))
+                    ) : (
+                      <div className="w-fit bg-white-overlay p-2 rounded-md">
+                        <button
+                          className="cursor-pointer p-2 rounded-lg hover:bg-slate-100/50 transition-all duration-250"
+                          type="button"
+                          onClick={() => {
+                            arrayHelpers.push({ header: "", description: "" });
+                          }}
+                        >
+                          <TbPlus size={"1.2rem"} />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              />
+
+              <div className="pt-2">
+                <Button
+                  type="submit"
+                  color="primary"
+                  className="w-full"
+                  isLoading={LessonLoading && true}
+                  isDisabled={!addLessonFormik.isValid}
+                >
+                  ثبت
+                </Button>
+              </div>
+            </form>
+          </FormikProvider>
         );
       case 3:
         return (
@@ -230,7 +301,7 @@ export default function Lessons({ product }) {
             onSubmit={updateLessonFormik.handleSubmit}
             className="space-y-5 md:p-10 p-5 rounded-xl"
           >
-            <TextField
+            {/* <TextField
               label="سرفصل"
               name="title"
               formik={updateLessonFormik}
@@ -254,7 +325,7 @@ export default function Lessons({ product }) {
               >
                 ثبت
               </Button>
-            </div>
+            </div> */}
           </form>
         );
       case 4:

@@ -127,11 +127,11 @@ export function removeFAQ({ productID, FAQID }) {
 
 // Lessons
 
-export function addLesson({ id, data }) {
-  return http.post(`/admin/product/addLesson/${id}`, data).then(({ data }) => data.data);
+export function addLesson({ id, value }) {
+  return http.post(`/admin/product/addLesson/${id}`, value).then(({ data }) => data.data);
 }
 
-export function updateLesson({ productID, lessonID, body }) {
+export function updateLesson({ productID, lessonID, value }) {
   return http
     .put(`/admin/product/editLesson/${productID}/${lessonID}`, body)
     .then(({ data }) => data.data);
