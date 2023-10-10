@@ -35,8 +35,14 @@ export function updateStaticPage({ body, id }) {
 
 // Categories
 
-export function getAllCategories() {
-  return http.get("/category/list").then(({ data }) => data.data);
+export function getAllCategories(cookies) {
+  return http
+    .get("/category/list", {
+      headers: {
+        Cookie: cookies,
+      },
+    })
+    .then(({ data }) => data.data);
 }
 
 export function createCategory(body) {
@@ -53,9 +59,13 @@ export function updateCategory({ body, id }) {
 
 // Product
 
-export function getAllCourses(queryString) {
+export function getAllCourses(cookies) {
   return http
-    .get(`/admin/product/list?${queryString}&type=course`)
+    .get(`/admin/product/list?type=course`, {
+      headers: {
+        Cookie: cookies,
+      },
+    })
     .then(({ data }) => data.data);
 }
 
