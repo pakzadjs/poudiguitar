@@ -1,7 +1,6 @@
 import http from "./httpService";
 
 export function getAllUsers({ queryKey }) {
-  console.log(queryKey);
   return http.get(`/admin/user/list?search=${queryKey[1]}`).then(({ data }) => data.data);
 }
 
@@ -157,4 +156,22 @@ export function removeLesson({ productID, lessonID }) {
   return http
     .delete(`/admin/product/removeLesson/${productID}/${lessonID}`)
     .then(({ data }) => data.data);
+}
+
+// Licence
+
+export function addLicence(body) {
+  return http.post(`/admin/student/add`, body).then(({ data }) => data.data);
+}
+
+export function updateLicence({ id, body }) {
+  return http.put(`/admin/student/update/${id}`, body).then(({ data }) => data.data);
+}
+
+export function removeLicence(id) {
+  return http.delete(`/admin/student/${id}`).then(({ data }) => data.data);
+}
+
+export function generateLicence({ userID, productID }) {
+  return http.post(`/admin/spotPlayer/${userID}/${productID}`).then(({ data }) => data.data);
 }

@@ -45,6 +45,9 @@ export default function StudentsTable({ student, index }) {
 
       {/* Date */}
       <td className="table__td">{toLocalDateStringShort(createdAt)}</td>
+
+      {/* Settings */}
+      <td className="table__td"></td>
     </tr>
   );
 }

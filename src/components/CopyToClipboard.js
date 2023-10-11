@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { TbCircleCheckFilled, TbCopy } from "react-icons/tb";
 
-export default function CopyToClipboard({ copyText, title }) {
+export default function CopyToClipboard({ copyText, title, style }) {
   const [isCopied, setIsCopied] = useState(false);
 
   async function copyTextToClipboard(text) {
@@ -29,7 +29,7 @@ export default function CopyToClipboard({ copyText, title }) {
 
   return (
     <div>
-      <button onClick={handleCopyClick} className="btn">
+      <button onClick={handleCopyClick} className={`btn ${style && style}`}>
         {isCopied ? (
           <div className="flex items-center gap-2">
             <TbCircleCheckFilled size={20} />

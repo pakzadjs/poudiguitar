@@ -8,21 +8,15 @@ import { FaArrowRotateLeft } from "react-icons/fa6";
 
 import Search from "./Search";
 import UsersTable from "./UsersTable";
+import { useGetUsers } from "@/hooks/useAuth";
 import SpinnerComponent from "@/common/Spinner";
-import { getAllUsers } from "@/services/adminServices";
 import { toPersianNumbers } from "@/utils/toPersianNumbers";
 
 function Users() {
   const searchParams = useSearchParams();
   const search = searchParams.get("search") || "";
 
-  const { isLoading, data } = useQuery({
-    queryKey: ["get-users", search],
-    queryFn: getAllUsers,
-    retry: false,
-    refetchOnWindowFocus: true,
-  });
-
+  const { isLoading, data } = useGetUsers(search);
   const { users } = data || {};
 
   if (isLoading) return <SpinnerComponent />;

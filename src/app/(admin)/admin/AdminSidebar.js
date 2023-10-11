@@ -14,7 +14,7 @@ import {
   TbUsersGroup,
   TbCategory,
   TbFileText,
-  TbUserStar,
+  TbKey,
   TbPercentage,
 } from "react-icons/tb";
 import SpinnerComponent from "@/common/Spinner";
@@ -160,8 +160,8 @@ function AdminSideBar() {
               <SpinnerComponent size={"sm"} />
             ) : (
               <div className="flex items-center">
-                <TbUserStar size={20} className="ml-3" />
-                هنرجو ها
+                <TbKey size={20} className="ml-3" />
+                لایسنس ها
               </div>
             )}
           </Link>

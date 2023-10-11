@@ -12,9 +12,10 @@ import { toPersianNumbers } from "@/utils/toPersianNumbers";
 // import { toStringCookies } from "@/utils/toStringCookies";
 import { getAllStudents } from "@/services/adminServices";
 import SpinnerComponent from "@/common/Spinner";
-import StudentsTable from "./StudentsTable";
-import Search from "../users/Search";
 import SearchByProducts from "./SearchByProducts";
+import StudentsTable from "./StudentsTable";
+import AddLicence from "./AddLicense";
+import Search from "../users/Search";
 
 function Students() {
   // const cookieStore = cookies();
@@ -33,7 +34,6 @@ function Students() {
     retry: false,
     refetchOnWindowFocus: true,
   });
-
   const { students } = data || {};
 
   if (isLoading) return <SpinnerComponent />;
@@ -48,6 +48,7 @@ function Students() {
           </span>
         </h2>
 
+        {/* search */}
         <div className="ml-3">
           <Search />
         </div>
@@ -56,6 +57,7 @@ function Students() {
           <SearchByProducts placeholder="جستجو با آیدیِ دوره" />
         </div>
 
+        {/* Reset searches */}
         <Link
           href="/admin/students"
           className="max-md:mx-3 max-md:mb-4 max-md:bg-blue-500/20 max-md:hover:bg-blue-500/40 max-md:p-2 max-md:rounded-xl flex justify-center transition-all duration-250"
@@ -65,6 +67,8 @@ function Students() {
             className="text-blue-100/70 hover:text-white transition-all duration-250"
           />
         </Link>
+
+        <AddLicence />
       </div>
 
       {/* Table */}
@@ -81,6 +85,7 @@ function Students() {
                     <th className="table__th">لایسنس</th>
                     <th className="table__th">دوره</th>
                     <th className="table__th">تاریخ</th>
+                    <th className="table__th">تنظیمات</th>
                   </tr>
                 </thead>
 
