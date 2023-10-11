@@ -5,13 +5,12 @@ import { useRouter } from "next/navigation";
 
 import { toast } from "react-hot-toast";
 import { Button } from "@nextui-org/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import { completeProfile } from "@/services/authServices";
 import TextField from "@/common/TextField";
-
 
 const initialValues = {
   name: "",
@@ -28,20 +27,25 @@ const validationSchema = Yup.object({
 
 export default function CompleteProfile() {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { isLoading, mutateAsync } = useMutation({
     mutationFn: completeProfile,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["get-user"] });
+      router.push("/");
+      toast.success(data?.message);
+    },
+    onError: (error) => {
+      toast.error(error?.response?.data?.message);
+    },
   });
 
   const onSubmit = async (values) => {
     const { name, email } = values;
     try {
-      const { message } = await mutateAsync({ name, email });
-      toast.success(message);
-      router.push("/");
-    } catch (error) {
-      toast.error(error?.response?.data?.message);
-    }
+      await mutateAsync({ name, email });
+    } catch (error) {}
   };
 
   const formik = useFormik({
