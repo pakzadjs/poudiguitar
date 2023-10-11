@@ -1,22 +1,17 @@
-import { cookies } from "next/headers";
+"use client";
+
 import Link from "next/link";
-import axios from "axios";
 import { IoIosArrowBack } from "react-icons/io";
 import MyCoursesDetails from "./MyCoursesDetails";
-import { toStringCookies } from "@/utils/toStringCookies";
-import { getPaidCourses } from "@/services/studentService";
+import SpinnerComponent from "@/common/Spinner";
+import { useGetPaidCourses } from "@/hooks/useProducts";
 
-export const metadata = {
-  title: "دوره های من",
-  description: "پروفایل کاربر",
-};
-
-async function MyCourses() {
-  const cookieStore = cookies();
-  const strCookies = toStringCookies(cookieStore);
-
-  const data = await getPaidCourses(strCookies);
+export default function MyCourses() {
+  // const data = await getPaidCourses(strCookies);
+  const { data, isLoading } = useGetPaidCourses();
   const { students } = data || {};
+
+  if (isLoading) return <SpinnerComponent />;
 
   return (
     <div className="xl:max-w-screen-xl m-auto">
@@ -74,4 +69,4 @@ async function MyCourses() {
     </div>
   );
 }
-export default MyCourses;
+// export default MyCourses;

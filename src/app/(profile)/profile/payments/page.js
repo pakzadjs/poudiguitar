@@ -1,22 +1,20 @@
-import { cookies } from "next/headers";
+"use client";
+
 import Link from "next/link";
-import axios from "axios";
 import { IoIosArrowBack } from "react-icons/io";
+import { useGetMyPayments } from "@/hooks/usePayments";
 import MyPaymentsDetails from "./MyPaymentsDetails";
-import { toStringCookies } from "@/utils/toStringCookies";
-import { getPayments } from "@/services/paymentService";
+import SpinnerComponent from "@/common/Spinner";
 
-export const metadata = {
-  title: "تراکنش ها",
-  description: "پروفایل کاربر",
-};
+export default function MyPayments() {
+  // const cookieStore = cookies();
+  // const strCookies = toStringCookies(cookieStore);
 
-async function MyPayments() {
-  const cookieStore = cookies();
-  const strCookies = toStringCookies(cookieStore);
-
-  const data = await getPayments(strCookies);
+  // const data = await getPayments(strCookies);
+  const { data, isLoading } = useGetMyPayments();
   const { payments } = data || {};
+
+  if (isLoading) return <SpinnerComponent />;
 
   return (
     <div className="xl:max-w-screen-xl m-auto">
@@ -80,4 +78,4 @@ async function MyPayments() {
   );
 }
 
-export default MyPayments;
+// export default MyPayments;
