@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { TbHeart, TbHeartFilled } from "react-icons/tb";
 import { likeProduct } from "@/services/productService";
 import { usePathname, useRouter } from "next/navigation";
+import { toPersianNumbers } from "@/utils/toPersianNumbers";
 
 export default function Like({ product, styles, size }) {
   const router = useRouter();
@@ -26,7 +27,7 @@ export default function Like({ product, styles, size }) {
       ) : (
         <TbHeart size={size ? size : 25} />
       )}
-      <span className="text-sm">{product?.likesCount}</span>
+      <span className="text-sm">{toPersianNumbers(product?.likesCount)}</span>
     </button>
   );
 }

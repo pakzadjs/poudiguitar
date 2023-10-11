@@ -7,6 +7,7 @@ import {
   TbCalendarBolt,
   TbCalendarCheck,
   TbCloudDownload,
+  TbUsers,
 } from "react-icons/tb";
 import { BiSupport } from "react-icons/bi";
 import sanitizeHtml from "sanitize-html";
@@ -26,8 +27,6 @@ import Like from "@/common/Like";
 
 export const dynamicParams = false;
 const baseUrl = process.env.NEXT_PUBLIC_API_URL2;
-
-// {product?.title}
 
 export const metadata = {
   title: ` پودی گیتار | دوره آموزشی`,
@@ -139,12 +138,12 @@ async function ProductDetail({ params }) {
               <div className="flex items-center">
                 <TbCalendarCheck size={20} className="ml-2" /> تاریخ انتشار:
               </div>
-              <span>{toLocalDateStringShort(product.createdAt)}</span>
+              <span>{toLocalDateStringShort(product?.createdAt)}</span>
 
               <div className="flex items-center mt-3">
                 <TbCalendarBolt size={20} className="ml-2" /> آخرین بروزرسانی:
               </div>
-              <span>{toLocalDateStringShort(product.updatedAt)}</span>
+              <span>{toLocalDateStringShort(product?.updatedAt)}</span>
             </div>
 
             <div className="bg-blue-900/30 p-3 my-2 rounded-lg">
@@ -152,6 +151,16 @@ async function ProductDetail({ params }) {
                 <TbCloudDownload size={20} className="ml-2" /> روش دریافت:
               </div>
               اسپات پلیر
+            </div>
+
+            <div className="bg-blue-900/30 p-3 my-2 rounded-lg">
+              <div className="flex items-center">
+                <TbUsers size={20} className="ml-2" />
+                <div className="flex items-center gap-1">
+                  <span>{toPersianNumbers(product?.studentsNumber)}</span>
+                  <span>هنرجو</span>
+                </div>
+              </div>
             </div>
           </div>
           <div className="">
@@ -203,7 +212,7 @@ export async function generateStaticParams() {
   }
   if (products && products != null) {
     return products.map((product) => ({
-      slug: product.slug,
+      slug: product?.slug,
     }));
   }
 }

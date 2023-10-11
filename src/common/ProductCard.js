@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BiTimeFive } from "react-icons/bi";
-import { TbArrowLeft } from "react-icons/tb";
+import { TbArrowLeft, TbUsers } from "react-icons/tb";
 import { Button } from "@nextui-org/react";
 
 import {
@@ -75,6 +75,11 @@ export default function ProductCard({ product }) {
               }
               size={20}
             />
+
+            <span className="bg-slate-100/90 px-1 rounded-md flex items-center text-slate-900 cursor-default">
+              <TbUsers size={19} />
+              <span className="text-sm mr-1 font-bold">{toPersianNumbers(1928)}</span>
+            </span>
           </div>
         </div>
       </div>
