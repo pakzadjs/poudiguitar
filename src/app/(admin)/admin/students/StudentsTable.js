@@ -2,9 +2,10 @@ import { TbCheck, TbX } from "react-icons/tb";
 import { toPersianNumbers } from "@/utils/toPersianNumbers";
 import { toLocalDateStringShort } from "@/utils/toLocalDate";
 import CopyToClipboard from "@/components/CopyToClipboard";
+import RemoveLicence from "./RemoveLicence";
 
 export default function StudentsTable({ student, index }) {
-  const { license, product, user, createdAt } = student || {};
+  const { license, product, user, createdAt, _id } = student || {};
 
   return (
     <tr>
@@ -47,7 +48,11 @@ export default function StudentsTable({ student, index }) {
       <td className="table__td">{toLocalDateStringShort(createdAt)}</td>
 
       {/* Settings */}
-      <td className="table__td"></td>
+      <td className="table__td">
+        <div className="flex gap-3">
+          <RemoveLicence id={_id} />
+        </div>
+      </td>
     </tr>
   );
 }

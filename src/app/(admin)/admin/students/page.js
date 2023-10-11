@@ -15,6 +15,7 @@ import SpinnerComponent from "@/common/Spinner";
 import StudentsTable from "./StudentsTable";
 import AddLicence from "./AddLicense";
 import Search from "../users/Search";
+import { useGetStudents } from "@/hooks/useStudents";
 
 function Students() {
   // const cookieStore = cookies();
@@ -27,12 +28,7 @@ function Students() {
   const search = searchParams.get("search") || "";
   const product = searchParams.get("product") || "";
 
-  const { isLoading, data } = useQuery({
-    queryKey: ["get-students", search, product],
-    queryFn: getAllStudents,
-    retry: false,
-    refetchOnWindowFocus: true,
-  });
+  const { isLoading, data } = useGetStudents(search, product);
   const { students } = data || {};
 
   if (isLoading) return <SpinnerComponent />;
