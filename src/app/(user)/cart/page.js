@@ -18,7 +18,7 @@ function CartPage() {
 
   if (!user || !data)
     return (
-      <div className="container lg:max-w-screen-lg py-6">
+      <div className="container lg:max-w-screen-lg py-6 my-28">
         <p className="text-slate-100 font-bold mb-4">
           برای مشاهده سبد خرید لطفا به حساب خود وارد شوید
         </p>
@@ -42,7 +42,7 @@ function CartPage() {
 
   if (!user.cart?.products || user.cart?.products.length === 0)
     return (
-      <div className="container lg:max-w-screen-lg py-6">
+      <div className="container lg:max-w-screen-lg py-6 my-28">
         <p className="text-slate-100 font-bold mb-4">دوره ای در سبد خرید شما وجود ندارد</p>
         <Link href="/courses" className="text-lg font-bold btn inline-block">
           رفتن به صفحه دوره ها
