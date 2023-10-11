@@ -78,7 +78,9 @@ export default function ProductCard({ product }) {
 
             <span className="bg-slate-100/90 px-1 rounded-md flex items-center text-slate-900 cursor-default">
               <TbUsers size={19} />
-              <span className="text-sm mr-1 font-bold">{toPersianNumbers(1928)}</span>
+              <span className="text-sm mr-1 font-bold">
+                {toPersianNumbers(product?.studentsNumber)}
+              </span>
             </span>
           </div>
         </div>
