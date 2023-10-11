@@ -12,7 +12,6 @@ import { toPersianNumbers } from "@/utils/toPersianNumbers";
 // import { toStringCookies } from "@/utils/toStringCookies";
 import { getAllStudents } from "@/services/adminServices";
 import SpinnerComponent from "@/common/Spinner";
-import SearchByProducts from "./SearchByProducts";
 import StudentsTable from "./StudentsTable";
 import AddLicence from "./AddLicense";
 import Search from "../users/Search";
@@ -51,10 +50,6 @@ function Students() {
         {/* search */}
         <div className="ml-3">
           <Search />
-        </div>
-
-        <div className="ml-3">
-          <SearchByProducts placeholder="جستجو با آیدیِ دوره" />
         </div>
 
         {/* Reset searches */}
