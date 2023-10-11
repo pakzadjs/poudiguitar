@@ -3,6 +3,7 @@ const nextConfig = {};
 
 module.exports = {
   images: {
+    domains: ["poudiguitar.com"],
     remotePatterns: [
       {
         protocol: "http",
@@ -12,7 +13,7 @@ module.exports = {
       },
       {
         protocol: "https",
-        hostname: "poudiguitar.com",
+        hostname: "**.poudiguitar.com",
         port: "",
         pathname: "/**",
       },
