@@ -2,7 +2,8 @@ import { TbCheck, TbX } from "react-icons/tb";
 import { toPersianNumbers } from "@/utils/toPersianNumbers";
 import { toLocalDateStringShort } from "@/utils/toLocalDate";
 import CopyToClipboard from "@/components/CopyToClipboard";
-import RemoveLicence from "./RemoveLicence";
+import RemoveLicense from "./RemoveLicense";
+import UpdateLicense from "./UpdateLicense";
 
 export default function StudentsTable({ student, index }) {
   const { license, product, user, createdAt, _id } = student || {};
@@ -50,7 +51,8 @@ export default function StudentsTable({ student, index }) {
       {/* Settings */}
       <td className="table__td">
         <div className="flex gap-3">
-          <RemoveLicence id={_id} />
+          <RemoveLicense id={_id} />
+          <UpdateLicense student={student} />
         </div>
       </td>
     </tr>

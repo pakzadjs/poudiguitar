@@ -10,10 +10,9 @@ import { FaArrowRotateLeft } from "react-icons/fa6";
 
 import { toPersianNumbers } from "@/utils/toPersianNumbers";
 // import { toStringCookies } from "@/utils/toStringCookies";
-import { getAllStudents } from "@/services/adminServices";
 import SpinnerComponent from "@/common/Spinner";
 import StudentsTable from "./StudentsTable";
-import AddLicence from "./AddLicense";
+import AddLicense from "./AddLicense";
 import Search from "../users/Search";
 import { useGetStudents } from "@/hooks/useStudents";
 
@@ -59,7 +58,7 @@ function Students() {
           />
         </Link>
 
-        <AddLicence />
+        <AddLicense />
       </div>
 
       {/* Table */}

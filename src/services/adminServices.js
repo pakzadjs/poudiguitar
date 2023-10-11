@@ -160,18 +160,18 @@ export function removeLesson({ productID, lessonID }) {
 
 // Licence
 
-export function addLicence(body) {
+export function addLicense(body) {
   return http.post(`/admin/student/add`, body).then(({ data }) => data.data);
 }
 
-export function updateLicence({ id, body }) {
+export function updateLicense({ id, body }) {
   return http.put(`/admin/student/update/${id}`, body).then(({ data }) => data.data);
 }
 
-export function removeLicence(id) {
+export function removeLicense(id) {
   return http.delete(`/admin/student/${id}`).then(({ data }) => data.data);
 }
 
-export function generateLicence({ userID, productID }) {
+export function generateLicense({ userID, productID }) {
   return http.post(`/admin/spotPlayer/${userID}/${productID}`).then(({ data }) => data.data);
 }

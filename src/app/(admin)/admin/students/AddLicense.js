@@ -18,44 +18,45 @@ import {
 } from "@nextui-org/react";
 
 import TextField from "@/common/TextField";
-import { addLicence, generateLicence } from "@/services/adminServices";
+import { addLicense, generateLicense } from "@/services/adminServices";
 import CopyToClipboard from "@/components/CopyToClipboard";
 import copyTextToClipboard from "@/utils/copyToClipboardFn";
 
-const initialAddLicenceValues = {
+const initialAddLicenseValues = {
   user: "",
   product: "",
   key: "",
 };
 
-const initialGenerateLicenceValues = {
+const initialGenerateLicenseValues = {
   user: "",
   product: "",
 };
 
-const addLicenceValidationSchema = Yup.object({
+const addLicenseValidationSchema = Yup.object({
   user: Yup.string().required("این فیلد نمی تواند خالی باشد"),
   product: Yup.string().required("این فیلد نمی تواند خالی باشد"),
   key: Yup.string().required("این فیلد نمی تواند خالی باشد"),
 });
 
-const generateLicenceValidationSchema = Yup.object({
+const generateLicenseValidationSchema = Yup.object({
   user: Yup.string().required("این فیلد نمی تواند خالی باشد"),
   product: Yup.string().required("این فیلد نمی تواند خالی باشد"),
 });
 
-export default function AddLicence() {
+export default function AddLicense() {
   const [step, setStep] = useState(1);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const queryClient = useQueryClient();
   const pathname = usePathname();
   const router = useRouter();
 
-  const { isLoading: addLicenceLoading, mutateAsync: addLicenceMutate } = useMutation({
-    mutationFn: addLicence,
-    onSuccess: () => {
+  const { isLoading: addLicenseLoading, mutateAsync: addLicenseMutate } = useMutation({
+    mutationFn: addLicense,
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["get-students"] });
       router.refresh(pathname);
+      toast.success(data?.message);
     },
     onError: (error) => {
       toast.error(error?.response?.data?.message || error?.response?.data?.data?.message);
@@ -63,16 +64,15 @@ export default function AddLicence() {
   });
 
   const {
-    isLoading: generateLicenceLoading,
-    mutateAsync: generateLicenceMutate,
-    data: generateLicenceData,
+    isLoading: generateLicenseLoading,
+    mutateAsync: generateLicenseMutate,
+    data: generateLicenseData,
   } = useMutation({
-    mutationFn: generateLicence,
+    mutationFn: generateLicense,
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["get-students"] });
       router.refresh(pathname);
       toast.success("لایسنس با موفقیت ایجاد و کپی شد");
-      console.log(data?.spotLicence?.key);
       copyTextToClipboard(data?.spotLicence?.key);
       setStep(3);
     },
@@ -81,32 +81,31 @@ export default function AddLicence() {
     },
   });
 
-  const addLicenceSumbitHandler = async ({ user, product, key }) => {
-    const body = { user, product, licence: { key: key } } || {};
+  const addLicenseSumbitHandler = async ({ user, product, key }) => {
+    const body = { user, product, license: { key: key } } || {};
 
     try {
-      const { message } = await addLicenceMutate(body);
-      toast.success(message);
+      await addLicenseMutate(body);
     } catch (error) {}
   };
 
-  const generateLicenceSumbitHandler = async ({ user, product }) => {
+  const generateLicenseSumbitHandler = async ({ user, product }) => {
     try {
-      await generateLicenceMutate({ userID: user, productID: product });
+      await generateLicenseMutate({ userID: user, productID: product });
     } catch (error) {}
   };
 
   const formik = useFormik({
-    initialValues: initialAddLicenceValues,
-    onSubmit: addLicenceSumbitHandler,
-    validationSchema: addLicenceValidationSchema,
+    initialValues: initialAddLicenseValues,
+    onSubmit: addLicenseSumbitHandler,
+    validationSchema: addLicenseValidationSchema,
     validateOnMount: true,
   });
 
-  const generateLicenceFormik = useFormik({
-    initialValues: initialGenerateLicenceValues,
-    onSubmit: generateLicenceSumbitHandler,
-    validationSchema: generateLicenceValidationSchema,
+  const generateLicenseFormik = useFormik({
+    initialValues: initialGenerateLicenseValues,
+    onSubmit: generateLicenseSumbitHandler,
+    validationSchema: generateLicenseValidationSchema,
     validateOnMount: true,
   });
 
@@ -127,7 +126,7 @@ export default function AddLicence() {
                   type="submit"
                   color="primary"
                   className="w-full"
-                  isLoading={addLicenceLoading}
+                  isLoading={addLicenseLoading}
                   isDisabled={!formik.isValid}
                   onPress={onClose}
                 >
@@ -141,20 +140,20 @@ export default function AddLicence() {
         return (
           <>
             <form
-              onSubmit={generateLicenceFormik.handleSubmit}
+              onSubmit={generateLicenseFormik.handleSubmit}
               className="space-y-5 md:p-10 p-5 rounded-xl"
             >
-              <TextField label="آیدی کاربر" name="user" formik={generateLicenceFormik} />
+              <TextField label="آیدی کاربر" name="user" formik={generateLicenseFormik} />
 
-              <TextField label="آیدی دوره" name="product" formik={generateLicenceFormik} />
+              <TextField label="آیدی دوره" name="product" formik={generateLicenseFormik} />
 
               <div className="pt-2">
                 <Button
                   type="submit"
                   color="primary"
                   className="w-full"
-                  isLoading={generateLicenceLoading}
-                  isDisabled={!generateLicenceFormik.isValid}
+                  isLoading={generateLicenseLoading}
+                  isDisabled={!generateLicenseFormik.isValid}
                 >
                   ثبت
                 </Button>
@@ -166,7 +165,7 @@ export default function AddLicence() {
         return (
           <div className="mb-3 m-auto w-full">
             <CopyToClipboard
-              copyText={generateLicenceData?.spotLicence?.key}
+              copyText={generateLicenseData?.spotLicence?.key}
               title={"کپی لایسنس"}
               style="w-full flex justify-center"
             />

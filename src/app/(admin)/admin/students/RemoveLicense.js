@@ -12,16 +12,16 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 
-import { removeLicence } from "@/services/adminServices";
+import { removeLicense } from "@/services/adminServices";
 
-export default function RemoveLicence({ id }) {
+export default function RemoveLicense({ id }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
 
   const { isLoading, mutateAsync } = useMutation({
-    mutationFn: removeLicence,
+    mutationFn: removeLicense,
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["get-students"] });
 
@@ -33,14 +33,14 @@ export default function RemoveLicence({ id }) {
     },
   });
 
-  const removeLicenceHandler = async () => {
+  const removeLicenseHandler = async () => {
     try {
       await mutateAsync(id);
     } catch (error) {}
   };
 
   return (
-    <div>
+    <>
       <button onClick={onOpen}>
         <TbX
           size={25}
@@ -66,7 +66,7 @@ export default function RemoveLicence({ id }) {
                   color="danger"
                   className="btn__fifth w-full mb-3"
                   onPress={onClose}
-                  onClick={removeLicenceHandler}
+                  onClick={removeLicenseHandler}
                   isLoading={isLoading}
                 >
                   پاک کردن
@@ -82,6 +82,6 @@ export default function RemoveLicence({ id }) {
           )}
         </ModalContent>
       </Modal>
-    </div>
+    </>
   );
 }
