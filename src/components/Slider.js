@@ -19,7 +19,7 @@ export default function Slider({ courses }) {
           delay: 2500,
           disableOnInteraction: false,
         }}
-        slidesPerView={width < 400 ? 1 : width < 1024 ? 2 : width < 1280 ? 3 : 4}
+        slidesPerView={width < 510 ? 1 : width < 1024 ? 2 : width < 1280 ? 3 : 4}
         navigation={true}
         grabCursor={true}
         // onSlideChange={() => console.log("slide change")}

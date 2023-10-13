@@ -42,7 +42,7 @@ function CartPage() {
 
   if (!user.cart?.products || user.cart?.products.length === 0)
     return (
-      <div className="container lg:max-w-screen-lg py-6 my-28">
+      <div className="container lg:max-w-screen-lg py-6 my-28 max-sm:flex max-sm:flex-col max-sm:items-center">
         <p className="text-slate-100 font-bold mb-4">دوره ای در سبد خرید شما وجود ندارد</p>
         <Link href="/courses" className="text-lg font-bold btn inline-block">
           رفتن به صفحه دوره ها
