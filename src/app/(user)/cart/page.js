@@ -30,7 +30,7 @@ function CartPage() {
 
   if (paying)
     return (
-      <section className="mt-10">
+      <section className="mt-10 mb-6">
         <div className="flex justify-center relative">
           <div className="receipt-section flex flex-col items-center gap-8">
             <SpinnerComponent />
