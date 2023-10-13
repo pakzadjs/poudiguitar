@@ -52,7 +52,7 @@ export default function Footer() {
               <li className="block">
                 <a
                   rel="noreferrer"
-                  href="https://www.instagram.com/poudiguitar/"
+                  href="https://www.youtube.com/@PoudiGuitar"
                   target="_blank"
                 >
                   <BsYoutube
