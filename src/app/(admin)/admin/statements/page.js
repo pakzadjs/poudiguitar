@@ -2,14 +2,16 @@
 
 import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
+import { useDisclosure, Tooltip } from "@nextui-org/react";
 
-import { toPersianNumbers } from "@/utils/toPersianNumbers";
 import { useGetStatements } from "@/hooks/useStatements";
 import SpinnerComponent from "@/common/Spinner";
 import StatementsTable from "./StatementsTable";
 import AddStatement from "./AddStatement";
+import { HiExclamationCircle } from "react-icons/hi";
 
 export default function Statements() {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { data, isLoading } = useGetStatements();
   const { statements } = data || {};
 
@@ -18,12 +20,25 @@ export default function Statements() {
   return (
     <div className="xl:max-w-screen-xl m-auto">
       <div className="flex md:items-center gap-x-4 max-md:flex-col mb-4 justify-between">
-        <h2 className="text-xl font-extrabold mr-1 flex items-center gap-2 max-md:mb-5">
-          <span>اعلامیه ها :</span>
-          <span className="px-2 py-1 rounded-md bg-blue-500/20">
-            {toPersianNumbers(statements?.length)}
-          </span>
-        </h2>
+        <div className="text-xl font-extrabold mr-1 flex items-center gap-2 max-md:mb-5">
+          <h2>اعلامیه ها</h2>
+
+          <Tooltip
+            className="text-slate-900"
+            showArrow={true}
+            content={
+              <ul className="list-disc py-2 px-4">
+                <li>برای نشان دادن اعلامیه تخفیف، تیتر باید "off" باشد.</li>
+                <li>فقط یک اعلامیه را فعال بگذارید.</li>
+              </ul>
+            }
+            placement="bottom"
+          >
+            <button onClick={onOpen} className="btn__third cursor-default">
+              <HiExclamationCircle size={20} />
+            </button>
+          </Tooltip>
+        </div>
 
         <AddStatement />
       </div>
