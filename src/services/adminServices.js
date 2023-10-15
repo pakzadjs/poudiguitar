@@ -1,17 +1,22 @@
 import http from "./httpService";
 
-export function getAllUsers({ queryKey }) {
-  return http.get(`/admin/user/list?search=${queryKey[1]}`).then(({ data }) => data.data);
-}
-
-export function getAllStudents({ queryKey }) {
+export function getAllUsers(search, pageSearchParam, limitSearchParam) {
   return http
-    .get(`/admin/student/list?search=${queryKey[1]}&product=${queryKey[2]}`)
+    .get(`/admin/user/list?search=${search}&limit=20&page=${pageSearchParam}`)
     .then(({ data }) => data.data);
 }
 
-export function getAllPayments() {
-  return http.get(`/admin/payment/list`).then(({ data }) => data.data);
+export function getAllStudents(search, pageSearchParam, limitSearchParam) {
+  console.log({ search, pageSearchParam, limitSearchParam });
+  return http
+    .get(`/admin/student/list?search=${search}&limit=20&page=${pageSearchParam}`)
+    .then(({ data }) => data.data);
+}
+
+export function getAllPayments(pageSearchParam, limitSearchParam) {
+  return http
+    .get(`/admin/payment/list?limit=20&page=${pageSearchParam}`)
+    .then(({ data }) => data.data);
 }
 
 // Static Pages

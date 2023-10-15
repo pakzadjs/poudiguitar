@@ -1,20 +1,20 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 // import { cookies } from "next/headers";
 // import queryString from "query-string";
 import { IoIosArrowBack } from "react-icons/io";
-import { useQuery } from "@tanstack/react-query";
 import { FaArrowRotateLeft } from "react-icons/fa6";
 
 import { toPersianNumbers } from "@/utils/toPersianNumbers";
 // import { toStringCookies } from "@/utils/toStringCookies";
+import PaginationComponent from "@/common/Pagination";
+import { useGetStudents } from "@/hooks/useStudents";
 import SpinnerComponent from "@/common/Spinner";
 import StudentsTable from "./StudentsTable";
 import AddLicense from "./AddLicense";
 import Search from "../users/Search";
-import { useGetStudents } from "@/hooks/useStudents";
 
 function Students() {
   // const cookieStore = cookies();
@@ -23,12 +23,15 @@ function Students() {
   // const data = await getAllStudents(strCookies, queryString.stringify(searchParams));
   // const { students } = data || {};
 
+  const pathname = usePathname();
   const searchParams = useSearchParams();
-  const search = searchParams.get("search") || "";
-  const product = searchParams.get("product") || "";
 
-  const { isLoading, data } = useGetStudents(search, product);
-  const { students } = data || {};
+  const search = searchParams.get("search") || "";
+  const pageSearchParam = searchParams.get("page") || "";
+  const limitSearchParam = searchParams.get("limit") || "";
+
+  const { isLoading, data } = useGetStudents(search, pageSearchParam, limitSearchParam);
+  const { students, pagination } = data || {};
 
   if (isLoading) return <SpinnerComponent />;
 
@@ -105,6 +108,8 @@ function Students() {
           </div>
         )}
       </div>
+
+      <PaginationComponent pagination={pagination} pathname={pathname} />
     </div>
   );
 }

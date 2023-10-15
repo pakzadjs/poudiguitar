@@ -1,23 +1,27 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { IoIosArrowBack } from "react-icons/io";
-import { useQuery } from "@tanstack/react-query";
+import { usePathname, useSearchParams } from "next/navigation";
 import { FaArrowRotateLeft } from "react-icons/fa6";
+import { IoIosArrowBack } from "react-icons/io";
 
 import Search from "./Search";
 import UsersTable from "./UsersTable";
 import { useGetUsers } from "@/hooks/useAuth";
 import SpinnerComponent from "@/common/Spinner";
+import PaginationComponent from "@/common/Pagination";
 import { toPersianNumbers } from "@/utils/toPersianNumbers";
 
 function Users() {
+  const pathname = usePathname();
   const searchParams = useSearchParams();
-  const search = searchParams.get("search") || "";
 
-  const { isLoading, data } = useGetUsers(search);
-  const { users } = data || {};
+  const search = searchParams.get("search") || "";
+  const pageSearchParam = searchParams.get("page") || "";
+  const limitSearchParam = searchParams.get("limit") || "";
+
+  const { isLoading, data } = useGetUsers(search, pageSearchParam, limitSearchParam);
+  const { users, pagination } = data || {};
 
   if (isLoading) return <SpinnerComponent />;
 
@@ -116,6 +120,8 @@ function Users() {
           </div>
         )}
       </div>
+
+      <PaginationComponent pagination={pagination} pathname={pathname} />
     </div>
   );
 }

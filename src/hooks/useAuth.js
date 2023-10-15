@@ -12,10 +12,10 @@ export const useGetUser = () =>
     refetchOnWindowFocus: true,
   });
 
-export const useGetUsers = (search) =>
+export const useGetUsers = (search, pageSearchParam, limitSearchParam) =>
   useQuery({
-    queryKey: ["get-users", search],
-    queryFn: getAllUsers,
+    queryKey: ["get-users", { search, pageSearchParam, limitSearchParam }],
+    queryFn: () => getAllUsers(search, pageSearchParam, limitSearchParam),
     retry: false,
     refetchOnWindowFocus: true,
   });

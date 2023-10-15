@@ -1,28 +1,31 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import { IoIosArrowBack } from "react-icons/io";
 import { useQuery } from "@tanstack/react-query";
 
+import { toPersianNumbers } from "@/utils/toPersianNumbers";
 import { getAllPayments } from "@/services/adminServices";
+import PaginationComponent from "@/common/Pagination";
 import SpinnerComponent from "@/common/Spinner";
 import PaymentsTable from "./PaymentsTable";
-import { toPersianNumbers } from "@/utils/toPersianNumbers";
 
 export default function Payments() {
-  // const cookieStore = cookies();
-  // const strCookies = toStringCookies(cookieStore);
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
 
-  // const data = await getAllPayments(strCookies);
+  const pageSearchParam = searchParams.get("page") || "";
+  const limitSearchParam = searchParams.get("limit") || "";
 
   const { isLoading, data } = useQuery({
-    queryKey: ["get-payments"],
-    queryFn: getAllPayments,
+    queryKey: ["get-payments", { pageSearchParam, limitSearchParam }],
+    queryFn: () => getAllPayments(pageSearchParam, limitSearchParam),
     retry: false,
     refetchOnWindowFocus: true,
   });
 
-  const { payments } = data || {};
+  const { payments, pagination } = data || {};
 
   if (isLoading) return <SpinnerComponent />;
 
@@ -99,6 +102,8 @@ export default function Payments() {
           </div>
         )}
       </div>
+
+      <PaginationComponent pagination={pagination} pathname={pathname} />
     </div>
   );
 }
