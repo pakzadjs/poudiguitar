@@ -3,8 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import { CartIcon } from "@/public/icons/CartIcon";
-
 import {
   TbUser,
   TbHome,
@@ -17,9 +15,9 @@ import {
   TbCategory,
   TbFileText,
   TbPercentage,
+  TbSpeakerphone,
 } from "react-icons/tb";
 import {
-  Badge,
   Navbar,
   NavbarContent,
   NavbarItem,
@@ -46,6 +44,7 @@ function Header() {
     { name: "دسته بندی", href: "/admin/categories", icon: <TbCategory size={20} /> },
     { name: "پرداخت ها", href: "/admin/payments", icon: <TbList size={20} /> },
     { name: "صفحه های استاتیک", href: "/admin/static-pages", icon: <TbFileText size={20} /> },
+    { name: "اعلامیه ها", href: "/admin/statement", icon: <TbSpeakerphone size={20} /> },
     { name: "کد تخفیف", href: "/admin/coupons", icon: <TbPercentage size={20} /> },
     { name: "خروج", icon: <TbLogout size={20} /> },
   ];

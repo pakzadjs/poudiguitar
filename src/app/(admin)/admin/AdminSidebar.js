@@ -16,6 +16,7 @@ import {
   TbFileText,
   TbKey,
   TbPercentage,
+  TbSpeakerphone,
 } from "react-icons/tb";
 import SpinnerComponent from "@/common/Spinner";
 
@@ -26,6 +27,7 @@ function AdminSideBar() {
   const [categoriesLoading, setCategoriesLoading] = useState(false);
   const [paymentsLoading, setPaymentsLoading] = useState(false);
   const [pagesLoading, setPagesLoading] = useState(false);
+  const [statementsLoading, setStatementsLoading] = useState(false);
   const [couponsLoading, setCouponsLoading] = useState(false);
 
   const pathname = usePathname();
@@ -71,6 +73,12 @@ function AdminSideBar() {
     }
   };
 
+  const statementsLoadingHandler = () => {
+    if (pathname !== "/admin/statements") {
+      setStatementsLoading(true);
+    }
+  };
+
   const couponsLoadingHandler = () => {
     if (pathname !== "/admin/coupons") {
       setCouponsLoading(true);
@@ -100,6 +108,10 @@ function AdminSideBar() {
 
     if (pathname == "/admin/static-pages") {
       setPagesLoading(false);
+    }
+
+    if (pathname == "/admin/statements") {
+      setStatementsLoading(false);
     }
 
     if (pathname == "/admin/coupons") {
@@ -236,6 +248,24 @@ function AdminSideBar() {
               <div className="flex items-center">
                 <TbFileText size={20} className="ml-3" />
                 صفحه های استاتیک
+              </div>
+            )}
+          </Link>
+        </li>
+
+        {/* Statement */}
+        <li>
+          <Link
+            href="/admin/statements"
+            className={`sidebar__list ${pathname == "/admin/statements" && "bg-slate-500/40"}`}
+            onClick={statementsLoadingHandler}
+          >
+            {statementsLoading ? (
+              <SpinnerComponent size={"sm"} />
+            ) : (
+              <div className="flex items-center">
+                <TbSpeakerphone size={20} className="ml-3" />
+                اعلامیه ها
               </div>
             )}
           </Link>

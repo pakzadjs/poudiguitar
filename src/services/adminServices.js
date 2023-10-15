@@ -180,3 +180,21 @@ export function removeLicense(id) {
 export function generateLicense({ userID, productID }) {
   return http.post(`/admin/spotPlayer/${userID}/${productID}`).then(({ data }) => data.data);
 }
+
+// Statements
+
+export function getStatements() {
+  return http.get(`/admin/statement/list`).then(({ data }) => data.data);
+}
+
+export function addStatement(values) {
+  return http.post(`/admin/statement/add`, values).then(({ data }) => data.data);
+}
+
+export function updateStatement({ id, values }) {
+  return http.put(`/admin/statement/update/${id}`, values).then(({ data }) => data.data);
+}
+
+export function removeStatement(id) {
+  return http.delete(`/admin/statement/remove/${id}`).then(({ data }) => data.data);
+}
