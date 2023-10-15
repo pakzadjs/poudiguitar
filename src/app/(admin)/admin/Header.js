@@ -75,10 +75,10 @@ function Header() {
             />
 
             <NavbarItem>
-              <h1 className="lg:text-xl max-[430px]:hidden">درود بر تو ، خوش آمدی😍.</h1>
+              <h1 className="lg:text-xl max-[430px]:hidden">درود بر تو ، خوش اومدی😍.</h1>
               <h1 className="lg:text-xl max-[430px]:text-xs min-[430px]:hidden">
                 درود بر تو <span className="font-bold">{user?.name}</span>،
-                <div>خوش آمدی😍.</div>
+                <div>خوش اومدی.</div>
               </h1>
             </NavbarItem>
           </NavbarContent>

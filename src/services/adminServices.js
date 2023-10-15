@@ -146,9 +146,14 @@ export function addLesson({ id, value }) {
   return http.post(`/admin/product/addLesson/${id}`, value).then(({ data }) => data.data);
 }
 
-export function updateLesson({ productID, lessonID, value }) {
+export function updateLesson({ productID, lessonID, body }) {
   return http
     .put(`/admin/product/editLesson/${productID}/${lessonID}`, body)
+    .then(({ data }) => data.data);
+}
+export function updateLessonsBody({ productID, lessonID, bodyID, body }) {
+  return http
+    .put(`/admin/product/editLessonBody/${productID}/${lessonID}/${bodyID}`, body)
     .then(({ data }) => data.data);
 }
 

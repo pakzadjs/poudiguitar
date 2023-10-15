@@ -16,7 +16,12 @@ import {
 } from "@nextui-org/react";
 import TextField from "@/common/TextField";
 import { toPersianNumbers, toPersianNumbersWithColon } from "@/utils/toPersianNumbers";
-import { addLesson, removeLesson, updateLesson } from "@/services/adminServices";
+import {
+  addLesson,
+  removeLesson,
+  updateLesson,
+  updateLessonsBody,
+} from "@/services/adminServices";
 
 const initiaAddLessonlValues = {
   title: "",
@@ -38,6 +43,11 @@ const initiaUpdateLessonlValues = {
   ],
 };
 
+const initiaUpdateLessonsBodylValues = {
+  title: "",
+  duration: "",
+};
+
 const addLessonValidationSchema = Yup.object({
   title: Yup.string().required("این فیلد نمی تواند خالی باشد"),
   body: Yup.array().required("این فیلد نمی تواند خالی باشد"),
@@ -48,9 +58,17 @@ const updateLessonValidationSchema = Yup.object({
   body: Yup.array().required("این فیلد نمی تواند خالی باشد"),
 });
 
+const updateLessonsBodyValidationSchema = Yup.object({
+  title: Yup.string(),
+  duration: Yup.string()
+    .required("این فیلد نمی تواند خالی باشد")
+    .matches(/^[0-9]+$/, "فقط اعداد مجاز است"),
+});
+
 export default function Lessons({ product }) {
   const [step, setStep] = useState(1);
   const [edit, setEdit] = useState(null);
+  const [bodyEdit, setBodyEdit] = useState(null);
   const [remove, setRemove] = useState(null);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -76,8 +94,33 @@ export default function Lessons({ product }) {
     mutationFn: updateLesson,
   });
 
+  const { isLoading: updateLessonsBodyLoading, mutateAsync: updateLessonsBodyMutate } =
+    useMutation({
+      mutationFn: updateLessonsBody,
+      onSuccess: (data) => {
+        queryClient.invalidateQueries({ queryKey: ["get-courses"] });
+        toast.success("درس با موفقیت آپدیت شد");
+        router.refresh(pathname);
+        setStep(1);
+      },
+      onError: (error) => {
+        setStep(1);
+        toast.error(error?.response?.data?.message);
+      },
+    });
+
   const { isLoading: removeLessonLoading, mutateAsync: removeLessonMutate } = useMutation({
     mutationFn: removeLesson,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["get-courses"] });
+      toast.success("سرفصل با موفقیت حذف شد");
+      router.refresh(pathname);
+      setStep(1);
+    },
+    onError: (error) => {
+      setStep(1);
+      toast.error(error?.response?.data?.message);
+    },
   });
 
   const removeLessonHandler = async () => {
@@ -85,16 +128,8 @@ export default function Lessons({ product }) {
     const productID = product?._id;
 
     try {
-      const data = await removeLessonMutate({ lessonID, productID });
-      queryClient.invalidateQueries({ queryKey: ["get-courses"] });
-
-      setStep(1);
-      toast.success("سرفصل با موفقیت حذف شد");
-      router.refresh(pathname);
-    } catch (error) {
-      setStep(1);
-      toast.error(error?.response?.data?.message);
-    }
+      await removeLessonMutate({ lessonID, productID });
+    } catch (error) {}
   };
 
   const addLessonSumbitHandler = async (value) => {
@@ -123,6 +158,17 @@ export default function Lessons({ product }) {
     }
   };
 
+  const updateLessonsBodySumbitHandler = async ({ title, duration }) => {
+    const body = { title, duration, url: "#" } || {};
+    const lessonID = edit?._id;
+    const productID = product?._id;
+    const bodyID = bodyEdit?._id;
+
+    try {
+      await updateLessonsBodyMutate({ productID, lessonID, bodyID, body });
+    } catch (error) {}
+  };
+
   const addLessonFormik = useFormik({
     initialValues: initiaAddLessonlValues,
     onSubmit: addLessonSumbitHandler,
@@ -134,6 +180,13 @@ export default function Lessons({ product }) {
     initialValues: initiaUpdateLessonlValues,
     onSubmit: updateLessonSumbitHandler,
     validationSchema: updateLessonValidationSchema,
+    validateOnMount: true,
+  });
+
+  const updateLessonsBodyFormik = useFormik({
+    initialValues: initiaUpdateLessonsBodylValues,
+    onSubmit: updateLessonsBodySumbitHandler,
+    validationSchema: updateLessonsBodyValidationSchema,
     validateOnMount: true,
   });
 
@@ -169,8 +222,21 @@ export default function Lessons({ product }) {
                               className="max-md:p-1 p-2 rounded-md bg-slate-100/50 mb-3 w-full flex items-center justify-between"
                             >
                               <div className="">{body?.title}</div>
-                              <div className="">
+                              <div className="flex items-center gap-6">
                                 {toPersianNumbersWithColon(body?.duration)}
+
+                                <button
+                                  onClick={() => {
+                                    setStep(5);
+                                    setEdit(lesson);
+                                    setBodyEdit(body);
+                                  }}
+                                >
+                                  <TbEdit
+                                    size={25}
+                                    className="hover:text-slate-400 transition-all duration-250"
+                                  />
+                                </button>
                               </div>
                             </div>
                           );
@@ -182,7 +248,7 @@ export default function Lessons({ product }) {
                   {/* Buttons */}
                   <div className="flex items-center max-md:mb-3 gap-4 md:mr-6 md:ml-3">
                     {/* Update lesson */}
-                    <button
+                    {/* <button
                       onClick={() => {
                         setStep(3);
                         setEdit(lesson);
@@ -192,7 +258,7 @@ export default function Lessons({ product }) {
                         size={25}
                         className="hover:text-slate-400 transition-all duration-250"
                       />
-                    </button>
+                    </button> */}
 
                     {/* Remove lesson */}
                     <button
@@ -342,7 +408,39 @@ export default function Lessons({ product }) {
             </Button>
           </div>
         );
+      case 5:
+        return (
+          <form
+            onSubmit={updateLessonsBodyFormik.handleSubmit}
+            className="space-y-5 md:p-10 p-5 rounded-xl"
+          >
+            <TextField
+              label="اسم درس"
+              name="title"
+              formik={updateLessonsBodyFormik}
+              placeholder={edit?.title}
+            />
 
+            <TextField
+              label="زمان درس"
+              name="duration"
+              formik={updateLessonsBodyFormik}
+              placeholder={edit?.duration}
+            />
+
+            <div className="pt-2">
+              <Button
+                type="submit"
+                color="primary"
+                className="w-full"
+                isLoading={updateLessonsBodyLoading}
+                isDisabled={!updateLessonsBodyFormik.isValid}
+              >
+                ثبت
+              </Button>
+            </div>
+          </form>
+        );
       default:
         return null;
     }
@@ -412,6 +510,18 @@ export default function Lessons({ product }) {
                 {step == 4 && (
                   <div className="flex items-center justify-between w-full">
                     <h2>حذف کردن سر فصل</h2>
+                    <button
+                      onClick={() => setStep(1)}
+                      className="btn__fourth text-base font-normal ml-3"
+                    >
+                      برگشت
+                    </button>
+                  </div>
+                )}
+
+                {step == 5 && (
+                  <div className="flex items-center justify-between w-full">
+                    <h2>آپدیت کردن درس</h2>
                     <button
                       onClick={() => setStep(1)}
                       className="btn__fourth text-base font-normal ml-3"
