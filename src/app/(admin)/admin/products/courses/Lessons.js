@@ -43,11 +43,6 @@ const initiaUpdateLessonlValues = {
   ],
 };
 
-const initiaUpdateLessonsBodylValues = {
-  title: "",
-  duration: "",
-};
-
 const addLessonValidationSchema = Yup.object({
   title: Yup.string().required("این فیلد نمی تواند خالی باشد"),
   body: Yup.array().required("این فیلد نمی تواند خالی باشد"),
@@ -60,9 +55,7 @@ const updateLessonValidationSchema = Yup.object({
 
 const updateLessonsBodyValidationSchema = Yup.object({
   title: Yup.string(),
-  duration: Yup.string()
-    .required("این فیلد نمی تواند خالی باشد")
-    .matches(/^[0-9]+$/, "فقط اعداد مجاز است"),
+  duration: Yup.string().matches(/^[0-9]+$/, "فقط اعداد مجاز است"),
 });
 
 export default function Lessons({ product }) {
@@ -75,6 +68,11 @@ export default function Lessons({ product }) {
   const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
+
+  const initiaUpdateLessonsBodylValues = {
+    title: bodyEdit?.title,
+    duration: bodyEdit?.duration,
+  };
 
   const { isLoading: LessonLoading, mutateAsync: addLessonMutate } = useMutation({
     mutationFn: addLesson,
@@ -418,14 +416,14 @@ export default function Lessons({ product }) {
               label="اسم درس"
               name="title"
               formik={updateLessonsBodyFormik}
-              placeholder={edit?.title}
+              placeholder={bodyEdit?.title}
             />
 
             <TextField
               label="زمان درس"
               name="duration"
               formik={updateLessonsBodyFormik}
-              placeholder={edit?.duration}
+              placeholder={bodyEdit?.duration}
             />
 
             <div className="pt-2">

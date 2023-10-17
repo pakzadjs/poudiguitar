@@ -20,24 +20,24 @@ import {
 import { updateStaticPage } from "@/services/adminServices";
 import TextField from "@/common/TextField";
 
-const initialUpdateStaticPagesValues = {
-  title: "",
-  slug: "",
-};
-
 const updateStaticPagesValidationSchema = Yup.object({
   title: Yup.string(),
   slug: Yup.string().matches(/^[a-zA-Z0-9 ]+$/, "فقط متن انگلیسی و اعداد مجاز است"),
 });
 
 export default function UpdateStaticPage({ page }) {
-  const [isValid, setIsValid] = useState(false);
+  // const [isValid, setIsValid] = useState(false);
   const [inputDescription, setInputDescription] = useState(null);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
+
+  const initialUpdateStaticPagesValues = {
+    title: page?.title,
+    slug: page?.slug,
+  };
 
   const { isLoading, mutateAsync: updateMutateAsync } = useMutation({
     mutationFn: updateStaticPage,
@@ -114,13 +114,6 @@ export default function UpdateStaticPage({ page }) {
                         data={page?.description}
                         onChange={(event, editor) => {
                           const data = editor.getData();
-
-                          if (data && updateStaticPageFormik.isValid == true) {
-                            setIsValid(true);
-                          } else {
-                            setIsValid(false);
-                          }
-
                           setInputDescription(data);
                         }}
                       />
@@ -132,8 +125,8 @@ export default function UpdateStaticPage({ page }) {
                       type="submit"
                       color="primary"
                       className="w-full"
-                      isLoading={isLoading && true}
-                      isDisabled={!isValid}
+                      isLoading={isLoading}
+                      isDisabled={!updateStaticPageFormik.isValid}
                       onPress={onClose}
                     >
                       ثبت

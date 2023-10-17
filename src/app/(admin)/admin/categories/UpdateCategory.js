@@ -23,20 +23,11 @@ import Select from "@mui/material/Select";
 import { updateCategory } from "@/services/adminServices";
 import TextField from "@/common/TextField";
 
-const initialValues = {
-  title: "",
-  englishTitle: "",
-  type: "",
-  description: "",
-};
-
 const validationSchema = Yup.object({
-  title: Yup.string().required("این فیلد نمی تواند خالی باشد"),
-  englishTitle: Yup.string()
-    .required("این فیلد نمی تواند خالی باشد")
-    .matches(/^[a-zA-Z0-9-]+$/, "فقط متن انگلیسی و اعداد مجاز است"),
+  title: Yup.string(),
+  englishTitle: Yup.string().matches(/^[a-zA-Z0-9-]+$/, "فقط متن انگلیسی و اعداد مجاز است"),
   type: Yup.string().required("این فیلد نمی تواند خالی باشد"),
-  description: Yup.string().required("این فیلد نمی تواند خالی باشد"),
+  description: Yup.string(),
 });
 
 export default function UpdateCategory({ id, category }) {
@@ -44,6 +35,13 @@ export default function UpdateCategory({ id, category }) {
   const router = useRouter();
   const pathname = usePathname();
   const queryClient = useQueryClient();
+
+  const initialValues = {
+    title: category?.title,
+    englishTitle: category?.englishTitle,
+    description: category?.description,
+    type: "",
+  };
 
   const { isLoading, mutateAsync } = useMutation({
     mutationFn: updateCategory,

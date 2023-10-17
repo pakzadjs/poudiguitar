@@ -23,19 +23,14 @@ const initiaAddFAQlValues = {
   answer: "",
 };
 
-const initiaUpdateFAQlValues = {
-  question: "",
-  answer: "",
-};
-
 const addFAQValidationSchema = Yup.object({
   question: Yup.string().required("این فیلد نمی تواند خالی باشد"),
   answer: Yup.string().required("این فیلد نمی تواند خالی باشد"),
 });
 
 const updateFAQValidationSchema = Yup.object({
-  question: Yup.string().required("این فیلد نمی تواند خالی باشد"),
-  answer: Yup.string().required("این فیلد نمی تواند خالی باشد"),
+  question: Yup.string(),
+  answer: Yup.string(),
 });
 
 export default function FAQ({ product }) {
@@ -47,6 +42,11 @@ export default function FAQ({ product }) {
   const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
+
+  const initiaUpdateFAQlValues = {
+    question: edit?.question,
+    answer: edit?.answer,
+  };
 
   const { isLoading: FAQLoading, mutateAsync: addFAQMutate } = useMutation({
     mutationFn: addFAQ,

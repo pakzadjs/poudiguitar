@@ -20,7 +20,6 @@ import {
 } from "@nextui-org/react";
 
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -29,56 +28,44 @@ import { updateProduct } from "@/services/adminServices";
 import TextField from "@/common/TextField";
 import vazirFont from "@/constants/localFonts";
 
-const initialValues = {
-  title: "",
-  slug: "",
-  descriptionSummary: "",
-  price: "",
-  discount: "",
-  offPrice: "",
-  spotCourse: "",
-  lessonsNumber: "",
-  tag1: "",
-  tag2: "",
-  channel: "",
-  category: "",
-};
-
 const validationSchema = Yup.object({
-  title: Yup.string().required("این فیلد نمی تواند خالی باشد"),
-  slug: Yup.string()
-    .required("این فیلد نمی تواند خالی باشد")
-    .matches(/^[a-zA-Z0-9-]+$/, "فقط متن انگلیسی و اعداد و - مجاز است"),
-  descriptionSummary: Yup.string().required("این فیلد نمی تواند خالی باشد"),
-  price: Yup.string()
-    .required("این فیلد نمی تواند خالی باشد")
-    .matches(/^[0-9]+$/, "فقط اعداد مجاز است"),
-  discount: Yup.string()
-    .required("این فیلد نمی تواند خالی باشد")
-    .matches(/^[0-9]+$/, "فقط اعداد مجاز است"),
-  offPrice: Yup.string()
-    .required("این فیلد نمی تواند خالی باشد")
-    .matches(/^[0-9]+$/, "فقط اعداد مجاز است"),
-  spotCourse: Yup.string().required("این فیلد نمی تواند خالی باشد"),
-  lessonsNumber: Yup.string()
-    .required("این فیلد نمی تواند خالی باشد")
-    .matches(/^[0-9]+$/, "فقط اعداد مجاز است"),
-  tag1: Yup.string()
-    .required("این فیلد نمی تواند خالی باشد")
-    .matches(/^[0-9]+$/, "فقط اعداد مجاز است"),
-  tag2: Yup.string().required("این فیلد نمی تواند خالی باشد"),
-  channel: Yup.string().required("این فیلد نمی تواند خالی باشد"),
+  title: Yup.string(),
+  slug: Yup.string().matches(/^[a-zA-Z0-9-]+$/, "فقط متن انگلیسی و اعداد و - مجاز است"),
+  descriptionSummary: Yup.string(),
+  price: Yup.string().matches(/^[0-9]+$/, "فقط اعداد مجاز است"),
+  discount: Yup.string().matches(/^[0-9]+$/, "فقط اعداد مجاز است"),
+  offPrice: Yup.string().matches(/^[0-9]+$/, "فقط اعداد مجاز است"),
+  spotCourse: Yup.string(),
+  lessonsNumber: Yup.string().matches(/^[0-9]+$/, "فقط اعداد مجاز است"),
+  tag1: Yup.string().matches(/^[0-9]+$/, "فقط اعداد مجاز است"),
+  tag2: Yup.string(),
+  channel: Yup.string(),
   category: Yup.string().required("این فیلد نمی تواند خالی باشد"),
 });
 
 export default function UpdateCourse({ course, categories }) {
   const [inputDescription, setInputDescription] = useState(null);
-  const [isValid, setIsValid] = useState(false);
+  // const [isValid, setIsValid] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
+
+  const initialValues = {
+    title: course?.title,
+    slug: course?.slug,
+    descriptionSummary: course?.descriptionSummary,
+    price: course?.price,
+    discount: course?.discount,
+    offPrice: course?.offPrice,
+    spotCourse: course?.spotCourse,
+    lessonsNumber: course?.lessonsNumber,
+    tag1: course?.tags[0],
+    tag2: course?.tags[1],
+    channel: course?.channel,
+    category: "",
+  };
 
   const { isLoading, mutateAsync } = useMutation({
     mutationFn: updateProduct,
@@ -253,7 +240,7 @@ export default function UpdateCourse({ course, categories }) {
                         labelId="demo-simple-select-label"
                         id="Category"
                         value={formik?.values["category"]}
-                        label="دسته بندی"
+                        // label="دسته بندی"
                         onChange={formik?.handleChange}
                         onBlur={formik?.handleBlur}
                         sx={{
@@ -296,13 +283,6 @@ export default function UpdateCourse({ course, categories }) {
                         data={course?.description}
                         onChange={(event, editor) => {
                           const data = editor.getData();
-
-                          if (data && formik.isValid == true) {
-                            setIsValid(true);
-                          } else {
-                            setIsValid(false);
-                          }
-
                           setInputDescription(data);
                         }}
 
@@ -327,7 +307,7 @@ export default function UpdateCourse({ course, categories }) {
                       color="primary"
                       className="w-full"
                       isLoading={isLoading && true}
-                      isDisabled={!isValid}
+                      isDisabled={!formik.isValid}
                       onPress={onClose}
                     >
                       ثبت

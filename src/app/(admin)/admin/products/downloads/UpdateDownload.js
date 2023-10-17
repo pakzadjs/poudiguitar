@@ -26,21 +26,12 @@ import { updateProduct } from "@/services/adminServices";
 import TextField from "@/common/TextField";
 import vazirFont from "@/constants/localFonts";
 
-const initialValues = {
-  title: "",
-  slug: "",
-  descriptionSummary: "",
-  tag: "",
-  category: "",
-};
-
 const validationSchema = Yup.object({
-  title: Yup.string().required("این فیلد نمی تواند خالی باشد"),
+  title: Yup.string(),
   slug: Yup.string()
-    .required("این فیلد نمی تواند خالی باشد")
-    .matches(/^[a-zA-Z0-9-]+$/, "فقط متن انگلیسی و اعداد مجاز است"),
-  descriptionSummary: Yup.string().required("این فیلد نمی تواند خالی باشد"),
-  tag: Yup.string().required("این فیلد نمی تواند خالی باشد"),
+  .matches(/^[a-zA-Z0-9-]+$/, "فقط متن انگلیسی و اعداد مجاز است"),
+  descriptionSummary: Yup.string(),
+  tag: Yup.string(),
   category: Yup.string().required("این فیلد نمی تواند خالی باشد"),
 });
 
@@ -49,6 +40,14 @@ export default function UpdateDownload({ categories, download }) {
   const queryClient = useQueryClient();
   const router = useRouter();
   const pathname = usePathname();
+
+  const initialValues = {
+    title: download?.title,
+    slug: download?.slug,
+    descriptionSummary: download?.descriptionSummary,
+    tag: download?.tags[1],
+    category: "",
+  };
 
   const { isLoading, mutateAsync } = useMutation({
     mutationFn: updateProduct,

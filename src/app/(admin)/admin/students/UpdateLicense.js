@@ -20,12 +20,6 @@ import {
 import TextField from "@/common/TextField";
 import { updateLicense } from "@/services/adminServices";
 
-const initialValues = {
-  user: " ",
-  product: " ",
-  key: "",
-};
-
 const validationSchema = Yup.object({
   user: Yup.string().required("این فیلد نمی تواند خالی باشد"),
   product: Yup.string().required("این فیلد نمی تواند خالی باشد"),
@@ -37,6 +31,12 @@ export default function UpdateLicense({ student }) {
   const queryClient = useQueryClient();
   const pathname = usePathname();
   const router = useRouter();
+
+  const initialValues = {
+    user: student?.user?._id,
+    product: student?.product?._id,
+    key: student?.license?.key,
+  };
 
   const { isLoading: updateLicenseLoading, mutateAsync: updateLicenseMutate } = useMutation({
     mutationFn: updateLicense,
