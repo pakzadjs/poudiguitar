@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { Button, Spinner } from "@nextui-org/react";
@@ -15,26 +15,26 @@ import { changeAvatar, updateProfile } from "@/services/authServices";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL2;
 
-const initialUserProfileValues = {
-  name: "",
-  email: "",
-  biography: "",
-};
-
 const userProfileValidationSchema = Yup.object({
   biography: Yup.string(),
   name: Yup.string()
-    .required("نام کامل خود را وارد کنید")
     .matches(/^[\u0600-\u06FF\s]+$/, "نام خود را فارسی وارد کنید")
     .min(6, "نام کامل خود را وارد کنید"),
-  email: Yup.string().required("ایمیل خود را وارد کنید").email("ایمیل وارد شده صحیح نمی باشد"),
+  email: Yup.string().email("ایمیل وارد شده صحیح نمی باشد"),
 });
 
 export default function Me() {
   const { data, isLoading } = useGetUser();
   const { user } = data || {};
   const router = useRouter();
+  const pathname = usePathname();
   const queryClient = useQueryClient();
+
+  const initialUserProfileValues = {
+    name: user?.name,
+    email: user?.email,
+    biography: user?.biography || "",
+  };
 
   const { isLoading: isUpdating, mutateAsync } = useMutation({
     mutationFn: updateProfile,
@@ -50,7 +50,7 @@ export default function Me() {
     const filetype = file?.type;
 
     if (file) {
-      if (mb <= 1 && filetype === "image/jpeg") {
+      if ((mb <= 2 && filetype === "image/jpeg") || (mb <= 2 && filetype === "image/png")) {
         try {
           const formData = new FormData();
           formData.append("avatar", file);
@@ -58,15 +58,13 @@ export default function Me() {
           const { data } = await mutateAvatar(formData);
           queryClient.invalidateQueries({ queryKey: ["get-user"] });
 
-          // routerPush(router);
-          router.refresh();
+          router.refresh(pathname);
           toast.success("آواتار با موفقیت آپلود شد");
         } catch (error) {
-          console.log(error);
           toast.error("Something went wrong!");
         }
       } else {
-        toast.error("فقط فایل با فرمت jpg و با حجم زیر یک مگابایت مجاز است");
+        toast.error("فقط فایل با فرمت jpg, png و با حجم زیر دو مگابایت مجاز است");
       }
     }
   };
@@ -78,6 +76,7 @@ export default function Me() {
       const { message } = await mutateAsync(formData);
       queryClient.invalidateQueries({ queryKey: ["get-user"] });
       toast.success(message);
+      router.refresh(pathname);
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
