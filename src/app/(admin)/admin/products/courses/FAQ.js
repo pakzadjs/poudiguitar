@@ -72,7 +72,6 @@ export default function FAQ({ product }) {
       toast.success("FAQ با موفقیت حذف شد");
       router.refresh(pathname);
     } catch (error) {
-      console.log(error);
       setStep(1);
       toast.error(error?.response?.data?.message);
     }

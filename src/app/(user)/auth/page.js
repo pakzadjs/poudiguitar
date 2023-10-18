@@ -70,7 +70,6 @@ export default function AuthPage() {
         router.push("/complete-profile");
       }
     } catch (error) {
-      console.log(error);
       toast.error(error?.response?.data?.message || "خطایی رخ داده، یکم دیرتر امتحان کن");
     }
   };

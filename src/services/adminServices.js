@@ -7,7 +7,6 @@ export function getAllUsers(search, pageSearchParam, limitSearchParam) {
 }
 
 export function getAllStudents(search, pageSearchParam, limitSearchParam) {
-  console.log({ search, pageSearchParam, limitSearchParam });
   return http
     .get(`/admin/student/list?search=${search}&limit=20&page=${pageSearchParam}`)
     .then(({ data }) => data.data);
