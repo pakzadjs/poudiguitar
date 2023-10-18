@@ -10,10 +10,12 @@ export function getOnePayment(id) {
 
 export function getPayments(cookies) {
   return http
-    .get(`/payment/list`, {
-      headers: {
-        Cookie: cookies,
-      },
-    })
+    .get(`/payment/list`, 
+    // {
+    //   headers: {
+    //     Cookie: cookies,
+    //   },
+    // }
+    )
     .then(({ data }) => data.data);
 }
