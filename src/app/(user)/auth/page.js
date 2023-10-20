@@ -3,19 +3,16 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
-import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useFormik } from "formik";
+import { toast } from "react-hot-toast";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import SendOTPForm from "./SendOtpForm";
 import CheckOTPForm from "./CheckOTPForm";
+import useGetItem from "@/hooks/useGetItem";
 import { checkOtp, getOtp } from "@/services/authServices";
 const RESEND_TIME = 90;
-
-const initialAuthValues = {
-  phoneNumber: localStorage.getItem("phoneNumber") || "",
-};
 
 const authValidationSchema = Yup.object({
   phoneNumber: Yup.string()
@@ -29,6 +26,12 @@ export default function AuthPage() {
   const [time, setTime] = useState(RESEND_TIME);
   const queryClient = useQueryClient();
   const router = useRouter();
+
+  const item = useGetItem({ itemName: "phoneNumber" });
+
+  const initialAuthValues = {
+    phoneNumber: item || "",
+  };
 
   const {
     data: otpResponse,
