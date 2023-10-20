@@ -14,7 +14,7 @@ import { checkOtp, getOtp } from "@/services/authServices";
 const RESEND_TIME = 90;
 
 const initialAuthValues = {
-  phoneNumber: "",
+  phoneNumber: localStorage.getItem("phoneNumber") || "",
 };
 
 const authValidationSchema = Yup.object({
@@ -101,7 +101,10 @@ export default function AuthPage() {
       case 2:
         return (
           <CheckOTPForm
-            onBack={() => setStep((s) => s - 1)}
+            onBack={() => {
+              // setStep((s) => s - 1);
+              document.location.href = "/auth";
+            }}
             otp={otp}
             setOtp={setOtp}
             onSubmit={checkOtpHandler}

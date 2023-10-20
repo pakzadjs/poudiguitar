@@ -23,9 +23,9 @@ export default function CheckOTPForm({
       {otpResponse && (
         <p className="text-xs text-gray-300 flex items-center mb-2">
           {otpResponse?.message}
-          <button onClick={onBack} className="mr-1">
+          {/* <button onClick={onBack} className="mr-1">
             <TbEdit className="w-6 h-6 text-primary-500 hover:text-gray-300 transition-all duration-250" />
-          </button>
+          </button> */}
         </p>
       )}
 

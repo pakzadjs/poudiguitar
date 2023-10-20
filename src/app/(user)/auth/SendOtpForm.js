@@ -78,6 +78,9 @@ export default function SendOTPForm({ onSubmit, isLoading, formik }) {
             className="w-full"
             isLoading={LoginLoading && true}
             isDisabled={!loginFormik.isValid}
+            onClick={() => {
+              localStorage.setItem("phoneNumber", loginFormik?.values?.phoneNumber);
+            }}
           >
             ورود
           </Button>
