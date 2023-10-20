@@ -21,17 +21,17 @@ export default function ProductCard({ product }) {
     <div className="bg-blue-950/50 shadow-lg shadow-blue-900/50 rounded-xl relative p-3 flex flex-col h-full hover:shadow-xl hover:shadow-blue-800/40 transition-all duration-300 ease-in-out">
       {/* image */}
       <div className="-mt-14 mb-6">
-        <div className="relative shadow-lg rounded-xl shadow-blue-700/30">
+        <div className="product_bg_skeleton">
           {product?.type == "course" ? (
             <Link href={`/courses/${product?.slug}`}>
-              <div className="pointer-events-none">
+              <div className="pointer-events-none z-10">
                 {product?.image ? (
                   <Image
                     src={`${baseUrl}/public/uploads/productImages/${product?.image}`}
                     width={300}
                     height={100}
                     alt={product?.slug}
-                    className="object-cover object-center h-full w-full rounded-xl aspect-13/9"
+                    className="object-cover object-center h-full w-full rounded-xl aspect-13/9 z-20"
                   />
                 ) : (
                   <Image
@@ -39,20 +39,20 @@ export default function ProductCard({ product }) {
                     width={300}
                     height={100}
                     alt={product?.slug}
-                    className="object-cover object-center h-full w-full rounded-xl aspect-13/9"
+                    className="object-cover object-center h-full w-full rounded-xl aspect-13/9 z-20"
                   />
                 )}
               </div>
             </Link>
           ) : (
-            <div className="pointer-events-none">
+            <div className="pointer-events-none z-10">
               {product?.image ? (
                 <Image
                   src={`${baseUrl}/public/uploads/productImages/${product?.image}`}
                   width={300}
                   height={100}
                   alt={product?.slug}
-                  className="object-cover object-center h-full w-full rounded-xl aspect-13/9"
+                  className="object-cover object-center h-full w-full rounded-xl aspect-13/9 z-20"
                 />
               ) : (
                 <Image
@@ -60,7 +60,7 @@ export default function ProductCard({ product }) {
                   width={300}
                   height={100}
                   alt={product?.slug}
-                  className="object-cover object-center h-full w-full rounded-xl aspect-13/9"
+                  className="object-cover object-center h-full w-full rounded-xl aspect-13/9 z-20"
                 />
               )}
             </div>
@@ -75,7 +75,7 @@ export default function ProductCard({ product }) {
               }
               size={20}
             />
-            
+
             {product?.type === "course" && (
               <span className="bg-slate-100/90 px-1 rounded-md flex items-center text-slate-900 cursor-default">
                 <TbUsers size={19} />

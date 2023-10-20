@@ -33,6 +33,9 @@
   .productDetails__like {
     @apply text-rose-600 hover:text-rose-400 p-3 w-full rounded-xl bg-blue-950/90 hover:bg-blue-900/30 transition-all duration-250 flex justify-center;
   }
+  .product_bg_skeleton {
+    @apply before:-z-10 overflow-hidden relative shadow-lg rounded-xl shadow-blue-700/30 bg-blue-900/30 bg-gradient-to-r from-transparent via-blue-900/30 to-transparent before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_1s_infinite] before:border-t before:border-blue-900 before:bg-gradient-to-r before:from-transparent before:via-blue-800 before:to-transparent;
+  }
   .receipt-section {
     @apply w-full sm:max-w-sm bg-sky-600/50 p-8 rounded-2xl shadow-blue-900/50 hover:shadow-xl hover:shadow-blue-800/40 transition-all duration-300;
   }

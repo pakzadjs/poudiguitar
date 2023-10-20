@@ -24,6 +24,13 @@ module.exports = {
       boxShadow: {
         "input-focus": "0 12px 24px -8px rgb(56, 93, 168)",
       },
+      keyframes: {
+        shimmer: {
+          "100%": {
+            transform: "translateX(100%)",
+          },
+        },
+      },
     },
   },
   darkMode: "class",
