@@ -18,7 +18,7 @@ export default function MyCourses() {
       <h2 className="text-xl font-extrabold mb-4 mr-1">دوره های من</h2>
 
       <div className="z-30 bg-blue-950/50 p-10 rounded-3xl flex items-center">
-        {students ? (
+        {students?.[0] ? (
           <div className="relative rounded-xl overflow-auto">
             <div className="shadow-sm overflow-auto my-8">
               <table className="border-collapse table-auto w-full min-w-[900px] text-sm">
@@ -58,7 +58,7 @@ export default function MyCourses() {
             </div>
           </div>
         ) : (
-          <div>
+          <div className="max-md:flex max-md:flex-col max-md:items-center max-md:justify-center max-md:m-auto">
             <p className="text-lg font-semibold mb-3">شما در دوره ای ثبت نام نکردید</p>
             <Link href="/courses">
               <button className="btn">رفتن به صفحه دوره ها</button>

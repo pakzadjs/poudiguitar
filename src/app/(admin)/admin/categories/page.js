@@ -37,7 +37,7 @@ export default function Categories({ searchParams }) {
 
       {/* Table */}
       <div className="z-30 bg-blue-950/50 p-10 rounded-3xl flex items-center">
-        {categories ? (
+        {categories?.[0] ? (
           <div className="relative rounded-xl overflow-auto">
             <div className="shadow-sm overflow-auto my-8">
               <table className="border-collapse table-auto w-full min-w-[1000px] text-sm">
@@ -71,8 +71,8 @@ export default function Categories({ searchParams }) {
             </div>
           </div>
         ) : (
-          <div>
-            <p className="text-lg font-semibold mb-3">صفحه استاتیکی برای نمایش وجود ندارد</p>
+          <div className="max-md:flex max-md:flex-col max-md:items-center max-md:justify-center max-md:m-auto">
+            <p className="text-lg font-semibold mb-3">دسته بندی برای نمایش وجود ندارد</p>
             <Link href="/admin">
               <button className="btn">رفتن به داشبورد</button>
             </Link>

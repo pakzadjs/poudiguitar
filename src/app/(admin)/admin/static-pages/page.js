@@ -35,7 +35,7 @@ async function StaticPages() {
 
       {/* Table */}
       <div className="z-30 bg-blue-950/50 p-10 rounded-3xl flex items-center">
-        {staticPages ? (
+        {staticPages?.[0] ? (
           <div className="relative rounded-xl overflow-auto">
             <div className="shadow-sm overflow-auto my-8">
               <table className="border-collapse table-auto w-full min-w-[1000px] text-sm">
@@ -68,7 +68,7 @@ async function StaticPages() {
             </div>
           </div>
         ) : (
-          <div>
+          <div className="max-md:flex max-md:flex-col max-md:items-center max-md:justify-center max-md:m-auto">
             <p className="text-lg font-semibold mb-3">صفحه استاتیکی برای نمایش وجود ندارد</p>
             <Link href="/admin">
               <button className="btn">رفتن به داشبورد</button>
