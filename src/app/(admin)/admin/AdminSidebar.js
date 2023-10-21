@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { logout } from "@/services/authServices";
+import { Backdrop, CircularProgress } from "@mui/material";
 import {
   TbHome,
   TbLogout,
@@ -21,6 +22,7 @@ import {
 import SpinnerComponent from "@/common/Spinner";
 
 function AdminSideBar() {
+  const [open, setOpen] = useState(false);
   const [usersLoading, setUsersLoading] = useState(false);
   const [studentsLoading, setStudentsLoading] = useState(false);
   const [productsLoading, setProductsLoading] = useState(false);
@@ -32,6 +34,13 @@ function AdminSideBar() {
 
   const pathname = usePathname();
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   const logoutHandler = async () => {
     await logout();
     document.location.href = "/";
@@ -40,82 +49,98 @@ function AdminSideBar() {
   const usersLoadingHandler = () => {
     if (pathname !== "/admin/users") {
       setUsersLoading(true);
+      setOpen(true);
     }
   };
 
   const studentsLoadingHandler = () => {
     if (pathname !== "/admin/students") {
       setStudentsLoading(true);
+      setOpen(true);
     }
   };
 
   const productsLoadingHandler = () => {
     if (pathname !== "/admin/products") {
       setProductsLoading(true);
+      setOpen(true);
     }
   };
 
   const categoriesLoadingHandler = () => {
     if (pathname !== "/admin/categories") {
       setCategoriesLoading(true);
+      setOpen(true);
     }
   };
 
   const paymentsLoadingHandler = () => {
     if (pathname !== "/admin/payments") {
       setPaymentsLoading(true);
+      setOpen(true);
     }
   };
 
   const pagesLoadingHandler = () => {
     if (pathname !== "/admin/static-pages") {
       setPagesLoading(true);
+      setOpen(true);
     }
   };
 
   const statementsLoadingHandler = () => {
     if (pathname !== "/admin/statements") {
       setStatementsLoading(true);
+      setOpen(true);
     }
   };
 
   const couponsLoadingHandler = () => {
     if (pathname !== "/admin/coupons") {
       setCouponsLoading(true);
+      setOpen(true);
     }
   };
 
   useEffect(() => {
     if (pathname == "/admin/users") {
       setUsersLoading(false);
+      setOpen(false);
     }
 
     if (pathname == "/admin/students") {
       setStudentsLoading(false);
+      setOpen(false);
     }
 
     if (pathname == "/admin/products") {
       setProductsLoading(false);
+      setOpen(false);
     }
 
     if (pathname == "/admin/categories") {
       setCategoriesLoading(false);
+      setOpen(false);
     }
 
     if (pathname == "/admin/payments") {
       setPaymentsLoading(false);
+      setOpen(false);
     }
 
     if (pathname == "/admin/static-pages") {
       setPagesLoading(false);
+      setOpen(false);
     }
 
     if (pathname == "/admin/statements") {
       setStatementsLoading(false);
+      setOpen(false);
     }
 
     if (pathname == "/admin/coupons") {
       setCouponsLoading(false);
+      setOpen(false);
     }
   }, [pathname]);
 
@@ -151,7 +176,16 @@ function AdminSideBar() {
             onClick={usersLoadingHandler}
           >
             {usersLoading ? (
-              <SpinnerComponent size={"sm"} />
+              <>
+                <SpinnerComponent size={"sm"} />
+                <Backdrop
+                  sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                  open={open}
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
+              </>
             ) : (
               <div className="flex items-center">
                 <TbUsersGroup size={20} className="ml-3" />
@@ -169,7 +203,16 @@ function AdminSideBar() {
             onClick={studentsLoadingHandler}
           >
             {studentsLoading ? (
-              <SpinnerComponent size={"sm"} />
+              <>
+                <SpinnerComponent size={"sm"} />
+                <Backdrop
+                  sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                  open={open}
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
+              </>
             ) : (
               <div className="flex items-center">
                 <TbKey size={20} className="ml-3" />
@@ -187,7 +230,16 @@ function AdminSideBar() {
             onClick={productsLoadingHandler}
           >
             {productsLoading ? (
-              <SpinnerComponent size={"sm"} />
+              <>
+                <SpinnerComponent size={"sm"} />
+                <Backdrop
+                  sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                  open={open}
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
+              </>
             ) : (
               <div className="flex items-center">
                 <TbBooks size={20} className="ml-3" />
@@ -205,7 +257,16 @@ function AdminSideBar() {
             onClick={categoriesLoadingHandler}
           >
             {categoriesLoading ? (
-              <SpinnerComponent size={"sm"} />
+              <>
+                <SpinnerComponent size={"sm"} />
+                <Backdrop
+                  sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                  open={open}
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
+              </>
             ) : (
               <div className="flex items-center">
                 <TbCategory size={20} className="ml-3" />
@@ -223,7 +284,16 @@ function AdminSideBar() {
             onClick={paymentsLoadingHandler}
           >
             {paymentsLoading ? (
-              <SpinnerComponent size={"sm"} />
+              <>
+                <SpinnerComponent size={"sm"} />
+                <Backdrop
+                  sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                  open={open}
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
+              </>
             ) : (
               <div className="flex items-center">
                 <TbList size={20} className="ml-3" />
@@ -243,7 +313,16 @@ function AdminSideBar() {
             onClick={pagesLoadingHandler}
           >
             {pagesLoading ? (
-              <SpinnerComponent size={"sm"} />
+              <>
+                <SpinnerComponent size={"sm"} />
+                <Backdrop
+                  sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                  open={open}
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
+              </>
             ) : (
               <div className="flex items-center">
                 <TbFileText size={20} className="ml-3" />
@@ -261,7 +340,16 @@ function AdminSideBar() {
             onClick={statementsLoadingHandler}
           >
             {statementsLoading ? (
-              <SpinnerComponent size={"sm"} />
+              <>
+                <SpinnerComponent size={"sm"} />
+                <Backdrop
+                  sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                  open={open}
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
+              </>
             ) : (
               <div className="flex items-center">
                 <TbSpeakerphone size={20} className="ml-3" />
@@ -279,7 +367,16 @@ function AdminSideBar() {
             onClick={couponsLoadingHandler}
           >
             {couponsLoading ? (
-              <SpinnerComponent size={"sm"} />
+              <>
+                <SpinnerComponent size={"sm"} />
+                <Backdrop
+                  sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                  open={open}
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
+              </>
             ) : (
               <div className="flex items-center">
                 <TbPercentage size={20} className="ml-3" />

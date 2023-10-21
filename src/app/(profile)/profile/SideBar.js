@@ -5,18 +5,27 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { PiPasswordBold } from "react-icons/pi";
+import { Backdrop, CircularProgress } from "@mui/material";
+import { TbHome, TbLogout, TbBooks, TbUserEdit, TbSettings2, TbList } from "react-icons/tb";
 
 import { logout } from "@/services/authServices";
 import SpinnerComponent from "@/common/Spinner";
-import { TbHome, TbLogout, TbBooks, TbUserEdit, TbSettings2, TbList } from "react-icons/tb";
 
 function SideBar() {
+  const [open, setOpen] = useState(false);
   const [coursesLoading, setCoursesLoading] = useState(false);
   const [paymentsLoading, setPaymentsLoading] = useState(false);
   const [infoLoading, setInfoLoading] = useState(false);
   const [passwordLoading, setPasswordLoading] = useState(false);
 
   const pathname = usePathname();
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   const logoutHandler = async () => {
     await logout();
@@ -26,42 +35,50 @@ function SideBar() {
   const coursesLoadingHandler = () => {
     if (pathname !== "/profile/courses") {
       setCoursesLoading(true);
+      setOpen(true);
     }
   };
 
   const paymentsLoadingHandler = () => {
     if (pathname !== "/profile/payments") {
       setPaymentsLoading(true);
+      setOpen(true);
     }
   };
 
   const infoLoadingHandler = () => {
     if (pathname !== "/profile/me") {
       setInfoLoading(true);
+      setOpen(true);
     }
   };
 
   const passwordLoadingHandler = () => {
     if (pathname !== "/profile/password") {
       setPasswordLoading(true);
+      setOpen(true);
     }
   };
 
   useEffect(() => {
     if (pathname == "/profile/courses") {
       setCoursesLoading(false);
+      setOpen(false);
     }
 
     if (pathname == "/profile/payments") {
       setPaymentsLoading(false);
+      setOpen(false);
     }
 
     if (pathname == "/profile/me") {
       setInfoLoading(false);
+      setOpen(false);
     }
 
     if (pathname == "/profile/password") {
       setPasswordLoading(false);
+      setOpen(false);
     }
   }, [pathname]);
 
@@ -97,7 +114,16 @@ function SideBar() {
             onClick={coursesLoadingHandler}
           >
             {coursesLoading ? (
-              <SpinnerComponent size={"sm"} />
+              <>
+                <SpinnerComponent size={"sm"} />
+                <Backdrop
+                  sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                  open={open}
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
+              </>
             ) : (
               <div className="flex items-center">
                 <TbBooks size={20} className="ml-3" />
@@ -115,7 +141,16 @@ function SideBar() {
             onClick={paymentsLoadingHandler}
           >
             {paymentsLoading ? (
-              <SpinnerComponent size={"sm"} />
+              <>
+                <SpinnerComponent size={"sm"} />
+                <Backdrop
+                  sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                  open={open}
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
+              </>
             ) : (
               <div className="flex items-center">
                 <TbList size={20} className="ml-3" />
@@ -133,7 +168,16 @@ function SideBar() {
             onClick={infoLoadingHandler}
           >
             {infoLoading ? (
-              <SpinnerComponent size={"sm"} />
+              <>
+                <SpinnerComponent size={"sm"} />
+                <Backdrop
+                  sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                  open={open}
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
+              </>
             ) : (
               <div className="flex items-center">
                 <TbUserEdit size={20} className="ml-3" />
@@ -151,7 +195,16 @@ function SideBar() {
             onClick={passwordLoadingHandler}
           >
             {passwordLoading ? (
-              <SpinnerComponent size={"sm"} />
+              <>
+                <SpinnerComponent size={"sm"} />
+                <Backdrop
+                  sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                  open={open}
+                  onClick={handleClose}
+                >
+                  <CircularProgress color="inherit" />
+                </Backdrop>
+              </>
             ) : (
               <div className="flex items-center">
                 <PiPasswordBold size={20} className="ml-3" />
