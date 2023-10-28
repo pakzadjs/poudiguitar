@@ -46,13 +46,18 @@ export default function Lessons({ product }) {
                     <div className="flex items-center gap-3">
                       <span>{toPersianNumbers(i + 1)}-</span>
                       <Typography sx={{ fontFamily: `vazir`, color: "#a9cbef" }}>
-                        {body?.title}
+                        <div className="max-sm:text-xs">{body?.title}</div>
                       </Typography>
                     </div>
 
-                    <div className="text-[#a9cbef] flex items-center gap-2">
-                      <span className="text-sm">{toPersianNumbersWithColon(body?.duration)} دقیقه</span>
-                      <BiTimeFive size={20} className="text-yellow-300" />
+                    <div className="text-[#a9cbef] flex items-center gap-2 max-sm:gap-1">
+                      <span className="text-sm max-sm:text-xs max-sm:mr-2">
+                        {toPersianNumbersWithColon(body?.duration)} دقیقه
+                      </span>
+                      <BiTimeFive
+                        size={20}
+                        className="text-yellow-300 max-sm:w-6 max-sm:h-6"
+                      />
                     </div>
                   </div>
                 );
