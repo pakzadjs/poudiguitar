@@ -3,7 +3,7 @@
 <h3 align="center">Poudi Guitar - پودی گیتار</h3>
 </p>
 
-Poudi Guitar is your straightforward solution for mastering the guitar. Our eCommerce platform makes it effortless to explore, purchase, and access guitar courses from any device, anytime, and anywhere. Unleash your musical potential with Poudi Guitar!
+Poudi Guitar is your straightforward solution for mastering the guitar. Our eCommerce platform makes it effortless to explore, purchase, and access guitar courses from any device, anytime, and anywhere. Unleash your musical potential with [Poudi Guitar](https://poudiguitar.com/)!
 
 ## Features:
 - Buy music courses and instantly acquire licenses in your profile
