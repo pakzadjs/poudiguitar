@@ -6,7 +6,14 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { PiPasswordBold } from "react-icons/pi";
 import { Backdrop, CircularProgress } from "@mui/material";
-import { TbHome, TbLogout, TbBooks, TbUserEdit, TbSettings2, TbList } from "react-icons/tb";
+import {
+  TbHome,
+  TbLogout,
+  TbBooks,
+  TbUserEdit,
+  TbSettings2,
+  TbList,
+} from "react-icons/tb";
 
 import { logout } from "@/services/authServices";
 import SpinnerComponent from "@/common/Spinner";
@@ -99,7 +106,9 @@ function SideBar() {
         <li>
           <Link
             href="/profile"
-            className={`sidebar__list ${pathname == "/profile" && "bg-slate-500/40"}`}
+            className={`sidebar__list ${
+              pathname == "/profile" && "bg-slate-500/40"
+            }`}
           >
             <TbSettings2 size={20} className="ml-3" />
             داشبورد
@@ -110,7 +119,9 @@ function SideBar() {
         <li>
           <Link
             href="/profile/courses"
-            className={`sidebar__list ${pathname == "/profile/courses" && "bg-slate-500/40"}`}
+            className={`sidebar__list ${
+              pathname == "/profile/courses" && "bg-slate-500/40"
+            }`}
             onClick={coursesLoadingHandler}
           >
             {coursesLoading ? (
@@ -137,7 +148,9 @@ function SideBar() {
         <li>
           <Link
             href="/profile/payments"
-            className={`sidebar__list ${pathname == "/profile/payments" && "bg-slate-500/40"}`}
+            className={`sidebar__list ${
+              pathname == "/profile/payments" && "bg-slate-500/40"
+            }`}
             onClick={paymentsLoadingHandler}
           >
             {paymentsLoading ? (
@@ -164,7 +177,9 @@ function SideBar() {
         <li>
           <Link
             href="/profile/me"
-            className={`sidebar__list ${pathname == "/profile/me" && "bg-slate-500/40"}`}
+            className={`sidebar__list ${
+              pathname == "/profile/me" && "bg-slate-500/40"
+            }`}
             onClick={infoLoadingHandler}
           >
             {infoLoading ? (
@@ -191,7 +206,9 @@ function SideBar() {
         <li>
           <Link
             href="/profile/password"
-            className={`sidebar__list ${pathname == "/profile/password" && "bg-slate-500/40"}`}
+            className={`sidebar__list ${
+              pathname == "/profile/password" && "bg-slate-500/40"
+            }`}
             onClick={passwordLoadingHandler}
           >
             {passwordLoading ? (
