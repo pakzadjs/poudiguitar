@@ -14,11 +14,16 @@ function CartPage() {
   const { user } = data || {};
   const { cart } = user || {};
 
-  if (isLoading) return <SpinnerComponent />;
+  if (isLoading)
+    return (
+      <div className="mb-96 mt-48">
+        <SpinnerComponent />
+      </div>
+    );
 
   if (!user || !data)
     return (
-      <div className="container lg:max-w-screen-lg py-6 my-28">
+      <div className="container lg:max-w-screen-lg py-6 mb-96 mt-36 px-8">
         <p className="text-slate-100 font-bold mb-4">
           برای مشاهده سبد خرید لطفا به حساب خود وارد شوید
         </p>
@@ -30,7 +35,7 @@ function CartPage() {
 
   if (paying)
     return (
-      <section className="mt-10 mb-6">
+      <section className="mt-10 mb-60">
         <div className="flex justify-center relative">
           <div className="receipt-section flex flex-col items-center gap-8">
             <SpinnerComponent />
@@ -42,8 +47,10 @@ function CartPage() {
 
   if (!user.cart?.products || user.cart?.products.length === 0)
     return (
-      <div className="container lg:max-w-screen-lg py-6 my-28 max-sm:flex max-sm:flex-col max-sm:items-center">
-        <p className="text-slate-100 font-bold mb-4">دوره ای در سبد خرید شما وجود ندارد</p>
+      <div className="container lg:max-w-screen-lg py-6 mb-96 mt-36 max-sm:flex max-sm:flex-col max-sm:items-center">
+        <p className="text-slate-100 font-bold mb-4">
+          دوره ای در سبد خرید شما وجود ندارد
+        </p>
         <Link href="/courses" className="text-lg font-bold btn inline-block">
           رفتن به صفحه دوره ها
         </Link>
@@ -51,7 +58,7 @@ function CartPage() {
     );
 
   return (
-    <section className="container mt-4 lg:max-w-screen-lg px-4">
+    <section className="container mt-4 lg:max-w-screen-lg px-4 mb-60">
       <div className="flex items-center text-secondary-800 mb-5">
         <h1 className="font-black text-2xl text-slate-50">سبد خرید شما</h1>
       </div>
