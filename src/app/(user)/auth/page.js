@@ -134,7 +134,7 @@ export default function AuthPage() {
         alt="Hero Image"
         width={1980}
         height={1320}
-        className="w-full blur-[2px] absolute left-0 top-0 pointer-events-none z-0 hidden xl:block"
+        className="w-full blur-[2px] absolute left-0 top-0 pointer-events-none z-0 block xl:hidden"
       />
 
       <div className="flex justify-center relative">
