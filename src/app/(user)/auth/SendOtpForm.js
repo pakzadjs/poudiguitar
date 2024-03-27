@@ -25,7 +25,7 @@ const loginWithPassValidationSchema = Yup.object({
 });
 
 export default function SendOTPForm({ onSubmit, isLoading, formik }) {
-  const [loginWithPass, setLoginWithPass] = useState(true);
+  const [loginWithPass, setLoginWithPass] = useState(false);
   const router = useRouter();
   const queryClient = useQueryClient();
 
