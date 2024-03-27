@@ -55,7 +55,9 @@ export default function AuthPage() {
       setTime(RESEND_TIME);
       setOtp("");
     } catch (error) {
-      toast.error(error?.response?.data?.message || "خطایی رخ داده، یکم دیرتر امتحان کن");
+      toast.error(
+        error?.response?.data?.message || "خطایی رخ داده، یکم دیرتر امتحان کن"
+      );
     }
   };
 
@@ -73,7 +75,9 @@ export default function AuthPage() {
         router.push("/complete-profile");
       }
     } catch (error) {
-      toast.error(error?.response?.data?.message || "خطایی رخ داده، یکم دیرتر امتحان کن");
+      toast.error(
+        error?.response?.data?.message || "خطایی رخ داده، یکم دیرتر امتحان کن"
+      );
     }
   };
 
@@ -130,7 +134,7 @@ export default function AuthPage() {
         alt="Hero Image"
         width={1980}
         height={1320}
-        className="w-full blur-[2px] absolute left-0 top-0 pointer-events-none z-0"
+        className="w-full blur-[2px] absolute left-0 top-0 pointer-events-none z-0 hidden xl:block"
       />
 
       <div className="flex justify-center relative">
