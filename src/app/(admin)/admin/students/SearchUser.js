@@ -27,7 +27,7 @@ export default function SearchUser({ placeholder, setSearchUser }) {
         isClearable
         radius="lg"
         classNames={{
-          base: "p-4",
+          base: "pl-4",
           label: "text-black/50 dark:text-white/90",
           input: [
             "bg-transparent",
