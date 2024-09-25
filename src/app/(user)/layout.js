@@ -19,10 +19,14 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${vazirFont.variable} font-sans main-bg-color`}>
         <Providers>
-          <Toaster />
-          <Header />
-          {children}
-          <Footer />
+          <div className="flex flex-col min-h-screen">
+            <div className="flex-grow">
+              <Toaster />
+              <Header />
+              {children}
+            </div>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>

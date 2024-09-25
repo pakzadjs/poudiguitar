@@ -21,10 +21,16 @@ async function Courses({ searchParams }) {
   // const { products } = await getCourses(queryString.stringify(searchParams));
   // const { categories } = await getCategories();
 
-  const productsPromise = getCourses(queryString.stringify(searchParams), strCookies);
+  const productsPromise = getCourses(
+    queryString.stringify(searchParams),
+    strCookies
+  );
   const categoryPromise = getCategories();
 
-  const [{ products }, { categories }] = await Promise.all([productsPromise, categoryPromise]);
+  const [{ products }, { categories }] = await Promise.all([
+    productsPromise,
+    categoryPromise,
+  ]);
 
   return (
     <div className="max-w-6xl m-auto max-xl:px-14 max-md:px-0">

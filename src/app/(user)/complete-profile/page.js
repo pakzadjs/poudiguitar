@@ -22,7 +22,9 @@ const validationSchema = Yup.object({
     .required("نام خود را وارد کنید")
     .matches(/^[\u0600-\u06FF\s]+$/, "نام خود را فارسی وارد کنید")
     .min(5, "نام کامل خود را وارد کنید"),
-  email: Yup.string().required("ایمیل خود را وارد کنید").email("ایمیل وارد شده صحیح نمی باشد"),
+  email: Yup.string()
+    .required("ایمیل خود را وارد کنید")
+    .email("ایمیل وارد شده صحیح نمی باشد"),
 });
 
 export default function CompleteProfile() {
@@ -56,31 +58,25 @@ export default function CompleteProfile() {
   });
 
   return (
-    <div className="flex justify-center">
-      <Image
-        src="/images/studio-hero.png"
-        alt="Hero Image"
-        width={1980}
-        height={1320}
-        className="w-full blur-[2px] absolute left-0 top-0 pointer-events-none z-0"
-      />
-      <div className="w-full sm:max-w-sm z-10 bg-gray-900/80 p-8 rounded-2xl">
-        <form className="space-y-4" onSubmit={formik.handleSubmit}>
-          <TextField name="name" label="نام و نام خانوادگی" formik={formik} />
-          <TextField name="email" label="ایمیل" formik={formik} />
-          <div>
-            <Button
-              type="submit"
-              color="primary"
-              className="w-full"
-              isLoading={isLoading && true}
-              isDisabled={!formik.isValid}
-            >
-              تایید
-            </Button>
-          </div>
-        </form>
-      </div>
+    <div className="flex justify-center mt-16">
+      <form
+        className="space-y-4 w-full sm:max-w-sm z-10 bg-gray-900/80 p-8 rounded-2xl"
+        onSubmit={formik.handleSubmit}
+      >
+        <TextField name="name" label="نام و نام خانوادگی" formik={formik} />
+        <TextField name="email" label="ایمیل" formik={formik} />
+        <div>
+          <Button
+            type="submit"
+            color="primary"
+            className="w-full"
+            isLoading={isLoading && true}
+            isDisabled={!formik.isValid}
+          >
+            تایید
+          </Button>
+        </div>
+      </form>
     </div>
   );
 }
