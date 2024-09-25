@@ -13,7 +13,7 @@ export default function Hero() {
   const { statement } = data || {};
   statement?.[0]?.description;
   return (
-    <header className="bg-blue-950/30 rounded-xl overflow-hidden bg-[url('/images/studio-hero.png')] bg-center bg-cover ">
+    <header className="bg-blue-950/30 rounded-xl overflow-hidden bg-[url('/images/studio-hero.webp')] bg-center bg-cover ">
       <div className="backdrop-blur-sm w-full px-10">
         <div className="z-20 flex gap-y-9 max-md:gap-y-1 flex-col-reverse items-center md:flex-row md:gap-x-5 md:items-center md:justify-between">
           <div className="text-center md:text-right m-8 max-lg:m-6 max-md:m-6">
