@@ -183,7 +183,7 @@ export default function AddCourse({ categories }) {
 
                   <TextField label="قیمت بعد تخفیف" name="offPrice" formik={formik} />
 
-                  <TextField label="کد اسپات پلیر دوره" name="spotCourse" formik={formik} />
+                  <TextField label="شناسه اسپات پلیر دوره" name="spotCourse" formik={formik} />
 
                   <TextField label="تعداد درس ها" name="lessonsNumber" formik={formik} />
 

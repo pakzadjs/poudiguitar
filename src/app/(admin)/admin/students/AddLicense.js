@@ -46,22 +46,29 @@ const generateLicenseValidationSchema = Yup.object({
 
 export default function AddLicense() {
   const [step, setStep] = useState(1);
+  const [addLicenseValues, setAddLicenseValues] = useState();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const queryClient = useQueryClient();
   const pathname = usePathname();
   const router = useRouter();
 
-  const { isLoading: addLicenseLoading, mutateAsync: addLicenseMutate } = useMutation({
-    mutationFn: addLicense,
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["get-students"] });
-      router.refresh(pathname);
-      toast.success(data?.message);
-    },
-    onError: (error) => {
-      toast.error(error?.response?.data?.message || error?.response?.data?.data?.message);
-    },
-  });
+  const { isLoading: addLicenseLoading, mutateAsync: addLicenseMutate } =
+    useMutation({
+      mutationFn: addLicense,
+      onSuccess: (data) => {
+        queryClient.invalidateQueries({ queryKey: ["get-students"] });
+        router.refresh(pathname);
+        toast.success(data?.message);
+        setStep(1);
+
+        console.log("data", data);
+      },
+      onError: (error) => {
+        toast.error(
+          error?.response?.data?.message || error?.response?.data?.data?.message
+        );
+      },
+    });
 
   const {
     isLoading: generateLicenseLoading,
@@ -70,28 +77,32 @@ export default function AddLicense() {
   } = useMutation({
     mutationFn: generateLicense,
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["get-students"] });
-      router.refresh(pathname);
-      toast.success("لایسنس با موفقیت ایجاد و کپی شد");
-      copyTextToClipboard(data?.spotLicence?.key);
-      setStep(3);
+      toast.success("لایسنس با موفقیت ایجاد شد");
+      setStep(2);
     },
     onError: (error) => {
-      toast.error(error?.response?.data?.message || error?.response?.data?.data?.message);
+      toast.error(
+        error?.response?.data?.message || error?.response?.data?.data?.message
+      );
     },
   });
 
-  const addLicenseSumbitHandler = async ({ user, product, key }) => {
-    const body = { user, product, license: { key: key } } || {};
-
+  const addLicenseSumbitHandler = async () => {
     try {
-      await addLicenseMutate(body);
+      console.log(addLicenseValues);
+      await addLicenseMutate(addLicenseValues);
     } catch (error) {}
   };
 
   const generateLicenseSumbitHandler = async ({ user, product }) => {
     try {
-      await generateLicenseMutate({ userID: user, productID: product });
+      const data = await generateLicenseMutate({ userID: user, productID: product });
+
+      setAddLicenseValues({
+        user,
+        product,
+        license: { key: data?.spotLicence?.key },
+      });
     } catch (error) {}
   };
 
@@ -114,38 +125,21 @@ export default function AddLicense() {
       case 1:
         return (
           <>
-            <form onSubmit={formik.handleSubmit} className="space-y-5 md:p-10 p-5 rounded-xl">
-              <TextField label="آیدی کاربر" name="user" formik={formik} />
-
-              <TextField label="آیدی دوره" name="product" formik={formik} />
-
-              <TextField label="لایسنس" name="key" formik={formik} />
-
-              <div className="pt-2">
-                <Button
-                  type="submit"
-                  color="primary"
-                  className="w-full"
-                  isLoading={addLicenseLoading}
-                  isDisabled={!formik.isValid}
-                  onPress={onClose}
-                >
-                  ثبت
-                </Button>
-              </div>
-            </form>
-          </>
-        );
-      case 2:
-        return (
-          <>
             <form
               onSubmit={generateLicenseFormik.handleSubmit}
               className="space-y-5 md:p-10 p-5 rounded-xl"
             >
-              <TextField label="آیدی کاربر" name="user" formik={generateLicenseFormik} />
+              <TextField
+                label="آیدی کاربر"
+                name="user"
+                formik={generateLicenseFormik}
+              />
 
-              <TextField label="آیدی دوره" name="product" formik={generateLicenseFormik} />
+              <TextField
+                label="آیدی دوره"
+                name="product"
+                formik={generateLicenseFormik}
+              />
 
               <div className="pt-2">
                 <Button
@@ -161,15 +155,26 @@ export default function AddLicense() {
             </form>
           </>
         );
-      case 3:
+
+      case 2:
         return (
-          <div className="mb-3 m-auto w-full">
-            <CopyToClipboard
-              copyText={generateLicenseData?.spotLicence?.key}
-              title={"کپی لایسنس"}
-              style="w-full flex justify-center"
-            />
-          </div>
+          <>
+            <div className="space-y-5 md:p-10 p-5 rounded-xl">
+              <div className="pt-2">
+                <Button
+                  // type="submit"
+                  color="primary"
+                  className="w-full"
+                  isLoading={addLicenseLoading}
+                  // isDisabled={!formik.isValid}
+                  onPress={onClose}
+                  onClick={addLicenseSumbitHandler}
+                >
+                  ثبت
+                </Button>
+              </div>
+            </div>
+          </>
         );
 
       default:
@@ -199,42 +204,11 @@ export default function AddLicense() {
             <>
               <ModalHeader className="text-xl font-extrabold flex max-md:flex-col justify-between w-full">
                 {step == 1 && (
-                  <>
-                    <div className="max-md:m-auto pt-1 pr-1">اضافه کردن لایسنس به کاربر</div>
-                    <button
-                      onClick={() => setStep(2)}
-                      className="flex gap-1 text-base font-normal btn max-md:mt-6"
-                    >
-                      <TbSquareKey size={27} className="text-slate-100" />
-                      <span>ساختن لایسنس</span>
-                    </button>
-                  </>
+                  <div className="max-md:m-auto pt-1 pr-1">ساختن لایسنس</div>
                 )}
 
                 {step == 2 && (
-                  <>
-                    <div className="max-md:m-auto pt-1 pr-1">ساختن لایسنس</div>
-                    <button
-                      onClick={() => setStep(1)}
-                      className="flex justify-center items-center gap-1 text-base font-normal btn max-md:mt-6"
-                    >
-                      <TbPlus size={23} className="text-slate-100" />
-                      <span>اضافه کردن لایسنس به کاربر</span>
-                    </button>
-                  </>
-                )}
-
-                {step == 3 && (
-                  <>
-                    <div className="max-md:m-auto pt-1 pr-1">لایسنس را کپی کنید</div>
-                    <button
-                      onClick={() => setStep(1)}
-                      className="flex justify-center items-center gap-1 text-base font-normal btn__fourth max-md:mt-6"
-                    >
-                      <TbPlus size={23} className="text-slate-100" />
-                      <span>اضافه کردن لایسنس به کاربر</span>
-                    </button>
-                  </>
+                  <div className="max-md:m-auto pt-1 pr-1">تایید لایسنس</div>
                 )}
               </ModalHeader>
 
