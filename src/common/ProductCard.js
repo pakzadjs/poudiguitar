@@ -108,7 +108,8 @@ export default function ProductCard({ product }) {
         <div className="flex gap-x-6 items-center mb-3 text-sm">
           {product?.tags?.[0] && (
             <div className="flex items-center gap-x-1 text-gray-400">
-              <BiTimeFive size={18} /> {toPersianNumbersWithColon(product?.tags?.[0])}
+              <BiTimeFive size={18} />
+              {toPersianNumbersWithColon(product?.tags?.[0])}
             </div>
           )}
 
@@ -139,48 +140,62 @@ export default function ProductCard({ product }) {
         <div className="border-b-1 border-slate-600/80 pb-6 mb-4"></div>
 
         {/* Add to cart & download button */}
-        <div className="flex justify-between items-center">
-          {product?.type == "course" ? (
-            <AddToCart product={product} />
-          ) : (
-            <a
-              target="_blank"
-              href={`${baseUrl}/public/uploads/productFiles/${product?.file}`}
-            >
-              <Button color="primary" className={`btn`}>
-                دانلود
-              </Button>
-            </a>
-          )}
 
-          {/* Price */}
-          <div className="flex flex-col justify-between ">
-            {/* Off price */}
+        {product?.tags?.[1] === "disabled" ? (
+          <div className="flex justify-between items-center">
+            <div className="p-2 text-sm text-red-500">دوره غیر فعال است</div>
 
-            {product?.discount > 0 && (
-              <div className="flex items-center justify-between mb-1 gap-x-1">
-                <div className="text-gray-400 text-sm line-through">
-                  {toPersianNumbersWithComma(product?.price)}
-                </div>
-                <div className="bg-rose-500 rounded-full py-0.5 px-2 text-white text-xs flex justify-center items-center">
-                  {toPersianNumbers(`% ${product?.discount}`)}
-                </div>
-              </div>
+            <div className="font-bold flex items-center">
+              <span className="text-gray-300 font-black ml-2 md:text-xl">
+                {toPersianNumbersWithComma(product?.price)}
+              </span>
+              <span className="text-xs text-gray-400">تومان</span>
+            </div>
+          </div>
+        ) : (
+          <div className="flex justify-between items-center">
+            {product?.type == "course" ? (
+              <AddToCart product={product} />
+            ) : (
+              <a
+                target="_blank"
+                href={`${baseUrl}/public/uploads/productFiles/${product?.file}`}
+              >
+                <Button color="primary" className={`btn`}>
+                  دانلود
+                </Button>
+              </a>
             )}
 
             {/* Price */}
-            {product?.price !== 0 && (
-              <div className="font-bold flex items-center">
-                <span className="text-gray-300 font-black ml-2 md:text-xl">
-                  {product?.discount > 0
-                    ? toPersianNumbersWithComma(product?.offPrice)
-                    : toPersianNumbersWithComma(product?.price)}
-                </span>
-                <span className="text-xs text-gray-400">تومان</span>
-              </div>
-            )}
+            <div className="flex flex-col justify-between ">
+              {/* Off price */}
+
+              {product?.discount > 0 && (
+                <div className="flex items-center justify-between mb-1 gap-x-1">
+                  <div className="text-gray-400 text-sm line-through">
+                    {toPersianNumbersWithComma(product?.price)}
+                  </div>
+                  <div className="bg-rose-500 rounded-full py-0.5 px-2 text-white text-xs flex justify-center items-center">
+                    {toPersianNumbers(`% ${product?.discount}`)}
+                  </div>
+                </div>
+              )}
+
+              {/* Price */}
+              {product?.price !== 0 && (
+                <div className="font-bold flex items-center">
+                  <span className="text-gray-300 font-black ml-2 md:text-xl">
+                    {product?.discount > 0
+                      ? toPersianNumbersWithComma(product?.offPrice)
+                      : toPersianNumbersWithComma(product?.price)}
+                  </span>
+                  <span className="text-xs text-gray-400">تومان</span>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -47,7 +47,9 @@ async function ProductDetail({ params }) {
         <div className="col-span-1 lg:col-span-7 xl:col-span-6">
           {/* Title and description summary */}
           <div>
-            <h1 className="text-slate-100 font-black text-2xl mb-3">{product?.title}</h1>
+            <h1 className="text-slate-100 font-black text-2xl mb-3">
+              {product?.title}
+            </h1>
             <p className="text-slate-300 text-sm md:text-base leading-7 font-bold md:leading-8 mb-7">
               {product?.descriptionSummary}
             </p>
@@ -73,7 +75,9 @@ async function ProductDetail({ params }) {
 
             <div className="flex flex-col items-center gap-1">
               <BiSupport size={70} className="p-4 bg-slate-700/60 rounded-3xl" />
-              <h3 className="font-bold text-[15px] md:text-[16px]">پشتیبانی دائمی</h3>
+              <h3 className="font-bold text-[15px] md:text-[16px]">
+                پشتیبانی دائمی
+              </h3>
             </div>
           </div>
 
@@ -131,7 +135,11 @@ async function ProductDetail({ params }) {
             </div>
 
             {/* Add to cart Button */}
-            <AddToCart product={product} widthFull={true} />
+            {product?.tags?.[1] === "disabled" ? (
+              <div className="p-2 text-red-500 text-center">دوره غیر فعال است</div>
+            ) : (
+              <AddToCart product={product} widthFull={true} />
+            )}
           </div>
           <div className="rounded-xl p-3 lg:p-5 bg-blue-950/50">
             <div className="bg-blue-900/30 p-3 my-2 rounded-lg">
@@ -175,7 +183,9 @@ async function ProductDetail({ params }) {
             <h2 className="text-2xl font-black text-sky-500 mb-5">توضیحات دوره</h2>
             <div className="">
               <div
-                dangerouslySetInnerHTML={{ __html: sanitizeHtml(product?.description) }}
+                dangerouslySetInnerHTML={{
+                  __html: sanitizeHtml(product?.description),
+                }}
               ></div>
             </div>
           </div>
@@ -193,7 +203,9 @@ async function ProductDetail({ params }) {
           <div className="relative bg-blue-950/40 rounded-xl p-3 lg:p-6 overflow-hidden">
             <div className="flex">
               <TbQuestionMark size={30} className="text-yellow-300" />
-              <h2 className="text-2xl font-black text-sky-500 mb-5">سوالات متداول</h2>
+              <h2 className="text-2xl font-black text-sky-500 mb-5">
+                سوالات متداول
+              </h2>
             </div>
             <FAQ product={product} />
           </div>
