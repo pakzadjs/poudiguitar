@@ -39,7 +39,9 @@ export function removeStaticPage(id) {
 }
 
 export function updateStaticPage({ body, id }) {
-  return http.patch(`/admin/staticPage/update/${id}`, body).then(({ data }) => data.data);
+  return http
+    .patch(`/admin/staticPage/update/${id}`, body)
+    .then(({ data }) => data.data);
 }
 
 // Categories
@@ -63,7 +65,9 @@ export function removeCategory(id) {
 }
 
 export function updateCategory({ body, id }) {
-  return http.patch(`/admin/category/update/${id}`, body).then(({ data }) => data.data);
+  return http
+    .patch(`/admin/category/update/${id}`, body)
+    .then(({ data }) => data.data);
 }
 
 // Product
@@ -93,7 +97,9 @@ export function removeProduct(id) {
 }
 
 export function updateProduct({ id, body }) {
-  return http.patch(`/admin/product/update/${id}`, body).then(({ data }) => data.data);
+  return http
+    .patch(`/admin/product/update/${id}`, body)
+    .then(({ data }) => data.data);
 }
 
 export function uploadImage({ image, id }) {
@@ -129,7 +135,9 @@ export function uploadFile({ file, id }) {
 // FAQ
 
 export function addFAQ({ id, body }) {
-  return http.post(`/admin/product/addFAQ/${id}`, body).then(({ data }) => data.data);
+  return http
+    .post(`/admin/product/addFAQ/${id}`, body)
+    .then(({ data }) => data.data);
 }
 
 export function updateFAQ({ productID, FAQID, body }) {
@@ -147,7 +155,9 @@ export function removeFAQ({ productID, FAQID }) {
 // Lessons
 
 export function addLesson({ id, value }) {
-  return http.post(`/admin/product/addLesson/${id}`, value).then(({ data }) => data.data);
+  return http
+    .post(`/admin/product/addLesson/${id}`, value)
+    .then(({ data }) => data.data);
 }
 
 export function updateLesson({ productID, lessonID, body }) {
@@ -182,7 +192,9 @@ export function removeLicense(id) {
 }
 
 export function generateLicense({ userID, productID }) {
-  return http.post(`/admin/spotPlayer/${userID}/${productID}`).then(({ data }) => data.data);
+  return http
+    .post(`/admin/spotPlayer/${userID}/${productID}`)
+    .then(({ data }) => data.data);
 }
 
 // Statements
@@ -196,7 +208,9 @@ export function addStatement(values) {
 }
 
 export function updateStatement({ id, values }) {
-  return http.put(`/admin/statement/update/${id}`, values).then(({ data }) => data.data);
+  return http
+    .put(`/admin/statement/update/${id}`, values)
+    .then(({ data }) => data.data);
 }
 
 export function removeStatement(id) {

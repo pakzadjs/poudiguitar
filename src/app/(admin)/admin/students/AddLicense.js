@@ -1,12 +1,11 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import * as Yup from "yup";
-import { useFormik } from "formik";
-import { TbPlus, TbSquareKey } from "react-icons/tb";
 import { toast } from "react-hot-toast";
+import { TbPlus } from "react-icons/tb";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Select, SelectItem } from "@nextui-org/select";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   Modal,
   ModalContent,
@@ -17,40 +16,31 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 
-import TextField from "@/common/TextField";
+import { useGetUsers } from "@/hooks/useAuth";
 import { addLicense, generateLicense } from "@/services/adminServices";
-import CopyToClipboard from "@/components/CopyToClipboard";
-import copyTextToClipboard from "@/utils/copyToClipboardFn";
-
-const initialAddLicenseValues = {
-  user: "",
-  product: "",
-  key: "",
-};
-
-const initialGenerateLicenseValues = {
-  user: "",
-  product: "",
-};
-
-const addLicenseValidationSchema = Yup.object({
-  user: Yup.string().required("این فیلد نمی تواند خالی باشد"),
-  product: Yup.string().required("این فیلد نمی تواند خالی باشد"),
-  key: Yup.string().required("این فیلد نمی تواند خالی باشد"),
-});
-
-const generateLicenseValidationSchema = Yup.object({
-  user: Yup.string().required("این فیلد نمی تواند خالی باشد"),
-  product: Yup.string().required("این فیلد نمی تواند خالی باشد"),
-});
+import SearchUser from "./SearchUser";
+import { useGetCourses } from "@/hooks/useProducts";
 
 export default function AddLicense() {
   const [step, setStep] = useState(1);
+  const [search, setSearch] = useState();
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedCourse, setSelectedCourse] = useState(null);
   const [addLicenseValues, setAddLicenseValues] = useState();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const queryClient = useQueryClient();
   const pathname = usePathname();
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+
+  const pageSearchParam = searchParams.get("page") || "";
+  const limitSearchParam = searchParams.get("limit") || "";
+
+  const { isLoading, data } = useGetUsers(search, pageSearchParam, limitSearchParam);
+  const { users } = data || {};
+
+  const { data: coursesData, isLoading: coursesLoading } = useGetCourses();
 
   const { isLoading: addLicenseLoading, mutateAsync: addLicenseMutate } =
     useMutation({
@@ -60,8 +50,7 @@ export default function AddLicense() {
         router.refresh(pathname);
         toast.success(data?.message);
         setStep(1);
-
-        console.log("data", data);
+        console.log(data);
       },
       onError: (error) => {
         toast.error(
@@ -89,70 +78,84 @@ export default function AddLicense() {
 
   const addLicenseSumbitHandler = async () => {
     try {
-      console.log(addLicenseValues);
       await addLicenseMutate(addLicenseValues);
     } catch (error) {}
   };
 
-  const generateLicenseSumbitHandler = async ({ user, product }) => {
+  const generateLicenseSumbitHandler = async () => {
     try {
-      const data = await generateLicenseMutate({ userID: user, productID: product });
+      const data = await generateLicenseMutate({
+        userID: selectedUser,
+        productID: selectedCourse?.currentKey,
+      });
+
+      const product = selectedCourse?.currentKey;
 
       setAddLicenseValues({
-        user,
-        product,
+        user: selectedUser,
+        product: product,
         license: { key: data?.spotLicence?.key },
       });
     } catch (error) {}
   };
-
-  const formik = useFormik({
-    initialValues: initialAddLicenseValues,
-    onSubmit: addLicenseSumbitHandler,
-    validationSchema: addLicenseValidationSchema,
-    validateOnMount: true,
-  });
-
-  const generateLicenseFormik = useFormik({
-    initialValues: initialGenerateLicenseValues,
-    onSubmit: generateLicenseSumbitHandler,
-    validationSchema: generateLicenseValidationSchema,
-    validateOnMount: true,
-  });
 
   const renderSteps = (onClose) => {
     switch (step) {
       case 1:
         return (
           <>
-            <form
-              onSubmit={generateLicenseFormik.handleSubmit}
-              className="space-y-5 md:p-10 p-5 rounded-xl"
-            >
-              <TextField
-                label="آیدی کاربر"
-                name="user"
-                formik={generateLicenseFormik}
-              />
+            <div className="space-y-5 md:p-10 p-5 rounded-xl">
+              <SearchUser setSearchUser={setSearch} />
 
-              <TextField
-                label="آیدی دوره"
-                name="product"
-                formik={generateLicenseFormik}
-              />
+              <div className="space-y-2">
+                {users?.[0] && <p className="text-sm">یکی رو انتخاب کن:</p>}
+                {users?.map((user) => (
+                  <div
+                    key={user?._id}
+                    className={`flex justify-between gap-3 bg-slate-500/50 rounded-xl cursor-pointer ${
+                      selectedUser === user?._id ? "bg-yellow-500/80" : ""
+                    }`}
+                    onClick={() => setSelectedUser(user?._id)}
+                  >
+                    <div className="px-3 py-1">{user?.name}</div>
+                    <div className="px-3 py-1">{user?.phoneNumber}</div>
+                    <div className="px-3 py-1">{user?.email}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div>
+                <Select
+                  selectedKeys={selectedCourse}
+                  onSelectionChange={setSelectedCourse}
+                  placeholder="انتخاب دوره"
+                  aria-label="انتخاب دوره"
+                  className="w-full"
+                  dir="ltr"
+                  classNames={{
+                    listboxWrapper: "text-black",
+                    trigger:
+                      "rounded-2xl hover:bg-default-200/70 bg-blue-200/80 shadow-xl backdrop-blur-xl backdrop-saturate-200 transition-all duration-250",
+                  }}
+                >
+                  {coursesData?.products?.map((course) => (
+                    <SelectItem key={course?._id}>{course?.title}</SelectItem>
+                  ))}
+                </Select>
+              </div>
 
               <div className="pt-2">
                 <Button
-                  type="submit"
                   color="primary"
                   className="w-full"
                   isLoading={generateLicenseLoading}
-                  isDisabled={!generateLicenseFormik.isValid}
+                  onClick={generateLicenseSumbitHandler}
+                  // isDisabled={!generateLicenseFormik.isValid}
                 >
                   ثبت
                 </Button>
               </div>
-            </form>
+            </div>
           </>
         );
 
@@ -162,7 +165,6 @@ export default function AddLicense() {
             <div className="space-y-5 md:p-10 p-5 rounded-xl">
               <div className="pt-2">
                 <Button
-                  // type="submit"
                   color="primary"
                   className="w-full"
                   isLoading={addLicenseLoading}
@@ -208,7 +210,7 @@ export default function AddLicense() {
                 )}
 
                 {step == 2 && (
-                  <div className="max-md:m-auto pt-1 pr-1">تایید لایسنس</div>
+                  <div className="max-md:m-auto pt-1 pr-1">ثبت لایسنس</div>
                 )}
               </ModalHeader>
 
