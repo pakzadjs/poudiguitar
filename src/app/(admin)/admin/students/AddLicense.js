@@ -150,7 +150,7 @@ export default function AddLicense() {
                   className="w-full"
                   isLoading={generateLicenseLoading}
                   onClick={generateLicenseSumbitHandler}
-                  // isDisabled={!generateLicenseFormik.isValid}
+                  isDisabled={!selectedUser || !selectedCourse}
                 >
                   ثبت
                 </Button>
