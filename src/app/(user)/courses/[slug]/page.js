@@ -110,36 +110,46 @@ async function ProductDetail({ params }) {
         <div className="col-span-12 md:col-span-4 lg:col-span-3 order-1 lg:order-1 space-y-4">
           <div className="rounded-xl p-3 lg:p-5 bg-blue-950/50">
             {/* Price */}
-            <div className="flex md:flex-col md:gap-y-1 items-center justify-between mb-3">
-              {/* off price */}
-              {product?.discount > 0 && (
-                <div className="flex items-center justify-between mb-1 gap-x-1">
-                  <div className="text-base text-slate-400 lg:text-xl line-through font-bold">
-                    {toPersianNumbersWithComma(product?.price)}
+            {product?.tags?.[1] !== "soon" && (
+              <div className="flex md:flex-col md:gap-y-1 items-center justify-between mb-3">
+                {/* off price */}
+                {product?.discount > 0 && (
+                  <div className="flex items-center justify-between mb-1 gap-x-1">
+                    <div className="text-base text-slate-400 lg:text-xl line-through font-bold">
+                      {toPersianNumbersWithComma(product?.price)}
+                    </div>
+                    <div className="bg-rose-500 rounded-full py-0.5 px-2 text-white text-xs flex justify-center items-center">
+                      {toPersianNumbers(`% ${product?.discount}`)}
+                    </div>
                   </div>
-                  <div className="bg-rose-500 rounded-full py-0.5 px-2 text-white text-xs flex justify-center items-center">
-                    {toPersianNumbers(`% ${product?.discount}`)}
-                  </div>
-                </div>
-              )}
+                )}
 
-              {/* Price */}
-              <div className="font-bold flex-1 flex items-center justify-end">
-                <span className="text-3xl text-slate-50 font-black ml-2 lg:text-4xl">
-                  {product?.discount > 0
-                    ? toPersianNumbersWithComma(product?.offPrice)
-                    : toPersianNumbersWithComma(product?.price)}
-                </span>
-                <span className="text-xs text-gray-400">تومان</span>
+                {/* Price */}
+                <div className="font-bold flex-1 flex items-center justify-end">
+                  <span className="text-3xl text-slate-50 font-black ml-2 lg:text-4xl">
+                    {product?.discount > 0
+                      ? toPersianNumbersWithComma(product?.offPrice)
+                      : toPersianNumbersWithComma(product?.price)}
+                  </span>
+                  <span className="text-xs text-gray-400">تومان</span>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Add to cart Button */}
-            {product?.tags?.[1] === "disabled" ? (
+            {product?.tags?.[1] === "disabled" && (
               <div className="p-2 text-red-500 text-center">دوره غیر فعال است</div>
-            ) : (
-              <AddToCart product={product} widthFull={true} />
             )}
+
+            {product?.tags?.[1] === "soon" && (
+              <div className="p-2 text-yellow-500 text-center text-2xl font-bold">
+                به زودی
+              </div>
+            )}
+
+            {product?.tags?.[1] !== "soon" && product?.tags?.[1] !== "disabled" ? (
+              <AddToCart product={product} widthFull={true} />
+            ) : null}
           </div>
           <div className="rounded-xl p-3 lg:p-5 bg-blue-950/50">
             <div className="bg-blue-900/30 p-3 my-2 rounded-lg">

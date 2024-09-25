@@ -141,7 +141,7 @@ export default function ProductCard({ product }) {
 
         {/* Add to cart & download button */}
 
-        {product?.tags?.[1] === "disabled" ? (
+        {product?.tags?.[1] === "disabled" && (
           <div className="flex justify-between items-center">
             <div className="p-2 text-sm text-red-500">دوره غیر فعال است</div>
 
@@ -152,7 +152,15 @@ export default function ProductCard({ product }) {
               <span className="text-xs text-gray-400">تومان</span>
             </div>
           </div>
-        ) : (
+        )}
+
+        {product?.tags?.[1] === "soon" && (
+          <div className="flex justify-between items-center">
+            <div className="p-2 text-sm font-bold text-yellow-500">به زودی</div>
+          </div>
+        )}
+
+        {product?.tags?.[1] !== "disabled" && product?.tags?.[1] !== "soon" ? (
           <div className="flex justify-between items-center">
             {product?.type == "course" ? (
               <AddToCart product={product} />
@@ -195,7 +203,7 @@ export default function ProductCard({ product }) {
               )}
             </div>
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );
