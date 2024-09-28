@@ -1,9 +1,10 @@
+// This component needs to be refactored and optimized
+
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import persian_fa from "react-date-object/locales/persian_fa";
 import persian from "react-date-object/calendars/persian";
-import { usePathname, useRouter } from "next/navigation";
 import DatePicker from "react-multi-date-picker";
 import { toast } from "react-hot-toast";
 import { TbPlus } from "react-icons/tb";
@@ -39,8 +40,6 @@ const validationSchema = Yup.object({
 });
 
 export default function AddCoupon() {
-  const router = useRouter();
-  const pathname = usePathname();
   const [type, setType] = useState("");
   const queryClient = useQueryClient();
   const [productIds, setProductIds] = useState([]);
@@ -55,7 +54,6 @@ export default function AddCoupon() {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["get-coupons"] });
       toast.success(data?.message);
-      router.refresh(pathname);
     },
     onError: (error) => {
       toast.error(error?.response?.data?.message);
@@ -63,16 +61,6 @@ export default function AddCoupon() {
   });
 
   const sumbitHandler = async (values) => {
-    console.log(
-      {
-        ...values,
-        type,
-        expireDate: new Date(expireDate).toISOString(),
-        productIds: productIds.map((product) => product._id),
-      },
-      "values"
-    );
-
     try {
       const { message } = await mutateAsync({
         ...values,

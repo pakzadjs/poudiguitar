@@ -56,12 +56,12 @@ export default function Coupons() {
 
             <div class="absolute inset-0 pointer-events-none border border-white/5 rounded-xl"></div>
 
-            <div className="absolute left-0 top-0 h-full items-center ml-3 hidden max-xl:flex">
+            {/* <div className="absolute left-0 top-0 h-full items-center ml-3 hidden max-xl:flex">
               <IoIosArrowBack
                 size={30}
                 className="shadow-md rounded-full p-1 shadow-sky-800/80"
               />
-            </div>
+            </div> */}
           </div>
         ) : (
           <div>

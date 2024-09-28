@@ -4,12 +4,12 @@ import {
   toPersianNumbers,
   toPersianNumbersWithComma,
 } from "@/utils/toPersianNumbers";
+import Link from "next/link";
 import { TbEye } from "react-icons/tb";
 import RemoveCoupon from "./RemoveCoupon";
 import UpdateCoupon from "./UpdateCoupon";
 import { Tooltip, useDisclosure } from "@nextui-org/react";
 import { toLocalDateStringShort } from "@/utils/toLocalDate";
-import Link from "next/link";
 
 export default function CouponsTable({ coupon, index }) {
   const {
@@ -23,8 +23,6 @@ export default function CouponsTable({ coupon, index }) {
     type,
     amount,
   } = coupon || {};
-
-  console.log(productIds);
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 

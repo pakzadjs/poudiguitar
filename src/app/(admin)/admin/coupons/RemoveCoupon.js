@@ -1,5 +1,5 @@
-import { usePathname, useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { deleteCoupon } from "@/services/adminServices";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TbX } from "react-icons/tb";
 import toast from "react-hot-toast";
 import {
@@ -13,23 +13,24 @@ import {
 } from "@nextui-org/react";
 
 export default function RemoveCoupon({ id }) {
+  const queryClient = useQueryClient();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const router = useRouter();
-  const pathname = usePathname();
 
-  // const { isLoading, mutateAsync } = useMutation({
-  //   mutationFn: removeCoupon,
-  // });
+  const { isLoading, mutateAsync } = useMutation({
+    mutationFn: deleteCoupon,
+    onSuccess: (data) => {
+      toast.success(data?.message);
+      queryClient.invalidateQueries({ queryKey: ["get-coupons"] });
+    },
+    onError: (error) => {
+      toast.error(error?.response?.data?.message);
+    },
+  });
 
   const removeCouponHandler = async () => {
     try {
-      // const { message } = await mutateAsync(id);
-
-      // toast.success(message);
-      router.refresh(pathname);
-    } catch (error) {
-      toast.error(error?.response?.data?.message);
-    }
+      const { message } = await mutateAsync(id);
+    } catch (error) {}
   };
 
   return (
@@ -51,10 +52,12 @@ export default function RemoveCoupon({ id }) {
         <ModalContent className="text-slate-900 bg-sky-100/70 p-3">
           {(onClose) => (
             <>
-              <ModalHeader className="text-xl font-extrabold">پاک کردن کد تخفیف</ModalHeader>
+              <ModalHeader className="text-xl font-extrabold">
+                پاک کردن کد تخفیف
+              </ModalHeader>
 
               <ModalBody>
-                {/* <Button
+                <Button
                   type="submit"
                   color="danger"
                   className="btn__fifth w-full mb-3"
@@ -63,11 +66,16 @@ export default function RemoveCoupon({ id }) {
                   isLoading={isLoading}
                 >
                   پاک کردن
-                </Button> */}
+                </Button>
               </ModalBody>
 
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose} className="font-bold">
+                <Button
+                  color="danger"
+                  variant="light"
+                  onPress={onClose}
+                  className="font-bold"
+                >
                   بستن
                 </Button>
               </ModalFooter>
