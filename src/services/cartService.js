@@ -7,3 +7,7 @@ export function addToCart(productId) {
 export function removeFromCart(productId) {
   return http.post("/cart/remove", { productId }).then(({ data }) => data.data);
 }
+
+export function addCouponToCart(couponCode) {
+  return http.post("/cart/coupon", couponCode).then(({ data }) => data.data);
+}
