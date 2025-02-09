@@ -91,7 +91,7 @@ export default function CouponsTable({ coupon, index }) {
       <td className="table__td">
         <div className="flex gap-3">
           <RemoveCoupon id={_id} />
-          <UpdateCoupon coupon={coupon} />
+          {/* <UpdateCoupon coupon={coupon} /> */}
         </div>
       </td>
     </tr>

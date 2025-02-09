@@ -12,6 +12,7 @@ import { addCouponToCart } from "@/services/cartService";
 
 export default function CartSummary({ payDetail, setPaying }) {
   const [couponCode, setCouponCode] = useState("");
+  const [discountDetail, setDiscountDetail] = useState(null);
   const { totalOffAmount, totalPrice, totalGrossPrice } = payDetail;
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -21,6 +22,8 @@ export default function CartSummary({ payDetail, setPaying }) {
   const { isLoading: addCouponLoading, mutateAsync: addCouponMutate } = useMutation({
     mutationFn: addCouponToCart,
     onSuccess: (data) => {
+      setDiscountDetail(data);
+
       queryClient.invalidateQueries({ queryKey: ["get-user"] });
       toast.success("کد تخفیف با موفقیت اعمال شد");
     },
@@ -57,11 +60,8 @@ export default function CartSummary({ payDetail, setPaying }) {
         <TbReceipt size={20} />
         <p className="font-bold">اطلاعات پرداخت</p>
       </div>
-
       <hr className="border-slate-500 mb-6" />
-
       <div className="mb-2">کد تخفیف</div>
-
       <form
         onSubmit={addCouponToCartHandler}
         className="flex items-center mb-4 gap-2"
@@ -88,29 +88,42 @@ export default function CartSummary({ payDetail, setPaying }) {
       </form>
 
       <hr className="border-slate-500 mb-6" />
-
       <div className="mb-4 flex items-center justify-between">
         <span>جمع کل</span>
-        <span>{toPersianNumbersWithComma(totalGrossPrice)}</span>
+        <span>
+          {toPersianNumbersWithComma(totalGrossPrice)}
+          {/* {!discountDetail
+            ? toPersianNumbersWithComma(totalGrossPrice)
+            : toPersianNumbersWithComma(
+                discountDetail?.discountDetail?.totalGrossPrice
+              )} */}
+        </span>
       </div>
-
       <div className="mb-4 flex items-center justify-between">
         <span>تخفیف</span>
         <span className="text-rose-500 font-black">
-          {toPersianNumbersWithComma(totalOffAmount)} -
+          {toPersianNumbersWithComma(totalOffAmount)}
+          {/* {!discountDetail
+            ? toPersianNumbersWithComma(totalOffAmount)
+            : toPersianNumbersWithComma(
+                discountDetail?.discountDetail?.totalOffAmount
+              )} */}
+          -
         </span>
       </div>
-
       <hr className="border-slate-500 mb-6" />
-
       <div className="mb-6 flex items-center justify-between font-bold">
         <span>مبلغ قابل پرداخت</span>
         <div className="text-xl font-extrabold text-sky-500 flex items-center gap-1">
-          {toPersianNumbersWithComma(totalPrice)}{" "}
+          {toPersianNumbersWithComma(totalPrice)}
+          {/* {!discountDetail
+            ? toPersianNumbersWithComma(totalPrice)
+            : toPersianNumbersWithComma(
+                discountDetail?.discountDetail?.totalPrice
+              )}{" "} */}
           <span className="text-xs">تومان</span>
         </div>
       </div>
-
       <Button
         isLoading={isLoading}
         color="primary"
