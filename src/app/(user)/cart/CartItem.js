@@ -3,7 +3,10 @@ import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { useRemoveFromCart } from "@/hooks/useCart";
-import { toPersianNumbers, toPersianNumbersWithComma } from "@/utils/toPersianNumbers";
+import {
+  toPersianNumbers,
+  toPersianNumbersWithComma,
+} from "@/utils/toPersianNumbers";
 import { TbTrashX, TbUserHeart } from "react-icons/tb";
 import SpinnerComponent from "@/common/Spinner";
 
@@ -19,13 +22,14 @@ export default function CartItem({ cartItem }) {
   const removeFromCartHandler = async () => {
     try {
       const { message } = await mutateAsync(_id);
-      toast.success(message);
       queryClient.invalidateQueries({ queryKey: ["get-user"] });
+      toast.success(message);
     } catch (error) {
       if (error?.response?.data) {
         toast.error(error.response.data.message);
       }
     }
+    queryClient.invalidateQueries({ queryKey: ["get-user"] });
   };
 
   return (
